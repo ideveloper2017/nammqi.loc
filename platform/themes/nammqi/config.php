@@ -53,28 +53,45 @@ return [
             // });
 
             // You may use this event to set up your assets.
-            $theme->asset()->usePath()->add('style', 'css/style.css', [], [], $version);
+//            $theme->asset()->usePath()->add('style', 'css/style.css', [], [], $version);
+//
+//            if (BaseHelper::siteLanguageDirection() == 'rtl') {
+//                $theme->asset()->usePath()->add('rtl', 'css/rtl.css', [], [], $version);
+//            }
 
-            if (BaseHelper::siteLanguageDirection() == 'rtl') {
-                $theme->asset()->usePath()->add('rtl', 'css/rtl.css', [], [], $version);
-            }
 
-
-            $theme->asset()->container('footer')->add('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js');
-
-            $theme->asset()->container('footer')->usePath()->add('script', 'js/script.js');
 
 
             $theme->asset()->usePath()->add('bootstrap-css', 'assets/css/bootstrap.min.css');
             $theme->asset()->usePath()->add('font-awesome', 'assets/css/font-awesome.min.css');
             $theme->asset()->usePath()->add('flaticon', 'assets/flaticon/flaticon.css');
-            $theme->asset()->usePath()->add('lightcase', 'assets/flaticon/lightcase.css');
+            $theme->asset()->usePath()->add('lightcase', 'assets/flaticon/flaticon.css');
             $theme->asset()->usePath()->add('swiper-css', 'assets/css/swiper.min.css');
-            $theme->asset()->usePath()->add('swiper-view', 'assets/css/quick-view.css');
+            $theme->asset()->usePath()->add('quick-view', 'assets/css/quick-view.css');
             $theme->asset()->usePath()->add('jquery-nstSlider', 'assets/css/jquery.nstSlider.css');
             $theme->asset()->usePath()->add('flexslider', 'assets/css/flexslider.css');
             $theme->asset()->usePath()->add('style', 'assets/css/style.css', [], [], $version);
             $theme->asset()->usePath()->add('responsive', 'assets/css/responsive.css');
+
+
+//            $theme->asset()->container('footer')->add('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js');
+//
+//            $theme->asset()->container('footer')->usePath()->add('script', 'js/script.js');
+
+            $theme->asset()->container('footer')->usePath()->add('jquery', 'assets/js/jquery-1.12.4.min.js');
+            $theme->asset()->container('footer')->usePath()->add('bootstrap', 'assets/js/bootstrap.min.js');
+            $theme->asset()->container('footer')->usePath()->add('waypoints', 'assets/js/waypoints.min.js');
+            $theme->asset()->container('footer')->usePath()->add('jquery.counterup', 'assets/js/jquery.counterup.min.js');
+            $theme->asset()->container('footer')->usePath()->add('isotope', 'assets/js/isotope.min.js');
+            $theme->asset()->container('footer')->usePath()->add('lightcase', 'assets/js/lightcase.js');
+            $theme->asset()->container('footer')->usePath()->add('swiper.jquery', 'assets/js/swiper.jquery.min.js');
+            $theme->asset()->container('footer')->usePath()->add('circle-progress', 'assets/js/circle-progress.min.js');
+            $theme->asset()->container('footer')->usePath()->add('velocity', 'assets/js/velocity.min.js');
+            $theme->asset()->container('footer')->usePath()->add('quick-view', 'assets/js/quick-view.js');
+            $theme->asset()->container('footer')->usePath()->add('jquery.nstSlider', 'assets/js/jquery.nstSlider.js');
+            $theme->asset()->container('footer')->usePath()->add('flexslider', 'assets/js/flexslider-min.js');
+            $theme->asset()->container('footer')->usePath()->add('jquery.easing', 'assets/js/jquery.easing.min.js');
+            $theme->asset()->container('footer')->usePath()->add('custom', 'assets/js/custom.js');
 
             if (function_exists('shortcode')) {
                 $theme->composer(['page', 'post'], function (\Botble\Shortcode\View\View $view) {
@@ -87,10 +104,8 @@ return [
         // this should call to assign style, script for a layout.
         'beforeRenderLayout' => [
 
-            'default' => function ($theme)
-            {
-                // $theme->asset()->usePath()->add('ipad', 'css/layouts/ipad.css');
-            }
-        ]
+            'default' => function (Theme $theme) {
+            },
+        ],
     ]
 ];

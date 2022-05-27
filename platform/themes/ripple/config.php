@@ -60,6 +60,23 @@ return [
             $theme->asset()->usePath()->add('ionicons', 'plugins/ionicons/css/ionicons.min.css');
             $theme->asset()->usePath()->add('style', 'css/style.css', [], [], $version);
 
+            $theme->asset()->container('footer')->usePath()->add('modernizr', 'js/vendor/modernizr-3.5.0.min.js');
+            $theme->asset()->container('footer')->usePath()->add('jquery', 'js/vendor/jquery.min.js');
+            $theme->asset()->container('footer')->usePath()->add('popper', 'js/vendor/popper.min.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('jquery.slicknav', 'js/vendor/jquery.slicknav.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('slick', 'js/vendor/slick.min.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('wow', 'js/vendor/wow.min.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('animated.headline', 'js/vendor/animated.headline.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('jquery.vticker', 'js/vendor/jquery.vticker-min.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('scrollUp', 'js/vendor/jquery.scrollUp.min.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('sticky', 'js/vendor/jquery.sticky.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('perfect-scrollbar', 'js/vendor/perfect-scrollbar.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('waypoints', 'js/vendor/waypoints.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('jquery.counterup', 'js/vendor/counterup.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('theia', 'js/vendor/jquery.theia.sticky.js', ['jquery']);
+            $theme->asset()->container('footer')->usePath()->add('lazyload', 'js/vendor/lazyload.min.js');
+            $theme->asset()->container('footer')->usePath()->add('script', 'js/script.js', ['jquery'], [], $version);
+
             if (function_exists('shortcode')) {
                 $theme->composer(['page', 'post'], function (\Botble\Shortcode\View\View $view) {
                     $view->withShortcodes();

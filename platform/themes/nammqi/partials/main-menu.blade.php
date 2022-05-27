@@ -1,9 +1,9 @@
 <ul {!! clean($options) !!}>
     @foreach ($menu_nodes as $key => $row)
-        <li @if ($row->has_child) class=" menu-item-has-children {{ $row->css_class }}" @endif>
-            <a href="{{ $row->url }}" target="{{ $row->target }}">
+        <li @if ($row->has_child) class="dropdown {{ $row->css_class }}" @endif>
+            <a  @if ($row->has_child) href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" @else href="{{ $row->url }}" target="{{ $row->target }}" @endif >
                 @if ($row->icon_font)<i class='{{ trim($row->icon_font) }}'></i> @endif{{ $row->title }}
-                @if ($row->has_child) <span class="toggle-icon"><i class="fa fa-angle-down"></i></span>@endif
+                @if ($row->has_child) <span class="caret"></span>@endif
             </a>
             @if ($row->has_child)
                 {!!
@@ -11,7 +11,7 @@
                         'menu'       => $menu,
                         'menu_nodes' => $row->child,
                         'view'       => 'main-menu',
-                        'options'    => ['class' => 'sub-menu'],
+                        'options'    => ['class' => 'dropdown-menu'],
                     ])
                 !!}
             @endif
