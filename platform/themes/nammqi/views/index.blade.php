@@ -1,4 +1,4 @@
-@php Theme::layout('d'); @endphp
+@php Theme::layout('homepage'); @endphp
 
 <!-- Banner Start here -->
 <section class="banner banner-two">
