@@ -48,17 +48,6 @@ return [
             $themeInfo = json_decode(file_get_contents(dirname(__FILE__) . '/theme.json'), true);
             $version = $themeInfo['version'];
 
-            // Partial composer.
-            // $theme->partialComposer('header', function($view) {
-            //     $view->with('auth', \Auth::user());
-            // });
-
-            // You may use this event to set up your assets.
-//            $theme->asset()->usePath()->add('style', 'css/style.css', [], [], $version);
-//
-//            if (BaseHelper::siteLanguageDirection() == 'rtl') {
-//                $theme->asset()->usePath()->add('rtl', 'css/rtl.css', [], [], $version);
-//            }
 
             $theme->asset()->usePath()->add('bootstrap-css', 'assets/css/bootstrap.min.css');
             $theme->asset()->usePath()->add('font-awesome', 'assets/css/font-awesome.min.css');
@@ -70,9 +59,6 @@ return [
             $theme->asset()->usePath()->add('flexslider', 'assets/css/flexslider.css');
             $theme->asset()->usePath()->add('style', 'assets/css/style.css', [], [], $version);
             $theme->asset()->usePath()->add('responsive', 'assets/css/responsive.css');
-
-//            $theme->asset()->container('footer')->add('jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js');
-//            $theme->asset()->container('footer')->usePath()->add('script', 'js/script.js');
 
             $theme->asset()->container('footer')->usePath()->add('jquery', 'assets/js/jquery-1.12.4.min.js');
             $theme->asset()->container('footer')->usePath()->add('bootstrap', 'assets/js/bootstrap.min.js');
@@ -90,7 +76,7 @@ return [
             $theme->asset()->container('footer')->usePath()->add('custom', 'assets/js/custom.js');
 
             if (function_exists('shortcode')) {
-                $theme->composer(['page', 'post'], function (\Botble\Shortcode\View\View $view) {
+                $theme->composer(['index', 'page', 'post'], function (\Botble\Shortcode\View\View $view) {
                     $view->withShortcodes();
                 });
             }

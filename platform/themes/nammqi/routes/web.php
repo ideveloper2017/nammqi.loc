@@ -5,8 +5,8 @@
 Route::group(['namespace' => 'Theme\Nammqi\Http\Controllers', 'middleware' => ['web', 'core']], function () {
     Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), function () {
 
-        // Add your custom route here
-        // Ex: Route::get('hello', 'NammqiController@getHello');
+        Route::get('ajax/get-panel-inner', 'NammqiController@ajaxGetPanelInner')
+            ->name('theme.ajax-get-panel-inner');
 
     });
 });

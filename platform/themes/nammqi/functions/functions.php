@@ -64,9 +64,24 @@ function save_addition_in_form_fields($type, $request, $object)
     }
 }
 
+if (!function_exists('get_background_styles')) {
+    /**
+     * @return array
+     */
+    function get_background_styles()
+    {
+        return [
+            ''                 => __('Not set'),
+            'background-white' => __('Background White'),
+        ];
+    }
+}
+
 Form::component('themeIcon', Theme::getThemeNamespace() . '::partials.icons-field', [
     'name',
     'value'      => null,
     'attributes' => [],
 ]);
+
+
 

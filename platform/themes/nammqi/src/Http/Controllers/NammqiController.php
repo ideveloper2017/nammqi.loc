@@ -6,6 +6,16 @@ use Botble\Theme\Http\Controllers\PublicController;
 
 class NammqiController extends PublicController
 {
+
+    public function ajaxGetPanelInner(Request $request, BaseHttpResponse $response)
+    {
+        if (!$request->ajax()) {
+            abort(404);
+        }
+
+        return $response->setData(Theme::partial('components.panel-inner'));
+    }
+
     /**
      * {@inheritDoc}
      */
