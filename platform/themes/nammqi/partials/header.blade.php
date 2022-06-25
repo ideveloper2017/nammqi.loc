@@ -7,7 +7,7 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <!-- Fonts-->
-        <link href="https://fonts.googleapis.com/css?family={{ urlencode(theme_option('primary_font', 'Lora')) }}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family={{ urlencode(theme_option('primary_font', 'Open Sans')) }}" rel="stylesheet" type="text/css">
         <!-- CSS Library-->
         <style>
             :root {

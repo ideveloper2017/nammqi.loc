@@ -1,3 +1,4 @@
+
 @php
     $featured = get_featured_posts(5, [
         'author',
@@ -11,7 +12,67 @@
 @endphp
 
 @if (!empty($featured))
-    <section class="section pt-50 pb-50 bg-lightgray">
+    <section class="blog section-bg padding-120">
+        <div class="container">
+            <div class="section-header">
+                <h3>From Our Blog</h3>
+                <p>Rapidiously expedite granular imperatives before economically sound web services. Credibly actualize pandemic strategic themeplatform.</p>
+            </div>
+            <div class="blog-items">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <a href="single.html"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>
+                            </div>
+                            <div class="blog-content">
+                                <h4><a href="single.html">Actanualze Cententrc Staled</a></h4>
+                                <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
+                                <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
+                                <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                            </ul>
+                        </div><!-- blog item -->
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <a href="single.html"><img src="images/blog/blog_02.jpg" alt="blog image" class="img-responsive"></a>
+                            </div>
+                            <div class="blog-content">
+                                <h4><a href="single.html">Actanualze Cententrc Staled</a></h4>
+                                <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
+                                <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
+                                <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                            </ul>
+                        </div><!-- blog item -->
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <a href="single.html"><img src="images/blog/blog_03.jpg" alt="blog image" class="img-responsive"></a>
+                            </div>
+                            <div class="blog-content">
+                                <h4><a href="single.html">Actanualze Cententrc Staled</a></h4>
+                                <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
+                                <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
+                                <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                            </ul>
+                        </div><!-- blog item -->
+                    </div>
+                </div><!-- row -->
+            </div><!-- blog items -->
+        </div><!-- container -->
+    </section>
+    <section class="section pt-50 pb-50 bg-lightgray" style="display:none;">
         <div class="container">
             <div class="post-group post-group--hero">
                 @foreach ($featured as $featureItem)

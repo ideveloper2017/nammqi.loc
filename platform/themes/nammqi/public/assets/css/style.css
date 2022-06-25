@@ -36,12 +36,12 @@
 ----------------------------------------------*/
 /* --- 1.0 - Normalize ---*/
 html {
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
 body {
-     font-family: 'Lora', serif;
+     font-family: 'Open Sans', serif;
      font-size: 16px; /*  base font size  15px= 1em*/
      margin: 0;
 }
@@ -173,7 +173,7 @@ optgroup {
 /* --- 2.0 - Typography --- */
 body,button,input,select,textarea {
     color: #1a1a1a;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     line-height: 1.75;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -269,7 +269,7 @@ address {
     margin-bottom: 10px;
 }
 code,kbd,tt,var,samp,pre {
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 pre {
     border: 1px solid #d1d1d1;
@@ -387,21 +387,21 @@ th,td {
 /* Placeholder text color -- selectors need to be separate to work. */
 ::-webkit-input-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 :-moz-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 ::-moz-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 :-ms-input-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 
 /* --- 4.0 - Forms --- */
@@ -424,7 +424,7 @@ input[type="submit"][disabled]:focus {
     border: 0;
     border-radius: 2px;
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     font-weight: 700;
     letter-spacing: 0.046875em;
     line-height: 1;
@@ -3453,7 +3453,7 @@ header .menu_cart .check_out:hover{
 /*  21  - Blog
 ----------------------------------------------*/
 .blog{
-    padding: 120px 0px 90px;
+    padding: 0px 0px 90px;
 }
 .blog .blog-item{
     background-color: #fff;
@@ -4945,21 +4945,21 @@ header .menu_cart .check_out:hover{
 }
 .subscribe ::-webkit-input-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe :-moz-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe ::-moz-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 .subscribe :-ms-input-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe-two:before{
     display: none;

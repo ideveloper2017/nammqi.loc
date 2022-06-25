@@ -9,8 +9,57 @@
     }
 @endphp
 
-<article class="post post--single">
-    <header class="post__header">
+<div class="single-post">
+    <div class="post-image">
+{{--        images/blog/post_01.jpg--}}
+        <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
+    </div>
+    <div class="post-content">
+        <h3>{{ $post->name }}</h3>
+        <ul class="post-meta">
+            <li><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>
+            @if (!$post->categories->isEmpty())
+                <li><span class="icon flaticon-student"></span><a href="{{ $post->firstCategory->url }}">{{ $post->firstCategory->name }}</a></li>
+            @endif
+            @if ($post->author->username)
+                <li><span class="icon flaticon-people"></span>{{ $post->author->name }}</li>
+            @endif
+            <li><span class="icon flaticon-open-book-top-view"></span> <a href="#">{{ $post->views }}</a></li>
+        </ul>
+        @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($post)))
+            {!! render_object_gallery($galleries, ($post->first_category ? $post->first_category->name : __('Uncategorized'))) !!}
+        @endif
+        {!! clean($post->content) !!}
+        <div class="fb-like" data-href="{{ Request::url() }}" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="content-bottom">
+            @if (!$post->tags->isEmpty())
+                @php
+                    if (is_plugin_active('language-advanced')) {
+                        $post->tags->loadMissing('translations');
+                    }
+                @endphp
+                <ul class="post-tags">
+                    <li><span class="flaticon-tags-outline"></span> Tags :</li>
+                    @foreach ($post->tags as $tag)
+                        <li> <a href="{{ $tag->url }}">{{ $tag->name }}</a> , </li>
+                    @endforeach
+                </ul>
+            @endif
+            <ul class="post-share">
+                <li><span class="flaticon-share"></span> Share :</li>
+                <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+            </ul>
+        </div><!-- content-bottom -->
+    </div>
+
+
+</div>
+<div class="single-post" style="display: none">
+    <div class="post__header">
         <h3 class="post__title">{{ $post->name }}</h3>
         <div class="post__meta">
             @if (!$post->categories->isEmpty())
@@ -36,7 +85,7 @@
                 </span>
             @endif
         </div>
-    </header>
+    </div>
     <div class="post__content">
         @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($post)))
             {!! render_object_gallery($galleries, ($post->first_category ? $post->first_category->name : __('Uncategorized'))) !!}
@@ -70,4 +119,4 @@
     @endif
     <br>
     {!! apply_filters(BASE_FILTER_PUBLIC_COMMENT_AREA, theme_option('facebook_comment_enabled_in_post', 'yes') == 'yes' ? Theme::partial('comments') : null) !!}
-</article>
+</div>

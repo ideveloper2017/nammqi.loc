@@ -1,4 +1,31 @@
-<section class="section pt-50 pb-50">
+<section class="blog section-bg padding-120">
+    <div class="container">
+        <div class="section-header">
+            <h3>{!! clean($title) !!}</h3>
+        </div>
+        <div class="blog-items">
+            <div class="row">
+                @foreach (get_latest_posts(6, [], ['slugable']) as $post)
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
+                            </div>
+                            <div class="blog-content">
+                                <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                <p>{{ mb_substr($post->description,0,125) }}</p>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+                            </ul>
+                        </div><!-- blog item -->
+                    </div>
+                @endforeach
+            </div><!-- row -->
+        </div><!-- blog items -->
+    </div><!-- container -->
+</section>
+<section class="section pt-50 pb-50" style="display: none">
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
