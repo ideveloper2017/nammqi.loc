@@ -17,26 +17,6 @@
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12">
                 <div class="sidebar">
-                    <div class="sidebar-item">
-                        <h3 class="sidebar-title">Search Coures</h3>
-                        <form>
-                            <input type="text" name="text" placeholder="Search Your Catagorie...">
-                            <select>
-                                <option>Select Categories</option>
-                                <option>Adobe Photoshop</option>
-                                <option>Adobe illustrator</option>
-                                <option>JavaScript</option>
-                                <option>PHP</option>
-                                <option>HTML5</option>
-                                <option>CSS3</option>
-                                <option>WordPress</option>
-                                <option>Joomla</option>
-                                <option>Ruby</option>
-                                <option>JQuery</option>
-                            </select>
-                            <button>Search Now</button>
-                        </form>
-                    </div>
                     {!! Theme::partial('sidebar') !!}
                 </div>
             </div>

@@ -1108,16 +1108,16 @@ header .menu_cart .check_out:hover{
     z-index: 0;
 }
 .banner .banner-item{
-    background-image: url(../../../../../../public/images/banner/banner_1.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_1.01.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
 }
 .banner .banner-item.slide-two{
-    background-image: url(../../../../../../public/images/banner/banner_1.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_1.02.jpg);*/
 }
 .banner .banner-item.slide-three{
-    background-image: url(../../../../../../public/images/banner/banner_1.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_1.03.jpg);*/
 }
 .banner .banner-overlay{
     position: absolute;
@@ -1125,7 +1125,7 @@ header .menu_cart .check_out:hover{
     width: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,.5);
+    /*background-color: rgba(0,0,0,.5);*/
 }
 .banner .banner-item .banner-content{
     padding: 250px 0px;
@@ -1304,13 +1304,13 @@ header .menu_cart .check_out:hover{
     opacity: 1;
 }
 .banner-two .banner-item{
-    background-image: url(../../../../../../public/images/banner/banner_2.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_2.01.jpg);*/
 }
 .banner-two .banner-item.slide-two{
-    background-image: url(../../../../../../public/images/banner/banner_2.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_2.02.jpg);*/
 }
 .banner-two .banner-item.slide-three{
-    background-image: url(../../../../../../public/images/banner/banner_2.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_2.03.jpg);*/
 }
 .banner-two .banner-item .banner-content h3{
     font-weight: 400;
@@ -1336,7 +1336,7 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-three{
-    background-image: url(../../../../../../public/images/banner/banner_3.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_3.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
@@ -1396,13 +1396,13 @@ header .menu_cart .check_out:hover{
     background-color: #6c5ebf;
 }
 .banner-four .banner-item{
-    background-image: url(../../../../../../public/images/banner/banner_4.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.01.jpg);*/
 }
 .banner-four .banner-item.slide-two{
-    background-image: url(../../../../../../public/images/banner/banner_4.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.02.jpg);*/
 }
 .banner-four .banner-item.slide-three{
-    background-image: url(../../../../../../public/images/banner/banner_4.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.03.jpg);*/
 }
 .banner-four .banner-item .banner-content h3{
     font-style: italic;
@@ -1422,13 +1422,13 @@ header .menu_cart .check_out:hover{
     background-color: #ffb400;
 }
 .banner-five .banner-item{
-    background-image: url(../../../../../../public/images/banner/banner_5.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.01.jpg);*/
 }
 .banner-five .banner-item.slide-two{
-    background-image: url(../../../../../../public/images/banner/banner_5.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.02.jpg);*/
 }
 .banner-five .banner-item.slide-three{
-    background-image: url(../../../../../../public/images/banner/banner_5.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.03.jpg);*/
 }
 .banner-five .banner-item .banner-content h3{
     font-weight: 400;
@@ -1454,7 +1454,7 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-six{
-    background-image: url(../../../../../../public/images/banner/banner_6.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_6.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;

@@ -2,8 +2,8 @@
 			Table of CONTENT
 -----------------------------------------------
 	01. Default CSS
-	02. Header 
-	03.	Banner 
+	02. Header
+	03.	Banner
 	04. Page Header
 	05. Categories
 	06. Banner Search
@@ -29,7 +29,7 @@
 	26. 404 Error
 	27. Footer
     28. Preloader
-	
+
 -----------------------------------------------*/
 
 /*	01	- Default CSS
@@ -210,11 +210,11 @@ dfn,cite,em,i {
     font-style: italic;
 }
 blockquote {
-    border: 1px solid #e9e9e9; 
+    border: 1px solid #e9e9e9;
     color: #939595;
-    font-size: 17px; 
+    font-size: 17px;
     font-style: italic;
-    line-height: 28px; 
+    line-height: 28px;
     font-weight: 700;
     padding: 30px 25px 25px 80px;
     position: relative;
@@ -511,7 +511,7 @@ input[type="submit"][disabled]:focus {
 /*  02  - Header
 ----------------------------------------------*/
 header{
-    
+
 }
 .header-fixed{
     position: fixed;
@@ -622,7 +622,7 @@ header .main-menu ul li a{
     color: #696969;
     padding: 30px 15px;
 }
-.nav>li>a:focus, .nav>li>a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .dropdown-menu>li>a:focus, 
+.nav>li>a:focus, .nav>li>a:hover, .nav .open>a, .nav .open>a:focus, .nav .open>a:hover, .dropdown-menu>li>a:focus,
 .dropdown-menu>li>a:hover, .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
     background-color: transparent;
     border-color: #f0f0f0;
@@ -847,7 +847,7 @@ header .menu_cart .check_out:hover{
 .header-two .header-top{
     background-color: #ffb400;
 }
-.header-two .header-top .left li, .header-two .header-top .left li span, 
+.header-two .header-top .left li, .header-two .header-top .left li span,
 .header-two .header-top .right li, .header-two .header-top .right li a{
     color: #fff;
 }
@@ -936,8 +936,8 @@ header .menu_cart .check_out:hover{
 .header-two .main-menu ul li ul li:last-child a:hover{
     border: none;
 }
-.header-two .main-menu ul li ul li a:hover, 
-.header-two .main-menu ul li ul li a:focus, 
+.header-two .main-menu ul li ul li a:hover,
+.header-two .main-menu ul li ul li a:focus,
 .header-two .main-menu ul li ul li.active a{
     border-bottom: 1px solid #7f72cf;
 }
@@ -945,7 +945,7 @@ header .menu_cart .check_out:hover{
     background-color: #ffb400;
     padding: 10px 0px;
 }
-.header-three .header-top .left li, .header-three .header-top .left li span, 
+.header-three .header-top .left li, .header-three .header-top .left li span,
 .header-three .header-top .right li, .header-three .header-top .right li a{
     color: #fff;
 }
@@ -988,8 +988,8 @@ header .menu_cart .check_out:hover{
 .header-five .main-menu ul li ul li:last-child a:hover{
     border: none;
 }
-.header-five .main-menu ul li ul li a:hover, 
-.header-five .main-menu ul li ul li a:focus, 
+.header-five .main-menu ul li ul li a:hover,
+.header-five .main-menu ul li ul li a:focus,
 .header-five .main-menu ul li ul li.active a{
     border-bottom: 1px solid #ffcc53;
 }
@@ -1058,8 +1058,8 @@ header .menu_cart .check_out:hover{
 .header-nine .main-menu ul li ul li:last-child a:hover{
     border: none;
 }
-.header-nine .main-menu ul li ul li a:hover, 
-.header-nine .main-menu ul li ul li a:focus, 
+.header-nine .main-menu ul li ul li a:hover,
+.header-nine .main-menu ul li ul li a:focus,
 .header-nine .main-menu ul li ul li.active a{
     background-color: #ffb400;
     color: #fff;
@@ -1108,16 +1108,16 @@ header .menu_cart .check_out:hover{
     z-index: 0;
 }
 .banner .banner-item{
-    background-image: url(../../images/banner/banner_1.01.jpg);
+    /*background-image: url(../../images/banner/banner_1.01.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
 }
 .banner .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_1.02.jpg);
+    /*background-image: url(../../images/banner/banner_1.02.jpg);*/
 }
 .banner .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_1.03.jpg);
+    /*background-image: url(../../images/banner/banner_1.03.jpg);*/
 }
 .banner .banner-overlay{
     position: absolute;
@@ -1125,7 +1125,7 @@ header .menu_cart .check_out:hover{
     width: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(0,0,0,.5);
+    /*background-color: rgba(0,0,0,.5);*/
 }
 .banner .banner-item .banner-content{
     padding: 250px 0px;
@@ -1186,8 +1186,8 @@ header .menu_cart .check_out:hover{
     background-color: #ffb400;
     color: #fff;
 }
-.banner .swiper-container-horizontal>.swiper-pagination-bullets, 
-.banner .swiper-pagination-custom, 
+.banner .swiper-container-horizontal>.swiper-pagination-bullets,
+.banner .swiper-pagination-custom,
 .banner .swiper-pagination-fraction{
     bottom: 50px;
 }
@@ -1289,28 +1289,28 @@ header .menu_cart .check_out:hover{
 }
 .banner .banner-item.slide-three .banner-content h3,
 .banner .banner-item.slide-three .banner-content h2,
-.banner .banner-item.slide-three .banner-content p, 
+.banner .banner-item.slide-three .banner-content p,
 .banner .banner-item.slide-three .banner-content ul{
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
     opacity: 0;
 }
-.banner .banner-item.slide-three.swiper-slide-active .banner-content h3, 
+.banner .banner-item.slide-three.swiper-slide-active .banner-content h3,
 .banner .banner-item.slide-three.swiper-slide-active .banner-content h2,
-.banner .banner-item.slide-three.swiper-slide-active .banner-content p, 
+.banner .banner-item.slide-three.swiper-slide-active .banner-content p,
 .banner .banner-item.slide-three.swiper-slide-active .banner-content ul{
     -webkit-transform: translateY(0);
     transform: translateY(0);
     opacity: 1;
 }
 .banner-two .banner-item{
-    background-image: url(../../images/banner/banner_2.01.jpg);
+    /*background-image: url(../../images/banner/banner_2.01.jpg);*/
 }
 .banner-two .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_2.02.jpg);
+    /*background-image: url(../../images/banner/banner_2.02.jpg);*/
 }
 .banner-two .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_2.03.jpg);
+    /*background-image: url(../../images/banner/banner_2.03.jpg);*/
 }
 .banner-two .banner-item .banner-content h3{
     font-weight: 400;
@@ -2128,9 +2128,9 @@ header .menu_cart .check_out:hover{
     margin-bottom: 20px;
     position: relative;
 }
-.about-four .nav-tabs>li>a:hover, 
-.about-four .nav-tabs>li.active>a, 
-.about-four .nav-tabs>li.active>a:focus, 
+.about-four .nav-tabs>li>a:hover,
+.about-four .nav-tabs>li.active>a,
+.about-four .nav-tabs>li.active>a:focus,
 .about-four .nav-tabs>li.active>a:hover{
     border: none;
     background: none;
@@ -4787,7 +4787,7 @@ header .menu_cart .check_out:hover{
     line-height: 18px;
     cursor: pointer;
 }
-.shop-cart table tr:hover .product-thumbnail h4 a, .shop-cart table tr:hover span, 
+.shop-cart table tr:hover .product-thumbnail h4 a, .shop-cart table tr:hover span,
 .shop-cart table tr:hover .quantity a, .shop-cart table tr:hover .quantity input{
     color: #ffb400;
 }
@@ -4894,7 +4894,7 @@ header .menu_cart .check_out:hover{
 }
 .shop-cart .shipping input:hover{
     background-color: #ffb400;
-} 
+}
 .shop-cart .cart-total p{
     font-size: 14px;
     line-height: 32px;
@@ -5129,14 +5129,14 @@ footer .footer-bottom .social-default{
 
 /*  28  - Preloader
 ----------------------------------------------*/
-.loader { 
+.loader {
     background: #252525;
     position: fixed;
     left: 0px;
     top: 0px;
     width: 100%;
     height: 100%;
-    z-index: 9999; 
+    z-index: 9999;
 }
 
 .spinner {
@@ -5152,7 +5152,7 @@ footer .footer-bottom .social-default{
     height: 100%;
     width: 7px;
     display: inline-block;
-  
+
     -moz-animation: stretchdelay 1.1s infinite ease-in-out;
     -webkit-animation: stretchdelay 1.1s infinite ease-in-out;
     animation: stretchdelay 1.1s infinite ease-in-out;
@@ -5194,20 +5194,20 @@ footer .footer-bottom .social-default{
 }
 
 @-moz-keyframes stretchdelay {
-  0%, 40%, 100% { -moz-transform: scaleY(0.4) }  
+  0%, 40%, 100% { -moz-transform: scaleY(0.4) }
   20% { -moz-transform: scaleY(1.0) }
 }
 
 @-webkit-keyframes stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
   20% { -webkit-transform: scaleY(1.0) }
 }
 
 @keyframes stretchdelay {
-  0%, 40%, 100% { 
+  0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
+  }  20% {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }

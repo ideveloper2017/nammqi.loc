@@ -3,7 +3,7 @@
 return [
     'create' => 'Create new gallery',
     'edit' => 'Edit gallery',
-    'galleries' => 'Galleries',
+    'galleries' => 'Galereyalar',
     'item' => 'Gallery item',
     'select_image' => 'Select images',
     'reset' => 'Reset gallery',

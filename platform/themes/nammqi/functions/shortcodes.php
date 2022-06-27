@@ -11,6 +11,17 @@ app()->booted(function () {
     ThemeSupport::registerGoogleMapsShortcode();
     ThemeSupport::registerYoutubeShortcode();
 
+
+    if (is_plugin_active('gallery')) {
+        add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
+            return Theme::partial('shortcodes.all-galleries', ['limit' => $shortcode->limit]);
+        });
+
+        shortcode()->setAdminConfig('all-galleries', function ($attributes, $content) {
+            return Theme::partial('shortcodes.all-galleries-admin-config', compact('attributes', 'content'));
+        });
+    }
+
     if (is_plugin_active('simple-slider')) {
         add_filter(SIMPLE_SLIDER_VIEW_TEMPLATE, function () {
             return Theme::getThemeNamespace() . '::partials.shortcodes.sliders.main';

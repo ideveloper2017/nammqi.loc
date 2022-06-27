@@ -1,17 +1,12 @@
-
     <div class="banner-overlay"></div>
     <div class="container">
         <div class="banner-content">
             @if ($slider->title)
-            <h3>   {!! clean($slider->title) !!}</h3>
+            <h3>   {!! clean($slider->title).' '.$key !!}</h3>
             @endif
                 @if ($slider->description)
                     {!! clean($slider->description) !!}
                 @endif
-            <ul>
-                <li><a href="#" class="button-default">Read More</a></li>
-                <li><a href="#" class="button-default">Buy Now</a></li>
-            </ul>
         </div>
     </div>
 

@@ -1,5 +1,4 @@
 @php Theme::set('section-name', __('Galleries')) @endphp
-
 <article class="post post--single">
     <div class="post__content">
         @if (isset($galleries) && !$galleries->isEmpty())

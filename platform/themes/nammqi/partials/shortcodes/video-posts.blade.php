@@ -27,12 +27,12 @@
                                 <div class="col-lg-5 col-md-6">
                                     <div class="post-thumb position-relative">
                                         <div class="thumb-overlay img-hover-slide border-radius-5 position-relative lazy"
-                                            data-bg="{{ RvMedia::getImageUrl($firstPost->image, 'medium_large', false, RvMedia::getDefaultImage()) }}"
-                                            style="background-image: url({{ RvMedia::getImageUrl(theme_option('img_loading')) }})">
+                                             data-bg="{{ RvMedia::getImageUrl($firstPost->image, 'medium_large', false, RvMedia::getDefaultImage()) }}"
+                                             style="background-image: url({{ RvMedia::getImageUrl(theme_option('img_loading')) }})">
                                             <span class="top-right-icon background8">
                                                 <i class="ti-bolt"></i>
                                             </span>
-                                            <a class="img-link" href="{{ get_external_link($firstPost) }}" {{ is_external_link($firstPost) ? 'target="_blank"' : '' }}"></a>
+                                            <a class="img-link" href="{{ $firstPost->url }}"></a>
                                             <div class="post-content-overlay">
                                                 <h2 class="post-title">
                                                     <a class="color-white"
@@ -45,13 +45,10 @@
                                                 </div>
                                             </div>
                                             <div class="play_btn">
-                                                <a class="play-video" href="{{ get_external_link($firstPost) }}" {{ is_external_link($firstPost) ? 'target="_blank"' : '' }}">
+                                                <a class="play-video" href="{{ $firstPost->url }}">
                                                     <i class="ti-control-play"></i>
                                                 </a>
                                             </div>
-                                            @if(is_external_link($firstPost))
-                                                <span class="top-right-icon background10"><i class="ti-link" aria-hidden="true"></i></span>
-                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -63,23 +60,20 @@
                                         @if($loop->index == 0) @continue @endif
                                         <div class="slider-single col-lg-4 col-md-6 mb-30">
                                             <div class="img-hover-scale border-radius-5">
-                                                <a href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}>
+                                                <a href="{{ $post->url }}">
                                                     <img class="border-radius-5"
                                                          src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}"
                                                          alt="{{ $post->name }}">
                                                 </a>
                                                 <div class="play_btn play_btn_small">
-                                                    <a class="play-video" href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}>
+                                                    <a class="play-video" href="{{ $post->url }}">
                                                         <i class="ti-control-play"></i>
                                                     </a>
                                                 </div>
-                                                @if(is_external_link($post))
-                                                    <span class="top-right-icon background10"><i class="ti-link" aria-hidden="true"></i></span>
-                                                @endif
                                             </div>
                                             <h6 class="post-title pr-5 pl-5 mb-10 mt-15 text-limit-2-row">
                                                 <a class="color-white"
-                                                   href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}>{{ $post->name }}</a>
+                                                   href="{{ $post->url }}">{{ $post->name }}</a>
                                             </h6>
                                             <div class="entry-meta meta-1 font-small color-grey mt-10 pr-5 pl-5">
                                                 <span

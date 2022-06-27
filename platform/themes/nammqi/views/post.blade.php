@@ -11,7 +11,6 @@
 
 <div class="single-post">
     <div class="post-image">
-{{--        images/blog/post_01.jpg--}}
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
     </div>
     <div class="post-content">
@@ -26,10 +25,11 @@
             @endif
             <li><span class="icon flaticon-open-book-top-view"></span> <a href="#">{{ $post->views }}</a></li>
         </ul>
+
+        {!! clean($post->content) !!}
         @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($post)))
             {!! render_object_gallery($galleries, ($post->first_category ? $post->first_category->name : __('Uncategorized'))) !!}
         @endif
-        {!! clean($post->content) !!}
         <div class="fb-like" data-href="{{ Request::url() }}" data-layout="standard" data-action="like" data-show-faces="false" data-share="true"></div>
         <div class="content-bottom">
             @if (!$post->tags->isEmpty())
