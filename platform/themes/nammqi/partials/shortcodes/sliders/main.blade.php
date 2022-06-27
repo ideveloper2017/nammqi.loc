@@ -2,9 +2,11 @@
     $sliders->loadMissing('metadata') && $slider->loadMissing('metadata'))
     @php
         $style = $slider->getMetaData('simple_slider_style', true);
+        echo $style;
     @endphp
     @if ($style == 'style-3')
-        <section class="home-slider position-relative mt-30">
+
+        <section class="home-slider position-relative mt-30" style="display: none;">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
@@ -172,7 +174,12 @@
         </section>
         <!--End hero slider-->
     @else
-        <section class="home-slider position-relative mb-30">
+        <section class="banner banner-two">
+            <div class="banner-slider swiper-container swiper-container-horizontal">
+                {!! Theme::partial('shortcodes.sliders.grid', compact('sliders', 'shortcode') + ['class' => 'style-4', 'itemClass' => 'rectangle']) !!}
+
+        </section>
+        <section class="home-slider position-relative mb-30" style="display:none;">
             <div class="home-slide-cover">
                 {!! Theme::partial('shortcodes.sliders.grid', compact('sliders', 'shortcode') + ['class' => 'style-4', 'itemClass' => 'rectangle']) !!}
             </div>
