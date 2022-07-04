@@ -42,7 +42,7 @@
         </div>
         {!! Arr::get($options, 'after') !!}
     @else
-        <ul class="language_bar_list {{ Arr::get($options, 'class') }}">
+{{--        <ul class="language_bar_list {{ Arr::get($options, 'class') }}">--}}
             @foreach ($supportedLocales as $localeCode => $properties)
                 @if ($localeCode != Language::getCurrentLocale())
                     <li>
@@ -53,7 +53,7 @@
                     </li>
                 @endif
             @endforeach
-        </ul>
+{{--        </ul>--}}
         <div class="clearfix"></div>
     @endif
 @endif

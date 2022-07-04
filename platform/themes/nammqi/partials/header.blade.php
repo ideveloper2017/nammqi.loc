@@ -43,7 +43,7 @@
 {{--        </table>--}}
         <header class="header-two">
             <div class="header-top">
-                <ul class="container">
+                <div class="container">
                     <ul class="left">
                         <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> Phone : 8801 923 154 259</li>
                         <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span> Opening Time : 9:30am-5:30pm</li>
@@ -56,9 +56,7 @@
                     </ul>
 
                     <ul class="right">
-
                                 {!! apply_filters('language_switcher') !!}
-
                     </ul>
                 </div><!-- container -->
             </div><!-- header top -->
