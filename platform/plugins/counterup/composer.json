@@ -1,0 +1,20 @@
+{
+  "name": "botble/counterups",
+  "description": "Counterups package",
+  "type": "package",
+  "autoload": {
+    "psr-4": {
+      "Botble\\Counterups\\": "src"
+    }
+  },
+  "require": {
+
+  },
+  "extra":{
+    "laravel":{
+      "providers":[
+        "Botble\\Counterups\\Providers\\CounterupsServiceProvider"
+      ]
+    }
+  }
+}

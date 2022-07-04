@@ -3,6 +3,7 @@
 use Botble\Ads\Repositories\Interfaces\AdsInterface;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
+use Botble\Counterup\Repositories\Interfaces\CounterupInterface;
 use Botble\PostCollection\Repositories\Interfaces\PostCollectionInterface;
 use Botble\Theme\Supports\ThemeSupport;
 
@@ -11,6 +12,20 @@ app()->booted(function () {
     ThemeSupport::registerGoogleMapsShortcode();
     ThemeSupport::registerYoutubeShortcode();
 
+
+    if (is_plugin_active('counterup')){
+        add_shortcode('counterup',"CounterUp","CounterUp",function ($shortcode){
+            $counters = app(CounterupInterface::class)->getModel()
+                ->where('status', BaseStatusEnum::PUBLISHED)
+                ->get();
+
+            return Theme::partial('shortcodes.counterup',compact('counters'));
+        });
+
+        shortcode()->setAdminConfig('counterup',function($attributes, $content) {
+            return Theme::partial('shortcodes.counterup-admin-config', compact('attributes', 'content'));
+        });
+    }
 
     if (is_plugin_active('gallery')) {
         add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
