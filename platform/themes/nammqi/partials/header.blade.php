@@ -67,7 +67,7 @@
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             <a href="{{ route('public.single') }}" class="page-logo">
                                 @if (theme_option('logo'))
-                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50" style="margin-top:3%;">
+                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50" style="margin-top:7%;">
                                 @endif
                             </a>
                         </div>
