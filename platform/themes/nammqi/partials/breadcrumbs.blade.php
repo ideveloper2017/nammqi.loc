@@ -14,12 +14,6 @@
                     </li>
                 @endforeach
             </ul>
-
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li> - </li>
-                <li>Contact us</li>
-            </ul>
         </div>
     </div><!-- overlay -->
 </section>
