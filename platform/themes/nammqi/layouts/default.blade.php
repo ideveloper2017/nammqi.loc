@@ -1,4 +1,5 @@
 {!! Theme::partial('header') !!}
+{!! Theme::partial('breadcrumbs') !!}
 {{--@if (Theme::get('section-name'))--}}
 {{--    <section data-background="{{ Theme::get('breadcrumbBannerImage') ?: (theme_option('default_breadcrumb_banner_image') ? RvMedia::getImageUrl(theme_option('default_breadcrumb_banner_image')) : Theme::asset()->url('images/page-intro-02.jpg')) }}" class="section page-intro pt-50 pb-50 bg-cover">--}}
 {{--        <div style="opacity: 0.7" class="bg-overlay"></div>--}}
