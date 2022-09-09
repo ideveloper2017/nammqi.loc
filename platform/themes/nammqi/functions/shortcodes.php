@@ -13,6 +13,18 @@ app()->booted(function () {
     ThemeSupport::registerYoutubeShortcode();
 
 
+
+        add_shortcode('section-intro',"SectionIntro","SectionIntro",function ($shortcode){
+//            $counters = app(CounterupInterface::class)->getModel()
+//                ->where('status', BaseStatusEnum::PUBLISHED)
+//                ->get();
+
+            return Theme::partial('shortcodes.section-intro');
+        });
+
+
+
+
     if (is_plugin_active('counterup')){
         add_shortcode('counterup',"CounterUp","CounterUp",function ($shortcode){
             $counters = app(CounterupInterface::class)->getModel()
@@ -26,6 +38,7 @@ app()->booted(function () {
             return Theme::partial('shortcodes.counterup-admin-config', compact('attributes', 'content'));
         });
     }
+
 
     if (is_plugin_active('gallery')) {
         add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
