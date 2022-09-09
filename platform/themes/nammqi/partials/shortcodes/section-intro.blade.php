@@ -11,8 +11,8 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <span class="icon"><i class="flaticon-student"></i></span>
-                    <h4>Expert Teachers</h4>
-                    <p>Uniquely productivate real time collaboration idea-sharing after awesome quality vectors after</p>
+                    <h4><a href="http://mtt.nammqi.uz/">Moodle</a></h4>
+                    <p>Masofaviy ta`lim tizmi</p>
                 </div><!-- facility item -->
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
