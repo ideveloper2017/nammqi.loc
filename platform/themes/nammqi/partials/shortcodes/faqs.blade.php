@@ -1,3 +1,4 @@
+<section>
 <div class="faqs-list">
     @foreach($categories as $categoryIndex => $category)
         @if (count($categories) > 1)
@@ -24,3 +25,4 @@
         </div>
     @endforeach
 </div>
+</section>
