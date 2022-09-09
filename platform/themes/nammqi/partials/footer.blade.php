@@ -1,6 +1,6 @@
 <footer>
 
-    {!!      {!! dynamic_sidebar('footer_sidebar_1') !!} !!}
+    {!! dynamic_sidebar('footer_sidebar_1') !!}
     <div class="footer-top" style="display: none">
         <div class="container">
             <div class="row">
