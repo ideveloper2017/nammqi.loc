@@ -47,7 +47,7 @@
                     <ul class="left">
                         <li><span><i class="fa fa-address-book" aria-hidden="true"></i></span> {{ theme_option('address') }}</li>
                         <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ theme_option('phone') }}</li>
-                        <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>
+                        <li><span><i class="fa fa-email" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>
                     </ul>
 {{--                    <ul class="right">--}}
 {{--                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="#">Register</a></li>--}}
