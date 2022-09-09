@@ -4,8 +4,8 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <span class="icon"><i class="flaticon-symbols"></i></span>
-                    <h4>Active Learning</h4>
-                    <p>Uniquely productivate real time collaboration idea-sharing after awesome quality vectors after</p>
+                    <h4><a href="http://hemis.nammqi.uz">Hemis</a></h4>
+                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>
                 </div><!-- facility item -->
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
