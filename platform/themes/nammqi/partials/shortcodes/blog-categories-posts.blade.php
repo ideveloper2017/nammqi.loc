@@ -26,20 +26,7 @@
     </div><!-- container -->
 </section>
 
-<section class="blog blog-two padding-120" style="display:none;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-sm-12 col-xs-12">
-                {!! Theme::content() !!}
-            </div>
-            <div class="col-md-4 col-sm-12 col-xs-12">
-                <div class="sidebar">
-                    {!! Theme::partial('sidebar') !!}
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 
 
 <section class="blog section-bg padding-120" style="display:none;">
