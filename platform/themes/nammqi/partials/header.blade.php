@@ -70,7 +70,11 @@
                             </form>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <a href="index.html" class="fm-logo"><img src="images/logo.png" alt="logo image" class="img-responsive"></a>
+                            <a href="{{ route('public.single') }}" class="page-logo">
+                                @if (theme_option('logo'))
+                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50">
+                                @endif
+                            </a>
                         </div>
 
                     </div>
