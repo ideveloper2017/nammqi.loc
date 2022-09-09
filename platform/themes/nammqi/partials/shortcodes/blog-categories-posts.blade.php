@@ -18,10 +18,10 @@
                             <ul>
                                 <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
                             </ul>
-                        </div><!-- blog item -->
+                        </div>
                     </div>
                 @endforeach
-            </div><!-- row -->
-        </div><!-- blog items -->
-    </div><!-- container -->
+            </div>
+        </div>
+    </div>
 </section>

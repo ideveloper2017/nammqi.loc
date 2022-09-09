@@ -1,4 +1,19 @@
-<div class="col">
+<div class="col-md-3 col-sm-6 col-xs-12">
+    <div class="footer-item">
+        <div class="title"><a href="{{ route('public.index') }}"><img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="logo" class="img-responsive"></a></div>
+        <div class="footer-about">
+            <p>Distily enable team driven services through extensive is a relatonships platforms with interactive content. Enthusiastically scale effective.</p>
+            <ul>
+                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>{{ $config['address'] }}</li>
+                <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ $config['phone'] }}</li>
+                <li><span><i class="fa fa-clock" aria-hidden="true"></i></span>{{ $config['working_hours'] }}</li>
+                <li><span><i class="fa fa-globe" aria-hidden="true"></i></span>{{ $config['email'] }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="col" style="display:none;">
     <div class="widget-about font-md mb-md-3 mb-lg-3 mb-xl-0  wow animate__animated animate__fadeInUp"  data-wow-delay="0">
         @if (theme_option('logo'))
             <div class="logo mb-30">
