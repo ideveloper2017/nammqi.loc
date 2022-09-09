@@ -5,7 +5,7 @@
         </div>
         <div class="blog-items">
             <div class="row">
-                @foreach($category->posts->take(6) as $post)
+                @foreach($category->posts->take(12) as $post)
                     <div class="col-md-3 col-sm-4 col-xs-12">
                         <div class="blog-item">
                             <div class="blog-image">
