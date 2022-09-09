@@ -5,13 +5,13 @@
         <div class="panel-heading" role="tab" id="headingOne">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-{{ $categoryIndex }}-{{ $faqIndex }}" aria-expanded="true" aria-controls="collapseOne">
-                    Collapsible Group Item #1
+                    {!! clean($faq->question) !!}
                 </a>
             </h4>
         </div>
         <div id="collapseOne-{{ $categoryIndex }}-{{ $faqIndex }}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="panel-body">
-                {!! clean($faq->question) !!}
+                {!! clean($faq->answer) !!}
             </div>
         </div>
     </div>
