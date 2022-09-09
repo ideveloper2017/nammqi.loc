@@ -10,6 +10,7 @@
 @endphp
 <section class="blog padding-120">
     <div class="container">
+        <div class="row">
         <div class="single-post">
     <div class="post-image">
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
@@ -59,6 +60,7 @@
 
 
 </div>
+        </div>
     </div>
 <div class="single-post" style="display: none">
     <div class="post__header">
