@@ -2,7 +2,7 @@
     @foreach($categories as $categoryIndex => $category)
         @foreach($category->faqs as $faqIndex => $faq)
     <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="headingOne">
+        <div class="panel-heading" role="tab" id="headingOne-{{ $categoryIndex }}">
             <h4 class="panel-title">
                 <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-{{ $categoryIndex }}-{{ $faqIndex }}" aria-expanded="true" aria-controls="collapseOne">
                     {!! clean($faq->question) !!}
