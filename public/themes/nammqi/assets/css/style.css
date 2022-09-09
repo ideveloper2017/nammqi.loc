@@ -36,12 +36,12 @@
 ----------------------------------------------*/
 /* --- 1.0 - Normalize ---*/
 html {
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
 body {
-     font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+     font-family: 'Open Sans', serif;
      font-size: 16px; /*  base font size  15px= 1em*/
      margin: 0;
 }
@@ -173,7 +173,7 @@ optgroup {
 /* --- 2.0 - Typography --- */
 body,button,input,select,textarea {
     color: #1a1a1a;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
     line-height: 1.75;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -269,7 +269,7 @@ address {
     margin-bottom: 10px;
 }
 code,kbd,tt,var,samp,pre {
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 pre {
     border: 1px solid #d1d1d1;
@@ -387,21 +387,21 @@ th,td {
 /* Placeholder text color -- selectors need to be separate to work. */
 ::-webkit-input-placeholder {
     color: #696969;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 :-moz-placeholder {
     color: #696969;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 ::-moz-placeholder {
     color: #696969;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 :-ms-input-placeholder {
     color: #696969;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 
 /* --- 4.0 - Forms --- */
@@ -424,7 +424,7 @@ input[type="submit"][disabled]:focus {
     border: 0;
     border-radius: 2px;
     color: #fff;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
     font-weight: 700;
     letter-spacing: 0.046875em;
     line-height: 1;
@@ -1108,16 +1108,16 @@ header .menu_cart .check_out:hover{
     z-index: 0;
 }
 .banner .banner-item{
-    /*background-image: url(../../images/banner/banner_1.01.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_1.01.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
 }
 .banner .banner-item.slide-two{
-    /*background-image: url(../../images/banner/banner_1.02.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_1.02.jpg);*/
 }
 .banner .banner-item.slide-three{
-    /*background-image: url(../../images/banner/banner_1.03.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_1.03.jpg);*/
 }
 .banner .banner-overlay{
     position: absolute;
@@ -1304,13 +1304,13 @@ header .menu_cart .check_out:hover{
     opacity: 1;
 }
 .banner-two .banner-item{
-    /*background-image: url(../../images/banner/banner_2.01.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_2.01.jpg);*/
 }
 .banner-two .banner-item.slide-two{
-    /*background-image: url(../../images/banner/banner_2.02.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_2.02.jpg);*/
 }
 .banner-two .banner-item.slide-three{
-    /*background-image: url(../../images/banner/banner_2.03.jpg);*/
+    /*background-image: url(../../../../../../public/images/banner/banner_2.03.jpg);*/
 }
 .banner-two .banner-item .banner-content h3{
     font-weight: 400;
@@ -1336,7 +1336,7 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-three{
-    background-image: url(../../images/banner/banner_3.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_3.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
@@ -1396,13 +1396,13 @@ header .menu_cart .check_out:hover{
     background-color: #6c5ebf;
 }
 .banner-four .banner-item{
-    background-image: url(../../images/banner/banner_4.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.01.jpg);*/
 }
 .banner-four .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_4.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.02.jpg);*/
 }
 .banner-four .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_4.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_4.03.jpg);*/
 }
 .banner-four .banner-item .banner-content h3{
     font-style: italic;
@@ -1422,13 +1422,13 @@ header .menu_cart .check_out:hover{
     background-color: #ffb400;
 }
 .banner-five .banner-item{
-    background-image: url(../../images/banner/banner_5.01.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.01.jpg);*/
 }
 .banner-five .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_5.02.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.02.jpg);*/
 }
 .banner-five .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_5.03.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_5.03.jpg);*/
 }
 .banner-five .banner-item .banner-content h3{
     font-weight: 400;
@@ -1454,7 +1454,7 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-six{
-    background-image: url(../../images/banner/banner_6.jpg);
+    /*background-image: url(../../../../../../public/images/banner/banner_6.jpg);*/
     background-size: cover;
     background-position: center;
     position: relative;
@@ -1470,13 +1470,13 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-seven .banner-item{
-    background-image: url(../../images/banner/banner_7.01.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_7.01.jpg);
 }
 .banner-seven .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_7.02.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_7.02.jpg);
 }
 .banner-seven .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_7.03.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_7.03.jpg);
 }
 .banner-seven .banner-item .banner-content{
     text-align: center;
@@ -1495,7 +1495,7 @@ header .menu_cart .check_out:hover{
     color: #fff;
 }
 .banner-eight{
-    background-image: url(../../images/banner/banner_8.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_8.jpg);
     background-size: cover;
     background-position: center;
     position: relative;
@@ -1551,13 +1551,13 @@ header .menu_cart .check_out:hover{
     margin: 0px;
 }
 .banner-nine .banner-item{
-    background-image: url(../../images/banner/banner_9.01.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_9.01.jpg);
 }
 .banner-nine .banner-item.slide-two{
-    background-image: url(../../images/banner/banner_9.02.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_9.02.jpg);
 }
 .banner-nine .banner-item.slide-three{
-    background-image: url(../../images/banner/banner_9.03.jpg);
+    background-image: url(../../../../../../public/images/banner/banner_9.03.jpg);
 }
 .banner-nine .swiper-pagination{
     max-width: 1140px;
@@ -1599,7 +1599,7 @@ header .menu_cart .check_out:hover{
 /*  04  - Page Header
 ----------------------------------------------*/
 .page-header{
-    background-image: url(../../images/background/page-header-bg.jpg);
+    background-image: url(../../../../../../public/images/background/page-header-bg.jpg);
     background-size: cover;
     background-position: center;
     margin: 0px;
@@ -2083,7 +2083,7 @@ header .menu_cart .check_out:hover{
     width: 100%;
 }
 .about-three{
-    background-image: url(../../images/background/about-bg.jpg);
+    background-image: url(../../../../../../public/images/background/about-bg.jpg);
     background-size: cover;
     background-position: center;
     text-align: left;
@@ -2137,7 +2137,7 @@ header .menu_cart .check_out:hover{
     color: #ffb400;
 }
 .about-four .nav-tabs>li.active>a:before{
-    content: url(../../images/about/menu-icon.jpg);
+    content: url(../../../../../../public/images/about/menu-icon.jpg);
     position: absolute;
     bottom: -30px;
     left: 50%;
@@ -2727,7 +2727,7 @@ header .menu_cart .check_out:hover{
     color: #cb1f27;
 }
 .teachers-two{
-    background-image: url(../../images/background/teacher-bg.jpg);
+    background-image: url(../../../../../../public/images/background/teacher-bg.jpg);
     background-size: cover;
     background-position: center;
 
@@ -2943,7 +2943,7 @@ header .menu_cart .check_out:hover{
     color: #ffb400;
 }
 .gallery .gallery-menu li.active:before{
-    content: url(../../images/gallery/menu-icon.jpg);
+    content: url(../../../../../../public/images/gallery/menu-icon.jpg);
     position: absolute;
     bottom: -11px;
     left: 50%;
@@ -3076,7 +3076,7 @@ header .menu_cart .check_out:hover{
 /*  16  - Achievements
 ----------------------------------------------*/
 .achievements{
-    background-image: url(../../images/background/achievements-bg.jpg);
+    background-image: url(../../../../../../public/images/background/achievements-bg.jpg);
     background-size: cover;
     background-position: center;
 }
@@ -3109,7 +3109,7 @@ header .menu_cart .check_out:hover{
 /*  17  - Testimonial
 ----------------------------------------------*/
 .testimonial{
-    background-image: url(../../images/background/testimonial-bg.jpg);
+    background-image: url(../../../../../../public/images/background/testimonial-bg.jpg);
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -3453,7 +3453,7 @@ header .menu_cart .check_out:hover{
 /*  21  - Blog
 ----------------------------------------------*/
 .blog{
-    padding: 120px 0px 90px;
+    padding: 0px 0px 90px;
 }
 .blog .blog-item{
     background-color: #fff;
@@ -3556,7 +3556,7 @@ header .menu_cart .check_out:hover{
     color: #ffb400;
 }
 .blog-three{
-    background-image: url(../../images/background/blog-bg.jpg);
+    background-image: url(../../../../../../public/images/background/blog-bg.jpg);
     background-size: cover;
     background-position: center;
     padding: 0px;
@@ -4945,21 +4945,21 @@ header .menu_cart .check_out:hover{
 }
 .subscribe ::-webkit-input-placeholder {
     color: #fff;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe :-moz-placeholder {
     color: #fff;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe ::-moz-placeholder {
     color: #fff;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 .subscribe :-ms-input-placeholder {
     color: #fff;
-    font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe-two:before{
     display: none;
@@ -5212,3 +5212,5 @@ footer .footer-bottom .social-default{
     -webkit-transform: scaleY(1.0);
   }
 }
+
+/*-------------- Thank You ----------------*/
