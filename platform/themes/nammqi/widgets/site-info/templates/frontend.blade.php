@@ -6,7 +6,7 @@
             <ul>
                 <li><span><i class="fa fa-home" aria-hidden="true"></i></span>{{ $config['address'] }}</li>
                 <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ $config['phone'] }}</li>
-                <li><span><i class="fa fa-clock" aria-hidden="true"></i></span>{{ $config['working_hours'] }}</li>
+                <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $config['working_hours'] }}</li>
                 <li><span><i class="fa fa-globe" aria-hidden="true"></i></span>{{ $config['email'] }}</li>
             </ul>
         </div>
