@@ -2,7 +2,7 @@
     <div class="footer-item">
         <div class="title"><a href="{{ route('public.index') }}"><img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="logo" class="img-responsive"></a></div>
         <div class="footer-about">
-            <p>Distily enable team driven services through extensive is a relatonships platforms with interactive content. Enthusiastically scale effective.</p>
+            <p>{!! clean($config['about']) !!}</p>
             <ul>
                 <li><span><i class="fa fa-home" aria-hidden="true"></i></span>{{ $config['address'] }}</li>
                 <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ $config['phone'] }}</li>
