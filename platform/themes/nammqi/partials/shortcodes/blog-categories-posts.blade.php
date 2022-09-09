@@ -1,4 +1,4 @@
-<section class="blog section-bg blog-two padding-120">
+<section class="blog section-bg padding-120">
     <div class="container">
         <div class="section-header">
             <h3>{!! clean($title) !!}</h3>
