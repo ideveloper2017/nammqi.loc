@@ -44,11 +44,11 @@
         <header class="header-two">
             <div class="header-top">
                 <div class="container">
-{{--                    <ul class="left">--}}
-{{--                        <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> Phone : 8801 923 154 259</li>--}}
-{{--                        <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span> Opening Time : 9:30am-5:30pm</li>--}}
-{{--                        <li><span><i class="fa fa-home" aria-hidden="true"></i></span> Address : Labartisan 1205 Dhaka</li>--}}
-{{--                    </ul>--}}
+                    <ul class="left">
+                        <li><span><i class="fa fa-address-book" aria-hidden="true"></i></span> {{ theme_option('address') }}</li>
+                        <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ theme_option('phone') }}</li>
+                        <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>
+                    </ul>
 {{--                    <ul class="right">--}}
 {{--                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="#">Register</a></li>--}}
 {{--                        <li>|</li>--}}
