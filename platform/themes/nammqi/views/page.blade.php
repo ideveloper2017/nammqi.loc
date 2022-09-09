@@ -29,11 +29,13 @@
                     @endif
 
                 </div>
+                @if (Theme::get('section-name'))
                 <div class="col-md-4 col-sm-12 col-xs-12">
                     <div class="sidebar">
                         {!! Theme::partial('sidebar') !!}
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </section>
