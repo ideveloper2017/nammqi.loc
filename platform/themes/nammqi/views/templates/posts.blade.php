@@ -11,7 +11,7 @@
                 <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>
                 <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">24 April 2017</a></li>
             </ul>
-            <p>Aolaboravely enable virad nich and market Compelngly evsculat funcnal and share for Aolaboraved enable virad nich and market through forand goaloriented</p>
+            <p>{{ $post->description }}</p>
             <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
         </div>
     </div><!-- blog item -->
