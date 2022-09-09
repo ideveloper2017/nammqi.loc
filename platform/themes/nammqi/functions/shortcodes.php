@@ -87,7 +87,7 @@ app()->booted(function () {
             function ($shortCode) {
                 $category = app(CategoryInterface::class)
                     ->findById($shortCode->category_id, ['slugable', 'posts' => function ($query) {
-                        $query->latest()->with(['slugable', 'categories', 'categories.slugable'])->limit(4);
+                        $query->latest()->with(['slugable', 'categories', 'categories.slugable'])->limit(6);
                     }]);
 
                 if (!$category) {
