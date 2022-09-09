@@ -12,8 +12,8 @@
                                 <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                             </div>
                             <div class="blog-content">
-                                <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
-                                <p>{{ mb_substr($post->description,0,125) }}</p>
+                                <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
+{{--                                <p>{{ mb_substr($post->description,0,125) }}</p>--}}
                             </div>
                             <ul>
                                 <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
