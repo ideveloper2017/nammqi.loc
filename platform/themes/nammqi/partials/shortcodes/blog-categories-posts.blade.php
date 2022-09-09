@@ -1,4 +1,4 @@
-<div class="bg-grey pt-50 pb-50">
+<div class="bg-grey pt-50 pb-50" style="display: none">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
