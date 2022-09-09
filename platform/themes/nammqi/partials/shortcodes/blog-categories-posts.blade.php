@@ -1,12 +1,12 @@
 <section class="blog section-bg padding-120">
-    <div class="container">
+    <div class="container-fluid">
         <div class="section-header">
             <h3>{!! clean($title) !!}</h3>
         </div>
         <div class="blog-items">
             <div class="row">
                 @foreach($category->posts->take(12) as $post)
-                    <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="col-md-4 col-sm-4 col-xs-12">
                         <div class="blog-item">
                             <div class="blog-image">
                                 <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
