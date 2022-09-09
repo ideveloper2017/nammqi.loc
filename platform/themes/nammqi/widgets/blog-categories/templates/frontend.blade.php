@@ -5,7 +5,7 @@
             <ul class="sidebar-categories">
                 @foreach(app(\Botble\Blog\Repositories\Interfaces\CategoryInterface::class)->advancedGet(['condition' => ['status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED], 'take' => $config['number_display'], 'with' => ['slugable'], 'withCount' => ['posts']]) as $category)
                 <li class="cat-item cat-item-2">
-                    <a href="{{ $category->url }}">{{ $category->name }}</a> ({{ $category->posts_count }})
+                    <a href="{{ $category->url }}">{{ $category->name }}  ({{ $category->posts_count }})</a>
                 @endforeach
             </ul>
         </div>
