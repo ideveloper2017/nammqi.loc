@@ -56,8 +56,6 @@ app()->booted(function () {
         }, 120);
     }
 
-
-
     if (is_plugin_active('simple-slider')) {
         add_filter(SHORTCODE_REGISTER_CONTENT_IN_ADMIN, function ($data, $key, $attributes) {
             if (!in_array($key, ['simple-slider'])) {
