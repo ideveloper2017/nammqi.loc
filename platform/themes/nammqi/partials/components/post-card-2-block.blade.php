@@ -32,7 +32,7 @@
             @endif
         </div>
         <h4 class="post-title">
-            <a href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}>
+            <a href="" >
                 {{ $post->name }}
             </a>
         </h4>
