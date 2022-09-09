@@ -6,7 +6,7 @@
                 <h5 class="mt-5 mb-30">{{ __('Latest posts') }}</h5>
             </div>
             <div class="loop-list loop-list-style-1">
-                @foreach(get_latest_posts(3, !empty($category) ? $category->posts->sortByDesc('id')->take(4)->pluck('id')->all() : [], ['slugable', 'categories', 'categories.slugable']) as $post)
+                @foreach($category->posts->sortByDesc('id')->take(6) as $post)
                     <article class="hover-up-2 transition-normal wow fadeInUp animated">
                         {!! Theme::partial('components.post-list-item', compact('post')) !!}
                     </article>
