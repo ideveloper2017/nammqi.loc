@@ -87,7 +87,11 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-                            <a class="navbar-brand" href="index.html"><img src="images/logo_02.png" alt="logo" class="img-responsive"></a>
+                            <a href="{{ route('public.single') }}" class="page-logo">
+                                @if (theme_option('logo'))
+                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50">
+                                @endif
+                            </a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
