@@ -18,15 +18,15 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <span class="icon"><i class="flaticon-world"></i></span>
-                    <h4>Strategi Location</h4>
-                    <p>Uniquely productivate real time collaboration idea-sharing after awesome quality vectors after</p>
+                    <h4><a href="http://dtm.uz">DTM</a></h4>
+                    <p>Davlat Test Marzaki</p>
                 </div><!-- facility item -->
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <span class="icon"><i class="flaticon-line-chart"></i></span>
-                    <h4>Full Day Programs</h4>
-                    <p>Uniquely productivate real time collaboration idea-sharing after awesome quality vectors after</p>
+                    <h4><a href="http://my.gov.uz">my.gov.uz</h4>
+                    <p>Yagona interaktiv davlat xizmatlari</p>
                 </div><!-- facility item -->
             </div>
         </div><!-- row -->
