@@ -4,6 +4,7 @@ use Botble\Ads\Repositories\Interfaces\AdsInterface;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Counterup\Repositories\Interfaces\CounterupInterface;
+use Botble\Faq\Repositories\Interfaces\FaqCategoryInterface;
 use Botble\PostCollection\Repositories\Interfaces\PostCollectionInterface;
 use Botble\Theme\Supports\ThemeSupport;
 
@@ -388,6 +389,40 @@ app()->booted(function () {
                 ->get();
 
             return Theme::partial('shortcodes.theme-ads-admin-config', compact('ads'));
+        });
+    }
+
+    if (is_plugin_active('faq')) {
+        add_shortcode('faqs', __('FAQs'), __('List of FAQs'), function ($shortcode) {
+
+            $params = [
+                'condition' => [
+                    'status' => BaseStatusEnum::PUBLISHED,
+                ],
+                'with'      => [
+                    'faqs' => function ($query) {
+                        $query->where('status', BaseStatusEnum::PUBLISHED);
+                    },
+                ],
+                'order_by'  => [
+                    'faq_categories.order'      => 'ASC',
+                    'faq_categories.created_at' => 'DESC',
+                ],
+            ];
+
+            if ($shortcode->category_id) {
+                $params['condition']['id'] = $shortcode->category_id;
+            }
+
+            $categories = app(FaqCategoryInterface::class)->advancedGet($params);
+
+            return Theme::partial('shortcodes.faqs', compact('categories'));
+        });
+
+        shortcode()->setAdminConfig('faqs', function ($attributes) {
+            $categories = app(FaqCategoryInterface::class)->pluck('name', 'id', ['status' => BaseStatusEnum::PUBLISHED]);
+
+            return Theme::partial('shortcodes.faqs-admin-config', compact('attributes', 'categories'));
         });
     }
 });
