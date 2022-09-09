@@ -10,17 +10,31 @@
         }
 
     @endphp
-{{--    <article class="post post--single">--}}
-{{--        <div class="post__content">--}}
-            @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($page)))
-                {!! render_object_gallery($galleries) !!}
-            @endif
-            {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, clean($page->content), $page) !!}
-{{--        </div>--}}
-{{--    </article>--}}
-@else
-    @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($page)))
-        {!! render_object_gallery($galleries) !!}
-    @endif
-    {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, clean($page->content), $page) !!}
-@endif
+
+
+    <section class="blog blog-two padding-120" style="display:none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                    @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($page)))
+                        {!! render_object_gallery($galleries) !!}
+                    @endif
+                    {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, clean($page->content), $page) !!}
+
+                    @else
+                        @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($page)))
+                            {!! render_object_gallery($galleries) !!}
+                        @endif
+                        {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, clean($page->content), $page) !!}
+                    @endif
+
+                </div>
+                <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="sidebar">
+                        {!! Theme::partial('sidebar') !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
