@@ -1,5 +1,7 @@
 <footer>
-    <div class="footer-top">
+
+    {!!      {!! dynamic_sidebar('footer_sidebar_1') !!} !!}
+    <div class="footer-top" style="display: none">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
