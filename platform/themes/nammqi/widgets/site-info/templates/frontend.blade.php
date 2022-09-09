@@ -1,4 +1,4 @@
-<div class="col-md-3 col-sm-6 col-xs-12">
+<div class="col-md-4 col-sm-6 col-xs-12">
     <div class="footer-item">
         <div class="title"><a href="{{ route('public.index') }}"><img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="logo" class="img-responsive"></a></div>
         <div class="footer-about">
