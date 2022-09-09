@@ -5,7 +5,7 @@
         </div>
         <div class="blog-items">
             <div class="row">
-                @foreach (get_latest_posts(6, [], ['slugable']) as $post)
+                @foreach(get_latest_posts(3, !empty($category) ? $category->posts->sortByDesc('id')->take(4)->pluck('id')->all() : [], ['slugable', 'categories', 'categories.slugable']) as $post)
                     <div class="col-md-4 col-sm-6 col-xs-12">
                         <div class="blog-item">
                             <div class="blog-image">
