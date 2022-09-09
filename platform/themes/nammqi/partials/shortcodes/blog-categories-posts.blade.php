@@ -1,29 +1,43 @@
 <section class="blog section-bg padding-120">
     <div class="container">
-        <div class="section-header">
-            <h3>{!! clean($title) !!}</h3>
-        </div>
-        <div class="blog-items">
-            <div class="row">
-                @foreach(get_latest_posts(6, !empty($category) ? $category->posts->sortByDesc('id')->pluck('id')->all() : [], ['slugable', 'categories', 'categories.slugable']) as $post)
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="blog-item">
-                            <div class="blog-image">
-                                <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
-                            </div>
-                            <div class="blog-content">
-                                <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
-                                <p>{{ mb_substr($post->description,0,125) }}</p>
-                            </div>
-                            <ul>
-                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
-                            </ul>
-                        </div><!-- blog item -->
-                    </div>
+
+        <div class="post-module-3">
+            <div class="widget-header-1 position-relative mb-30">
+                <h5 class="mt-5 mb-30">{{ __('Latest posts') }}</h5>
+            </div>
+            <div class="loop-list loop-list-style-1">
+                @foreach(get_latest_posts(3, !empty($category) ? $category->posts->sortByDesc('id')->take(4)->pluck('id')->all() : [], ['slugable', 'categories', 'categories.slugable']) as $post)
+                    <article class="hover-up-2 transition-normal wow fadeInUp animated">
+                        {!! Theme::partial('components.post-list-item', compact('post')) !!}
+                    </article>
                 @endforeach
-            </div><!-- row -->
-        </div><!-- blog items -->
-    </div><!-- container -->
+            </div>
+        </div>
+
+{{--        <div class="section-header">--}}
+{{--            <h3>{!! clean($title) !!}</h3>--}}
+{{--        </div>--}}
+{{--        <div class="blog-items">--}}
+{{--            <div class="row">--}}
+{{--                @foreach(get_latest_posts(6, !empty($category) ? $category->posts->sortByDesc('id')->pluck('id')->all() : [], ['slugable', 'categories', 'categories.slugable']) as $post)--}}
+{{--                    <div class="col-md-4 col-sm-6 col-xs-12">--}}
+{{--                        <div class="blog-item">--}}
+{{--                            <div class="blog-image">--}}
+{{--                                <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>--}}
+{{--                            </div>--}}
+{{--                            <div class="blog-content">--}}
+{{--                                <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>--}}
+{{--                                <p>{{ mb_substr($post->description,0,125) }}</p>--}}
+{{--                            </div>--}}
+{{--                            <ul>--}}
+{{--                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>--}}
+{{--                            </ul>--}}
+{{--                        </div><!-- blog item -->--}}
+{{--                    </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--        </div>--}}
+    </div>
 </section>
 <section class="blog section-bg padding-120" style="display:none;">
 
