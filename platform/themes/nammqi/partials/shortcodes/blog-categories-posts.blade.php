@@ -61,13 +61,13 @@
                     </div>
                 </div>
             </div>
-{{--            <div class="col-lg-4">--}}
-{{--                <div class="widget-area">--}}
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                    <div class="sidebar">
 {{--                    {!! AdsManager::display('top-sidebar-ads', ['class' => 'mb-30']) !!}--}}
-{{--                    {!! dynamic_sidebar('primary_sidebar') !!}--}}
+                    {!! dynamic_sidebar('primary_sidebar') !!}
 {{--                    {!! AdsManager::display('bottom-sidebar-ads', ['class' => 'mt-30 mb-30']) !!}--}}
-{{--                </div>--}}
-{{--            </div>--}}
+                </div>
+            </div>
         </div>
     </div>
 </section>
