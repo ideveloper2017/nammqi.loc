@@ -6,7 +6,7 @@
         <div class="blog-items">
             <div class="row">
                 @foreach($category->posts->take(12) as $post)
-                    <div class="col-md-4 col-sm-4 col-xs-12">
+                    <div class="col-md-2 col-sm-4 col-xs-12">
                         <div class="blog-item">
                             <div class="blog-image">
                                 <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
