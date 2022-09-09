@@ -1,6 +1,19 @@
+<section class="subscribe">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <h3>Join Our Newsletter</h3>
+            </div>
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <form action="/">
+                    <input type="text" placeholder="Enter your e-mail here">
+                    <input type="submit" value="Subscribe Now">
+                </form>
+            </div>
+        </div><!-- row -->
+    </div><!-- container -->
+</section>
 <footer>
-
-
     <div class="footer-top" >
         <div class="container">
             <div class="row">
