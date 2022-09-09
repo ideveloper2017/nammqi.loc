@@ -8,7 +8,7 @@
         Theme::set('breadcrumbBannerImage', RvMedia::getImageUrl($bannerImage));
     }
 @endphp
-
+<section class="blog padding-120">
 <div class="single-post">
     <div class="post-image">
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
@@ -120,3 +120,4 @@
     <br>
     {!! apply_filters(BASE_FILTER_PUBLIC_COMMENT_AREA, theme_option('facebook_comment_enabled_in_post', 'yes') == 'yes' ? Theme::partial('comments') : null) !!}
 </div>
+</section>
