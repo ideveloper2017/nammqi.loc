@@ -1,10 +1,11 @@
 <footer>
 
-    {!! dynamic_sidebar('footer_sidebar_1') !!}
-    <div class="footer-top" style="display: none">
+
+    <div class="footer-top" >
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
+                {!! dynamic_sidebar('footer_sidebar_1') !!}
+                <div class="col-md-3 col-sm-6 col-xs-12" style="display: none">
                     <div class="footer-item">
                         <div class="title"><a href="index.html"><img src="images/logo_02.png" alt="logo" class="img-responsive"></a></div>
                         <div class="footer-about">
