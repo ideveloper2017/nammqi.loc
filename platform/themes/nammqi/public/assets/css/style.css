@@ -447,7 +447,7 @@ input[type="submit"][disabled]:focus {
     background-color: #ffb400;
 }
 .padding-120{
-    padding: 120px 0px;
+    padding: 20px 0px;
 }
 .section-bg{
     background-color: #f5f8fa;
@@ -455,7 +455,7 @@ input[type="submit"][disabled]:focus {
 .section-header{
     text-align: center;
     max-width: 650px;
-    margin: 0px auto 55px;
+    margin: 0px auto 15px;
 }
 .section-header h3{
     color: #6c5ebf;
