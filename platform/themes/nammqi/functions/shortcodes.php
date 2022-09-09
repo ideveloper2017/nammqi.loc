@@ -97,10 +97,10 @@ app()->booted(function () {
                 return Theme::partial('shortcodes.blog-categories-posts', ['title' => $shortCode->title,'category'=>$category]);
             });
 
-        shortcode()->setAdminConfig('blog-categories-posts', function () {
+        shortcode()->setAdminConfig('blog-categories-posts', function ($attributes) {
             $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
 
-            return Theme::partial('shortcodes.blog-categories-posts-admin-config', compact('categories'));
+            return Theme::partial('shortcodes.blog-categories-posts-admin-config', compact('attributes','categories'));
         });
 
         add_shortcode('categories-with-posts', __('Categories with Posts'), __('Categories with Posts'), function ($shortCode) {
