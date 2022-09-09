@@ -81,7 +81,7 @@ app()->booted(function () {
                     return null;
                 }
 
-                return Theme::partial('shortcodes.blog-categories-posts', compact('category'));
+                return Theme::partial('shortcodes.blog-categories-posts', ['title' => $shortCode->title,'category'=>$category]);
             });
 
         shortcode()->setAdminConfig('blog-categories-posts', function () {

@@ -1,5 +1,33 @@
 <section class="blog section-bg padding-120">
     <div class="container">
+        <div class="section-header">
+            <h3>{!! clean($title) !!}</h3>
+        </div>
+        <div class="blog-items">
+            <div class="row">
+                @foreach (get_latest_posts(6, [], ['slugable']) as $post)
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="blog-item">
+                            <div class="blog-image">
+                                <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
+                            </div>
+                            <div class="blog-content">
+                                <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                <p>{{ mb_substr($post->description,0,125) }}</p>
+                            </div>
+                            <ul>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+                            </ul>
+                        </div><!-- blog item -->
+                    </div>
+                @endforeach
+            </div><!-- row -->
+        </div><!-- blog items -->
+    </div><!-- container -->
+</section>
+<section class="blog section-bg padding-120" style="display:none;">
+
+    <div class="container">
         <div class="row">
             <div class="col-lg-8">
                 @if (!empty($category))
@@ -33,13 +61,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="widget-area">
-                    {!! AdsManager::display('top-sidebar-ads', ['class' => 'mb-30']) !!}
-                    {!! dynamic_sidebar('primary_sidebar') !!}
-                    {!! AdsManager::display('bottom-sidebar-ads', ['class' => 'mt-30 mb-30']) !!}
-                </div>
-            </div>
+{{--            <div class="col-lg-4">--}}
+{{--                <div class="widget-area">--}}
+{{--                    {!! AdsManager::display('top-sidebar-ads', ['class' => 'mb-30']) !!}--}}
+{{--                    {!! dynamic_sidebar('primary_sidebar') !!}--}}
+{{--                    {!! AdsManager::display('bottom-sidebar-ads', ['class' => 'mt-30 mb-30']) !!}--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 </section>
