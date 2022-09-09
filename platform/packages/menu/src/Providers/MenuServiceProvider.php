@@ -3,6 +3,7 @@
 namespace Botble\Menu\Providers;
 
 use Botble\Base\Traits\LoadAndPublishDataTrait;
+use Botble\Blog\Models\Post;
 use Botble\Menu\Models\Menu as MenuModel;
 use Botble\Menu\Models\MenuLocation;
 use Botble\Menu\Models\MenuNode;
@@ -19,6 +20,7 @@ use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Menu;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,7 @@ class MenuServiceProvider extends ServiceProvider
 
     public function boot()
     {
+
         $this->app->bind(MenuInterface::class, function () {
             return new MenuCacheDecorator(
                 new MenuRepository(new MenuModel)
@@ -90,5 +93,19 @@ class MenuServiceProvider extends ServiceProvider
 
         $this->app->register(EventServiceProvider::class);
         $this->app->register(CommandServiceProvider::class);
+
+        if (defined('MENU_ACTION_SIDEBAR_OPTIONS')) {
+            Menu::addMenuOptionModel(Post::class);
+            add_action(MENU_ACTION_SIDEBAR_OPTIONS, [$this, 'registerMenuOptions'], 12);
+        }
+    }
+
+    public function registerMenuOptions()
+    {
+        if (Auth::user()->hasPermission('product-categories.index')) {
+            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
+        }
+
+        return true;
     }
 }
