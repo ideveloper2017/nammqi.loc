@@ -1,5 +1,5 @@
 <section class="blog section-bg padding-120">
-    <div class="container-fluid">
+    <div class="container">
         <div class="section-header">
             <h3>{!! clean($title) !!}</h3>
         </div>
