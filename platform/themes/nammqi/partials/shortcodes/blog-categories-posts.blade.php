@@ -16,7 +16,7 @@
 {{--                                <p>{{ mb_substr($post->description,0,125) }}</p>--}}
                             </div>
                             <ul>
-                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->publish_date->translatedFormat('M d, Y') }}</a></li>
                             </ul>
                         </div><!-- blog item -->
                     </div>
