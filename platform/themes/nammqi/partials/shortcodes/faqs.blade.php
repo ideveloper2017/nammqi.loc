@@ -1,3 +1,8 @@
+<section class="blog section-bg padding-120">
+    <div class="container">
+        <div class="section-header">
+            <h3>{!! clean($title) !!}</h3>
+        </div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     @foreach($categories as $categoryIndex => $category)
         @foreach($category->faqs as $faqIndex => $faq)
@@ -20,6 +25,10 @@
     @endforeach
 
 </div>
+    </div>
+</section>
+
+
 <div class="faqs-list" style="display: none">
     @foreach($categories as $categoryIndex => $category)
         @if (count($categories) > 1)
