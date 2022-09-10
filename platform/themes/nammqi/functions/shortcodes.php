@@ -416,7 +416,7 @@ app()->booted(function () {
 
             $categories = app(FaqCategoryInterface::class)->advancedGet($params);
 
-            return Theme::partial('shortcodes.faqs', compact('categories'));
+            return Theme::partial('shortcodes.faqs', ['title' => $shortcode->title,'categories'=>$categories]);
         });
 
         shortcode()->setAdminConfig('faqs', function ($attributes) {
