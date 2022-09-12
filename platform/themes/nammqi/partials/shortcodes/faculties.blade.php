@@ -3,7 +3,7 @@
         <div class="row">
             @foreach($categories as $category)
                 @foreach($category->posts as $post)
-            <div class="col-md-{{ 12 / count($categories) }} col-sm-{{ 12 / count($categories) }} col-xs-{{ 12 / count($categories) }}">
+            <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="service-item">
                     <span class="icon flaticon-flasks"></span>
                     <h4>{{ $post->name }}</h4>
