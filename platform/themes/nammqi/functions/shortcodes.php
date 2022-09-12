@@ -38,7 +38,7 @@ app()->booted(function () {
 
             $category = app(CategoryInterface::class)->advancedGet([
                 'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
-                'take' => 1,
+               // 'take' => 1,
                 'with'      => [
                     'slugable',
                     'posts' => function ($query) {

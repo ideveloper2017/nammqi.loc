@@ -7,8 +7,7 @@
                 <div class="service-item">
                     <span class="icon flaticon-flasks"></span>
                     <h4>{{ $post->name }}</h4>
-                    <p>Aolaboraively eenable vira niche market Uniquely maintain hghly eficient prduct for and goaloriented human.</p>
-                    <a href="services.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                 </div>
             </div>
                 @endforeach
