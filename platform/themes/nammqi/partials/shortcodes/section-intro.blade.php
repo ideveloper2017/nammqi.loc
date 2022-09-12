@@ -33,7 +33,7 @@
             <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="https://t.me/NamMQI_rectori" target="_blank"><span class="icon"><i class="flaticon-chat"></i></span></a>
-                    <h4><a href="https://t.me/NamMQI_rectori" target="_blank">https://t.me/NamMQI_rectori</a></h4>
+                    <h4><a href="https://t.me/NamMQI_rectori" target="_blank">@NamMQI_rectori</a></h4>
 {{--                    <p>Telegram tarmog`i</p>--}}
                 </div>
             </div>
