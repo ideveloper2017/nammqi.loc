@@ -9,7 +9,7 @@
                 @foreach ($posts as $post)
                     <li>
                         <div class="image">
-                            <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'thumb', false, RvMedia::getDefaultImage()) }}" alt="post image" class="img-responsive"></a>
+                            <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'thumb', false, RvMedia::getDefaultImage()) }}" style="width: 70px;height: 70px" alt="post image" class="img-responsive"></a>
                         </div>
                         <div class="content">
                             <p><a href="single.html">{{ $post->name }}</a></p>
