@@ -2,11 +2,12 @@
 <section class="blog padding-120">
     <div class="container">
         <div class="row">
-            @if ($posts->count() > 0)
-                @foreach ($posts as $post)
+
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
                     <div class="row">
+                        @if ($posts->count() > 0)
+                            @foreach ($posts as $post)
                         <div class="col-md-6 col-sm-6 col-xs-12">
                             <div class="blog-item">
                                 <div class="blog-image">
@@ -23,6 +24,8 @@
                                 </ul>
                             </div><!-- blog item -->
                         </div>
+                            @endforeach
+                        @endif
                     </div><!-- row -->
                 </div><!-- blog items -->
 {{--                <div class="blog-button">--}}
@@ -38,8 +41,7 @@
 {{--                </div>--}}
 
             </div>
-                @endforeach
-             @endif
+
         </div><!-- row -->
     </div><!-- container -->
 </section>
