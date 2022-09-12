@@ -2,7 +2,6 @@
 <section class="blog padding-120">
     <div class="container">
         <div class="row">
-
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
                     <div class="row">
@@ -26,22 +25,9 @@
                         </div>
                             @endforeach
                         @endif
-                    </div><!-- row -->
-                </div><!-- blog items -->
-{{--                <div class="blog-button">--}}
-{{--                    <ul class="pagination">--}}
-{{--                        <li><a href="#"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>--}}
-{{--                        <li><a href="#" class="active">1</a></li>--}}
-{{--                        <li><a href="#">2</a></li>--}}
-{{--                        <li><a href="#">3</a></li>--}}
-{{--                        <li><a href="#"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a></li>--}}
-{{--                        <li><a href="#">5</a></li>--}}
-{{--                        <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-
+                    </div>
+                </div>
             </div>
-
         </div><!-- row -->
     </div><!-- container -->
 </section>
