@@ -24,7 +24,12 @@ register_page_template([
     'homepage'       => __('Homepage'),
     'homepage2'      => __('Homepage 2'),
     'no-breadcrumbs' => __('No Breadcrumbs'),
+    'no-sidebar'     => __('No SideBar'),
     'right-sidebar'  => __('Right sidebar'),
+    'blog-grid'      => __('Blog Grid'),
+    'blog-list'      => __('Blog List'),
+    'blog-big'       => __('Blog Big'),
+    'blog-wide'      => __('Blog Wide'),
 ]);
 
 register_sidebar([
