@@ -16,9 +16,6 @@
         </div>
     </div><!-- blog item -->
 
-
-
-
 {{--        <article class="post post__horizontal mb-40 clearfix"  style="display: none">--}}
 {{--            <div class="post__thumbnail">--}}
 {{--                <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="post__overlay"></a>--}}
