@@ -44,8 +44,7 @@ app()->booted(function () {
                     'posts' => function ($query) {
                         return $query
                             ->latest()
-                            ->with(['slugable'])
-                            ->limit(3);
+                            ->with(['slugable']);
                     },
                 ],
             ]);
