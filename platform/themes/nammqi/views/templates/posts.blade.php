@@ -12,7 +12,7 @@
                 <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">24 April 2017</a></li>
             </ul>
             <p>{{ $post->description }}</p>
-            <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+{{--            <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>--}}
         </div>
     </div><!-- blog item -->
 
