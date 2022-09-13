@@ -40,6 +40,6 @@
         </div>
     </div>
     <div class="right">
-        <img src="{!! Theme::asset()->url('images/institute.png') !!}" alt="about image" class="img-responsive">
+        <img src="{!! Theme::asset()->url('images/institute_banner.png') !!}" alt="about image" class="img-responsive">
     </div>
 </section>
