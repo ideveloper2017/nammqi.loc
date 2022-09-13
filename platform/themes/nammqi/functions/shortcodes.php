@@ -24,6 +24,16 @@ app()->booted(function () {
         });
 
 
+    add_shortcode('section-about',"SectionAbout","SectionAbout",function ($shortcode){
+//            $counters = app(CounterupInterface::class)->getModel()
+//                ->where('status', BaseStatusEnum::PUBLISHED)
+//                ->get();
+
+        return Theme::partial('shortcodes.section-about');
+    });
+
+
+
 
     add_shortcode('faculties', __('Faculties'), __('Faculties'), function ($shortCode) {
 
