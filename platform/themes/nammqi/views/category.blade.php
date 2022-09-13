@@ -16,7 +16,7 @@
                                 @endif
                                 <div class="blog-content">
                                     <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
-{{--                                    <p>{{ $post->description }}</p>--}}
+                                    <p>&nbsp;</p>
                                 </div>
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
