@@ -1,10 +1,10 @@
 <section class="about-two">
     <div class="left">
         <div class="left-in">
-            <div class="title">
-                <div class="t-left"><h2></h2></div>
-                <div class="t-right"><h4>Institut tarixi</h4></div>
-            </div>
+{{--            <div class="title">--}}
+{{--                <div class="t-left"><h2></h2></div>--}}
+{{--                <div class="t-right"><h4>Institut tarixi</h4></div>--}}
+{{--            </div>--}}
             <ul>
                 <li>
                     <div class="icon flaticon-calendar"></div>
