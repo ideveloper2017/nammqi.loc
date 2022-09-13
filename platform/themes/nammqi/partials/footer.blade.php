@@ -5,6 +5,7 @@
                 <h3>Join Our Newsletter</h3>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
+                <p class="font-medium">{{ __('Subscribe to our newsletter and get our newest updates right on your inbox.') }}</p>
                 <form action="{{ route('public.newsletter.subscribe') }}" method="post">
                     @csrf
                     @if (setting('enable_captcha') && is_plugin_active('captcha'))
