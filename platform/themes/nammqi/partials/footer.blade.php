@@ -12,8 +12,8 @@
                             {!! Captcha::display() !!}
                         </div>
                     @endif
-                    <input type="email" name="email" class="form-control bg-white font-small" placeholder="{{ __('Enter your email') }}">
-                    <button class="btn bg-primary text-white" type="submit">{{ __('Subscribe') }}</button>
+                    <input type="email" name="email"  placeholder="{{ __('Enter your email') }}">
+                    <input type="submit" value="{{ __('Subscribe') }}">
                 </form>
 {{--                <form action="/">--}}
 {{--                    <input type="text" placeholder="Enter your e-mail here">--}}
