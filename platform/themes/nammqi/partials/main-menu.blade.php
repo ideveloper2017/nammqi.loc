@@ -5,7 +5,7 @@
                 @if ($row->icon_font)<i class='{{ trim($row->icon_font) }}'></i> @endif @if ($row->title){{ $row->title }} @endif
                 @if ($row->has_child)
 
-                        @if ($row->parent_id) <i class="icofont-rounded-right"></i> @else <span class="caret"></span> @endif--}}
+                        @if ($row->parent_id) <i class="icofont-rounded-right"></i> @else <span class="caret"></span> @endif
                     @endif
             </a>
             @if ($row->has_child)
