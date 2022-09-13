@@ -5,8 +5,14 @@
                 <h3>Join Our Newsletter</h3>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <form action="/">
-                    <input type="text" placeholder="Enter your e-mail here">
+                <form action="{{ route('public.newsletter.subscribe') }}" method="post">
+                    @csrf
+                    @if (setting('enable_captcha') && is_plugin_active('captcha'))
+                        <div class="form-group">
+                            {!! Captcha::display() !!}
+                        </div>
+                    @endif
+                    <input type="text" name="email" placeholder="{{ __('Enter your email') }}">
                     <input type="submit" value="Subscribe Now">
                 </form>
             </div>
