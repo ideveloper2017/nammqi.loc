@@ -5,6 +5,7 @@
                 <h3>Join Our Newsletter</h3>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
+
                 <form action="{{ route('public.newsletter.subscribe') }}" method="post">
                     @csrf
                     @if (setting('enable_captcha') && is_plugin_active('captcha'))
@@ -12,13 +13,9 @@
                             {!! Captcha::display() !!}
                         </div>
                     @endif
-                    <input type="email" name="email"  placeholder="{{ __('Enter your email') }}">
+                    <input type="email" name="email" placeholder="{{ __('Enter your email') }}">
                     <input type="submit" value="{{ __('Subscribe') }}">
                 </form>
-{{--                <form action="/">--}}
-{{--                    <input type="text" placeholder="Enter your e-mail here">--}}
-{{--                    <input type="submit" value="Subscribe Now">--}}
-{{--                </form>--}}
             </div>
         </div><!-- row -->
     </div><!-- container -->
