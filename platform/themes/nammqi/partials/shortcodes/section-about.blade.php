@@ -7,31 +7,31 @@
             </div>
             <ul>
                 <li>
-                    <div class="icon flaticon-tutorial"></div>
+                    <div class="icon flaticon-calendar"></div>
                     <div class="content">
                         <h4>1979 yil - Toshkent politexnika institutining Namangan filiali</h4>
                     </div>
                 </li>
                 <li>
-                    <div class="icon flaticon-write-board"></div>
+                    <div class="icon flaticon-calendar"></div>
                     <div class="content">
                         <h4>1989 yil - Toshkent mashinasozlik  institutining Namangan filiali</h4>
                     </div>
                 </li>
                 <li>
-                    <div class="icon flaticon-ereader"></div>
+                    <div class="icon flaticon-calendar"></div>
                     <div class="content">
                         <h4>1991 yil - Namangan sanoat-texnologiya instituti</h4>
                     </div>
                 </li>
                 <li>
-                    <div class="icon flaticon-ereader"></div>
+                    <div class="icon flaticon-calendar"></div>
                     <div class="content">
                         <h4>1998 yil - Namangan muhandislik-pedagogika instituti</h4>
                     </div>
                 </li>
                 <li>
-                    <div class="icon flaticon-ereader"></div>
+                    <div class="icon flaticon-calendar"></div>
                     <div class="content">
                         <h4>2017 yil - Namangan muhandislik-qurilish instituti</h4>
                     </div>
