@@ -3,7 +3,7 @@
         <div class="left-in">
             <div class="title">
 {{--                <div class="t-left"><h2>10+</h2></div>--}}
-                <div class="t-right"><h2>Institut tarixi</h2></div>
+                <div class="t-right"><h4>Institut tarixi</h4></div>
             </div>
             <ul>
                 <li>
