@@ -10,13 +10,13 @@
                             <div class="blog-item">
                                 @if ($post->image)
                                 <div class="blog-image">
-                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="post__overlay"></a>
+                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="img-responsive"></a>
 {{--                                    <a href="single.html"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>--}}
                                 </div>
                                 @endif
                                 <div class="blog-content">
-                                    <h4><a href="single.html">Actanualze Cententrc Staled</a></h4>
-                                    <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>
+                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                    <p>{{ $post->description }}</p>
                                 </div>
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
