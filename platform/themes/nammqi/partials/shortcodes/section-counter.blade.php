@@ -7,42 +7,52 @@
             <div class="partner-slider-two swiper-container swiper-container-horizontal">
                 <div class="swiper-wrapper"
                      style="transform: translate3d(-2320px, 0px, 0px); transition-duration: 0ms;">
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1"
                          style="width: 212px; margin-right: 20px;">
-                        <img src="images/partner/partner_3.02.jpg" alt="partner image" class="img-responsive">
+                        <img src="{!! Theme::asset()->url('/images/slider/Slide1.jpeg') !!}" alt="partner image" class="img-responsive">
                     </div>
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2"
                          style="width: 212px; margin-right: 20px;">
-                        <img src="images/partner/partner_3.03.jpg" alt="partner image" class="img-responsive">
+                        <img src="{!! Theme::asset()->url('/images/slider/Slide2.jpeg') !!}" alt="partner image" class="img-responsive">
                     </div>
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="3"
                          style="width: 212px; margin-right: 20px;">
-                        <img src="images/partner/partner_3.04.jpg" alt="partner image" class="img-responsive">
+                        <img src="{!! Theme::asset()->url('/images/slider/Slide3.jpeg') !!}" alt="partner image" class="img-responsive">
                     </div>
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev"
                          data-swiper-slide-index="4" style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.05.jpg" alt="partner image" class="img-responsive">
                     </div>
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
                          data-swiper-slide-index="5" style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.01.jpg" alt="partner image" class="img-responsive">
                     </div>
+
                     <div class="partner-item swiper-slide swiper-slide-duplicate-next" data-swiper-slide-index="0"
                          style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.01.jpg" alt="partner image" class="img-responsive">
                     </div><!-- partner-item -->
+
                     <div class="partner-item swiper-slide" data-swiper-slide-index="1"
                          style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.02.jpg" alt="partner image" class="img-responsive">
                     </div><!-- partner-item -->
+
                     <div class="partner-item swiper-slide" data-swiper-slide-index="2"
                          style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.03.jpg" alt="partner image" class="img-responsive">
                     </div><!-- partner-item -->
+
                     <div class="partner-item swiper-slide" data-swiper-slide-index="3"
                          style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.04.jpg" alt="partner image" class="img-responsive">
                     </div><!-- partner-item -->
+
                     <div class="partner-item swiper-slide swiper-slide-prev" data-swiper-slide-index="4"
                          style="width: 212px; margin-right: 20px;">
                         <img src="images/partner/partner_3.05.jpg" alt="partner image" class="img-responsive">
