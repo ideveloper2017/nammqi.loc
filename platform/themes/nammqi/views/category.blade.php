@@ -20,7 +20,7 @@
                                 </div>
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
-{{--                                    <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>--}}
+                                    <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->view}}</a></li>
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
                                 </ul>
                             </div><!-- blog item -->
