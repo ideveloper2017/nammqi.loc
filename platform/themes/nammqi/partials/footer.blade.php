@@ -5,7 +5,7 @@
                 <h3>Join Our Newsletter</h3>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <form class="input-group form-subcriber mt-30 d-flex newsletter-form" action="{{ route('public.newsletter.subscribe') }}" method="post">
+                <form action="{{ route('public.newsletter.subscribe') }}" method="post">
                     @csrf
                     @if (setting('enable_captcha') && is_plugin_active('captcha'))
                         <div class="form-group">
