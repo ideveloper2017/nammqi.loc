@@ -5,10 +5,20 @@
                 <h3>Join Our Newsletter</h3>
             </div>
             <div class="col-md-7 col-sm-12 col-xs-12">
-                <form action="/">
-                    <input type="text" placeholder="Enter your e-mail here">
-                    <input type="submit" value="Subscribe Now">
+                <form class="input-group form-subcriber mt-30 d-flex newsletter-form" action="{{ route('public.newsletter.subscribe') }}" method="post">
+                    @csrf
+                    @if (setting('enable_captcha') && is_plugin_active('captcha'))
+                        <div class="form-group">
+                            {!! Captcha::display() !!}
+                        </div>
+                    @endif
+                    <input type="email" name="email" class="form-control bg-white font-small" placeholder="{{ __('Enter your email') }}">
+                    <button class="btn bg-primary text-white" type="submit">{{ __('Subscribe') }}</button>
                 </form>
+{{--                <form action="/">--}}
+{{--                    <input type="text" placeholder="Enter your e-mail here">--}}
+{{--                    <input type="submit" value="Subscribe Now">--}}
+{{--                </form>--}}
             </div>
         </div><!-- row -->
     </div><!-- container -->
