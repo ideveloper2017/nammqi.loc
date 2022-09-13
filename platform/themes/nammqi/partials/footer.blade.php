@@ -12,7 +12,7 @@
                             {!! Captcha::display() !!}
                         </div>
                     @endif
-                    <input type="text" name="email" placeholder="{{ __('Enter your email') }}">
+                    <input type="text"  placeholder="{{ __('Enter your email') }}">
                     <input type="submit" value="Subscribe Now">
                 </form>
             </div>
