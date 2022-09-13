@@ -19,7 +19,6 @@ app()->booted(function () {
 //            $counters = app(CounterupInterface::class)->getModel()
 //                ->where('status', BaseStatusEnum::PUBLISHED)
 //                ->get();
-
             return Theme::partial('shortcodes.section-intro');
         });
 
@@ -28,8 +27,13 @@ app()->booted(function () {
 //            $counters = app(CounterupInterface::class)->getModel()
 //                ->where('status', BaseStatusEnum::PUBLISHED)
 //                ->get();
-
         return Theme::partial('shortcodes.section-about');
+    });
+    add_shortcode('section-counter',"SectionCounter","SectionCounter",function ($shortcode){
+//            $counters = app(CounterupInterface::class)->getModel()
+//                ->where('status', BaseStatusEnum::PUBLISHED)
+//                ->get();
+        return Theme::partial('shortcodes.section-counter');
     });
 
 
