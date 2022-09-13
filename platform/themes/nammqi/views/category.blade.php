@@ -19,9 +19,9 @@
                                     <p>{{ $post->description }}</p>
                                 </div>
                                 <ul>
-                                    <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
-                                    <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
-                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                                    <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+{{--                                    <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>--}}
+{{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
                                 </ul>
                             </div><!-- blog item -->
                         </div>
