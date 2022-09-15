@@ -12,7 +12,7 @@
                                 <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                             </div>
                             <div class="blog-content">
-                                <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
+                                <h5><a href="{{ $post->url }}">{{ str_pad($post->name,20,"...",STR_PAD_RIGHT) }}</a></h5>
 {{--                                <p>{{ mb_substr($post->description,0,125) }}</p>--}}
                             </div>
                             <ul>
