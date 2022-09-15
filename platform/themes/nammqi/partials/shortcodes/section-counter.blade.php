@@ -19,8 +19,33 @@
                          style=" margin-right: 20px;">
                         <img src="{!! Theme::asset()->url('images/slider/Slide3.jpeg') !!}" alt="partner image" class="img-responsive">
                     </div>
-                </div>
-            </div>
+
+                    <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1"
+                         style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide1.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                    <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2"
+                         style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide2.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                    <div class="partner-item swiper-slide swiper-slide-duplicate" data-swiper-slide-index="3"
+                         style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide3.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                    <div class="partner-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev"
+                         data-swiper-slide-index="4" style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide1.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                    <div class="partner-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev"
+                         data-swiper-slide-index="4" style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide2.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                    <div class="partner-item swiper-slide swiper-slide-duplicate swiper-slide-duplicate-prev"
+                         data-swiper-slide-index="4" style=" margin-right: 20px;">
+                        <img src="{!! Theme::asset()->url('images/slider/Slide3.jpeg') !!}" alt="partner image" class="img-responsive">
+                    </div>
+                </div><!-- swiper-wrapper -->
+            </div><!-- swiper-container -->
         </div>
     </div>
 </section>
