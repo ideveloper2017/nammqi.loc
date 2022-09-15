@@ -1,6 +1,6 @@
 {!! Theme::partial('header') !!}
 {!! Theme::partial('breadcrumbs') !!}
-<section class="blog blog-two padding-120" style="display:none;">
+<section class="blog blog-two padding-120">
     <div class="container">
         <div class="row">
 
