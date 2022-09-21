@@ -3485,7 +3485,9 @@ header .menu_cart .check_out:hover{
 }
 .blog .blog-item .blog-content{
     padding: 15px;
+    height: 150px;
 }
+
 .blog .blog-item .blog-content h4 a{
     text-decoration: none;
     color: #212121;
