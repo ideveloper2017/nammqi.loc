@@ -3458,10 +3458,12 @@ header .menu_cart .check_out:hover{
 }
 .blog .blog-item{
     background-color: #fff;
-    box-shadow: 0px 0px 10px 2px rgba(0,0,0,.1);
-    margin-bottom: 30px;
+    box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 10%);
+    margin-bottom: 16px;
     -webkit-transition: .25s ease-out;
     transition: .25s ease-out;
+    border-bottom: 2px solid #000;
+    height: 375px;
 }
 .blog .blog-item:hover{
     -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
