@@ -17,12 +17,13 @@
                                 <div class="blog-content">
                                     <h5><strong><a href="{{ $post->url }}">{{ $post->name }}</a></strong></h5>
 {{--                                    <p>{{ $post->description }}</p>--}}
-                                </div>
+
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
                                     <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
                                 </ul>
+                                </div>
                             </div><!-- blog item -->
                         </div>
                         @endforeach
