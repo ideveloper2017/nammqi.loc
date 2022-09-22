@@ -1,5 +1,5 @@
 @php Theme::set('section-name', $category->name) @endphp
-<section class="blog padding-120">
+<section class="blog blog-two padding-120">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
@@ -8,7 +8,8 @@
                         @foreach ($posts as $post)
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             <div class="blog-item">
-                                <div class="blog-item blog-item-wide">
+
+                            <div class="blog-item blog-item-wide">
                                 @if ($post->image)
                                 <div class="blog-image">
                                     <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="img-responsive"></a>
