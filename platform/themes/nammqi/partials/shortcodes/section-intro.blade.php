@@ -29,6 +29,8 @@
 {{--                    <p>Davlat Test Marzaki</p>--}}
                 </div>
             </div>
+        </div>
+        <div class="row">
             <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="http://my.gov.uz" target="_blank"><span class="icon"><i class="flaticon-line-chart"></i></span></a>
