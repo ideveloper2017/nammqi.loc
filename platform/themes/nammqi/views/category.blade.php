@@ -6,9 +6,11 @@
                 <div class="blog-items">
                     @foreach ($posts as $post)
                     <div class="blog-item blog-item-wide">
+                        @if ($post->image)
                         <div class="blog-image">
-                            <a href="single.html"><img src="images/blog/blog_16.jpg" alt="blog image" class="img-responsive"></a>
+                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" alt="blog image" class="img-responsive"></a>
                         </div>
+                        @endif
                         <div class="blog-content">
                             <h4><a href="single.html">Quckly formulate high standard models thare for vertical </a></h4>
                             <ul>
