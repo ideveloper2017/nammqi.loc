@@ -15,7 +15,7 @@
                                 </div>
                                 @endif
                                 <div class="blog-content">
-                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                    <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
                                     <p>{{ $post->description }}</p>
                                 </div>
                                 <ul>
