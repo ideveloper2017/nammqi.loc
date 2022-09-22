@@ -1,46 +1,32 @@
-{{--@php Theme::set('section-name', $category->name) @endphp--}}
-<section class="blog blog-two padding-120">
+@php Theme::set('section-name', $category->name) @endphp
+<section class="blog padding-120">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
-                 @foreach ($posts as $post)
-                    <div class="blog-item blog-item-classes">
-                        <div class="blog-image">
-                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive" style="width: 751px;height: 341px;"></a>
-                        </div>
-                        <div class="blog-content">
-                            <h4><a href="single.html">{{ $post->name }}</a></h4>
-                            <ul>
-                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
-                                <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>
-                            </ul>
-                            <p>{{ $post->description }}</p>
-                            <a href="single.html" class="button-default">{{ __('labels.readMore') }}</a>
-                        </div>
-                    </div>
-                 @endforeach
-{{--                        @foreach ($posts as $post)--}}
-{{--                            <div class="blog-item blog-item-wide">--}}
-{{--                                @if ($post->image)--}}
-{{--                                <div class="blog-image">--}}
-{{--                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" class="img-responsive" style="width: 300px;height: 300px"><a href="{{ $post->url }}" ></a>--}}
+                    <div class="row">
+                        @foreach ($posts as $post)
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="blog-item">
+                                @if ($post->image)
+                                <div class="blog-image">
+                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="img-responsive"></a>
 {{--                                    <a href="single.html"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>--}}
-{{--                                </div>--}}
-{{--                                @endif--}}
-{{--                                <div class="blog-content">--}}
-{{--                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>--}}
-{{--                                    <p>{{ $post->description }}</p>--}}
-{{--                                </div>--}}
-{{--                                <ul>--}}
-{{--                                    <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>--}}
-{{--                                    <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>--}}
+                                </div>
+                                @endif
+                                <div class="blog-content">
+                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                    <p>{{ $post->description }}</p>
+                                </div>
+                                <ul>
+                                    <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+                                    <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
-{{--                                </ul>--}}
-{{--                            </div><!-- blog item -->--}}
-
-{{--                        @endforeach--}}
-
+                                </ul>
+                            </div><!-- blog item -->
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="blog-button">
                     <ul class="pagination">
