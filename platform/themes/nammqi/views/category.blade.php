@@ -6,7 +6,7 @@
                 <div class="blog-items">
 
                         @foreach ($posts as $post)
-                        <div class="col-md-8 col-sm-12 col-xs-12">
+
                             <div class="blog-item">
 
                             <div class="blog-item blog-item-wide">
@@ -27,7 +27,7 @@
                                 </ul>
                             </div><!-- blog item -->
                         </div>
-                        </div>
+
                         @endforeach
 
                 </div>
