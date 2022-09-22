@@ -7,7 +7,7 @@
                  @foreach ($posts as $post)
                     <div class="blog-item blog-item-classes">
                         <div class="blog-image">
-                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
+                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'thumb', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                         </div>
                         <div class="blog-content">
                             <h4><a href="single.html">{{ $post->name }}</a></h4>
