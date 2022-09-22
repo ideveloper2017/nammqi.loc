@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
-                    @foreach ($posts as $post)
+                 @foreach ($posts as $post)
                     <div class="blog-item blog-item-classes">
                         <div class="blog-image">
                             <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
@@ -19,7 +19,7 @@
                             <a href="single.html" class="button-default">{{ __('labels.readMore') }}</a>
                         </div>
                     </div>
-                    @endforeach
+                 @endforeach
 {{--                        @foreach ($posts as $post)--}}
 {{--                            <div class="blog-item blog-item-wide">--}}
 {{--                                @if ($post->image)--}}
