@@ -6,9 +6,6 @@
                 <div class="blog-items">
 
                         @foreach ($posts as $post)
-
-                            <div class="blog-item">
-
                             <div class="blog-item blog-item-wide">
                                 @if ($post->image)
                                 <div class="blog-image">
@@ -26,7 +23,6 @@
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
                                 </ul>
                             </div><!-- blog item -->
-                        </div>
 
                         @endforeach
 
