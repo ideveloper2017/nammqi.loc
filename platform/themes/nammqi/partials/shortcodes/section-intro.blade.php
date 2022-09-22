@@ -3,9 +3,16 @@
         <div class="row">
             <div class="col-md-2 col-sm-6 col-xs-12">
                 <div class="facility-item">
-                    <a href="http://hemis.nammqi.uz" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
-                    <h4><a href="http://hemis.nammqi.uz" target="_blank">Hemis</a></h4>
+                    <a href="https://student.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
+                    <h4><a href="https://student.nammqi.uz/dashboard/login" target="_blank">Hemis (Talabalar uchun)</a></h4>
 {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-xs-12">
+                <div class="facility-item">
+                    <a href="https://hemis.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
+                    <h4><a href="https://hemis.nammqi.uz/dashboard/login" target="_blank">Hemis (O'qituvchi uchun)</a></h4>
+                    {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-2 col-sm-6 col-xs-12">
