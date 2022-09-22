@@ -25,7 +25,9 @@
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
-
+                <a href="http://www.uz/ru/res/visitor/index?id=41261" target="_top">
+                    <img style="margin: 10px;" width="88" height="31" border="0" alt="Top reyting www.uz" src="http://cnt0.www.uz/counter/collect?id=41261&amp;r=&amp;pg=https%3A//nammqi.uz/sahifa.php%3Fsahifa%3D1%26tartib%3D3&amp;c=Y&amp;j=N&amp;wh=1366x768&amp;px=24&amp;js=1.3&amp;col=0063AF&amp;t=ffffff&amp;p=E6850F">
+                </a>
             </div><!-- row -->
         </div><!-- container -->
     </div><!-- footer bottom -->
