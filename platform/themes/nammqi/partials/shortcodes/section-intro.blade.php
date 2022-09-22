@@ -2,24 +2,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
-
-
                 <div class="service-item">
-                    <span class="icon"><i class="flaticon-symbols"></i></span>
+                    <span class="icon flaticon-symbols"></span>
                     <h4><a href="https://student.nammqi.uz/dashboard/login" target="_blank">Hemis (Talabalar uchun)</a></h4>
 {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <span class="icon"><i class="flaticon-symbols"></i></span>
+                    <span class="icon flaticon-symbols"></span>
                     <h4><a href="https://hemis.nammqi.uz/dashboard/login" target="_blank">Hemis (O'qituvchi uchun)</a></h4>
                     {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <a href="http://mtt.nammqi.uz/" target="_blank"><span class="icon"><i class="flaticon-student"></i></span></a>
+                    <a href="http://mtt.nammqi.uz/" target="_blank"><span class="icon flaticon-student"></span></a>
                     <h4><a href="http://mtt.nammqi.uz/" target="_blank">Moodle</a></h4>
 {{--                    <p>Masofaviy ta`lim tizmi</p>--}}
                 </div>
