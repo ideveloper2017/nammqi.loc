@@ -7,7 +7,7 @@
                 <div class="service-item">
                     <div class="testimonial-image">
                     <a href="{{ $post->url }}">
-                        <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" class="img-responsive"/>
+                        <img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" class="img-responsive"/>
                         <h4>{{ $post->name }}</h4>
                     </a>
                 </div>
