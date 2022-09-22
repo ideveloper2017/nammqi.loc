@@ -1,4 +1,4 @@
-@php Theme::set('section-name', $category->name) @endphp
+{{--@php Theme::set('section-name', $category->name) @endphp--}}
 <section class="blog blog-two padding-120">
     <div class="container">
         <div class="row">
@@ -15,7 +15,7 @@
                                 @endif
                                 <div class="blog-content">
                                     <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
-                                    <p>{{ $post->description }}</p>
+{{--                                    <p>{{ $post->description }}</p>--}}
                                 </div>
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
