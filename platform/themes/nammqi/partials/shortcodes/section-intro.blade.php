@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <a href="http://dtm.uz" target="_blank"><span class="icon"><i class="flaticon-world"></i></span></a>
+                    <a href="http://dtm.uz" target="_blank"><span class="icon flaticon-world"></span></a>
                     <h4><a href="http://dtm.uz" target="_blank">DTM</a></h4>
 {{--                    <p>Davlat Test Marzaki</p>--}}
                 </div>
@@ -33,7 +33,7 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <a href="http://my.gov.uz" target="_blank"><span class="icon"><i class="flaticon-line-chart"></i></span></a>
+                    <a href="http://my.gov.uz" target="_blank"><span class="icon flaticon-line-chart"></span></a>
                     <h4><a href="http://my.gov.uz" target="_blank">my.gov.uz</a></h4>
 {{--                    <p>Yagona interaktiv davlat xizmatlari</p>--}}
                 </div>
@@ -41,7 +41,7 @@
 
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <a href="https://t.me/NamMQI_rectori" target="_blank"><span class="icon"><i class="flaticon-chat"></i></span></a>
+                    <a href="https://t.me/NamMQI_rectori" target="_blank"><span class="icon flaticon-chat"></span></a>
                     <h4><a href="https://t.me/NamMQI_rectori" target="_blank">@NamMQI_rectori</a></h4>
 {{--                    <p>Telegram tarmog`i</p>--}}
                 </div>
