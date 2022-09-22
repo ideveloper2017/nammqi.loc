@@ -15,8 +15,8 @@
                                 </div>
                                 @endif
                                 <div class="blog-content">
-                                    <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
-                                    <p>{{ $post->description }}</p>
+                                    <h5><strong><a href="{{ $post->url }}">{{ $post->name }}</a></strong></h5>
+{{--                                    <p>{{ $post->description }}</p>--}}
                                 </div>
                                 <ul>
                                     <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
