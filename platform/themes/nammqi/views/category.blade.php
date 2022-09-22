@@ -5,20 +5,18 @@
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
                     @foreach ($posts as $post)
-                    <div class="blog-item blog-item-wide">
-                        @if ($post->image)
+                    <div class="blog-item blog-item-classes">
                         <div class="blog-image">
-                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" alt="blog image" style="width: 300px;height: 300px" class="img-responsive"></a>
+                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                         </div>
-                        @endif
                         <div class="blog-content">
-                            <h4><a href="single.html">Quckly formulate high standard models thare for vertical </a></h4>
+                            <h4><a href="single.html">{{ $post->name }}</a></h4>
                             <ul>
-                                <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">24 April 2017</a></li>
+                                <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+                                <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>
                             </ul>
-                            <p>Aolaboravely enable virad nich and market Compelngly evsculat funcnal and share for Aolaboraved enable virad nich and market through forand goaloriented</p>
-                            <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <p>{{ $post->description }}</p>
+                            <a href="single.html" class="button-default">{{ __('labels.readMore') }}</a>
                         </div>
                     </div>
                     @endforeach
