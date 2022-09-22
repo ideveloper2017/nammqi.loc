@@ -4,27 +4,42 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
-
-                        @foreach ($posts as $post)
-                            <div class="blog-item blog-item-wide">
-                                @if ($post->image)
-                                <div class="blog-image">
-                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" class="img-responsive" style="width: 300px;height: 300px"><a href="{{ $post->url }}" ></a>
+                    @foreach ($posts as $post)
+                    <div class="blog-item blog-item-wide">
+                        <div class="blog-image">
+                            <a href="single.html"><img src="images/blog/blog_16.jpg" alt="blog image" class="img-responsive"></a>
+                        </div>
+                        <div class="blog-content">
+                            <h4><a href="single.html">Quckly formulate high standard models thare for vertical </a></h4>
+                            <ul>
+                                <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">24 April 2017</a></li>
+                            </ul>
+                            <p>Aolaboravely enable virad nich and market Compelngly evsculat funcnal and share for Aolaboraved enable virad nich and market through forand goaloriented</p>
+                            <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                    @endforeach
+{{--                        @foreach ($posts as $post)--}}
+{{--                            <div class="blog-item blog-item-wide">--}}
+{{--                                @if ($post->image)--}}
+{{--                                <div class="blog-image">--}}
+{{--                                    <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" class="img-responsive" style="width: 300px;height: 300px"><a href="{{ $post->url }}" ></a>--}}
 {{--                                    <a href="single.html"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>--}}
-                                </div>
-                                @endif
-                                <div class="blog-content">
-                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+{{--                                </div>--}}
+{{--                                @endif--}}
+{{--                                <div class="blog-content">--}}
+{{--                                    <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>--}}
 {{--                                    <p>{{ $post->description }}</p>--}}
-                                </div>
-                                <ul>
-                                    <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
-                                    <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>
+{{--                                </div>--}}
+{{--                                <ul>--}}
+{{--                                    <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>--}}
+{{--                                    <li><a href="#"><span class="icon flaticon-open-book-top-view"></span>{{ $post->views}}</a></li>--}}
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
-                                </ul>
-                            </div><!-- blog item -->
+{{--                                </ul>--}}
+{{--                            </div><!-- blog item -->--}}
 
-                        @endforeach
+{{--                        @endforeach--}}
 
                 </div>
                 <div class="blog-button">
