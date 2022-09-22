@@ -5,9 +5,10 @@
                 @foreach($category->posts as $post)
             <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="service-item">
-                    <img src="{{ RvMedia::getImageUrl($post->image, 'featured', false, RvMedia::getDefaultImage()) }}" class="img-responsive"/>
-                    <h4>{{ $post->name }}</h4>
-                    <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                    <a href="{{ $post->url }}">
+                        <img src="{{ RvMedia::getImageUrl($post->image, 'featured', false, RvMedia::getDefaultImage()) }}" class="img-responsive"/>
+                        <h4>{{ $post->name }}</h4>
+                    </a>
                 </div>
             </div>
                 @endforeach
