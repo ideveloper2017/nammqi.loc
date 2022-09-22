@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="blog-items">
-                    <div class="row">
+
                         @foreach ($posts as $post)
                         <div class="col-md-8 col-sm-12 col-xs-12">
                             <div class="blog-item">
@@ -29,7 +29,7 @@
                         </div>
                         </div>
                         @endforeach
-                    </div>
+
                 </div>
                 <div class="blog-button">
                     <ul class="pagination">
