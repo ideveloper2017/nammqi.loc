@@ -8,7 +8,7 @@
                     <div class="blog-item blog-item-wide">
                         @if ($post->image)
                         <div class="blog-image">
-                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" alt="blog image" class="img-responsive"></a>
+                            <a href="single.html"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}" alt="blog image" style="width: 300px;height: 300px" class="img-responsive"></a>
                         </div>
                         @endif
                         <div class="blog-content">
