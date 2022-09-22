@@ -6,8 +6,9 @@
                 <div class="blog-items">
                     <div class="row">
                         @foreach ($posts as $post)
-                        <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="col-md-8 col-sm-12 col-xs-12">
                             <div class="blog-item">
+                                <div class="blog-item blog-item-wide">
                                 @if ($post->image)
                                 <div class="blog-image">
                                     <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="img-responsive"></a>
@@ -24,6 +25,7 @@
 {{--                                    <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>--}}
                                 </ul>
                             </div><!-- blog item -->
+                        </div>
                         </div>
                         @endforeach
                     </div>
