@@ -1,4 +1,3 @@
-
 <footer>
     <div class="footer-top" >
         <div class="container">
@@ -26,6 +25,5 @@
 <a class="page-scroll scroll-top" href="#scroll-top"><i class="fa fa-angle-up" aria-hidden="true"></i></a>
 {{--<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>--}}
         {!! Theme::footer() !!}
-
     </body>
 </html>
