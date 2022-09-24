@@ -82,7 +82,7 @@ app()->booted(function () {
             }
         }
 
-        return Theme::partial('shortcodes.section-anonymons.blade', compact('categories'));
+        return Theme::partial('shortcodes.section-anonymons', compact('categories'));
     });
 
 
