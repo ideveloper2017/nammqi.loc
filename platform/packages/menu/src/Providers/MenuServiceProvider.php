@@ -102,9 +102,16 @@ class MenuServiceProvider extends ServiceProvider
 
     public function registerMenuOptions()
     {
-//        if (Auth::user()->hasPermission('menus.index')) {
-            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
+//        if (Auth::user()->hasPermission('brands.index')) {
+//            Menu::registerMenuOptions(Brand::class, trans('plugins/ecommerce::brands.menu'));
 //        }
+//
+//        if (Auth::user()->hasPermission('product-categories.index')) {
+//            Menu::registerMenuOptions(ProductCategory::class, trans('plugins/ecommerce::product-categories.menu'));
+//        }
+        if (Auth::user()->hasPermission('posts.index')) {
+            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
+        }
 
         return true;
     }
