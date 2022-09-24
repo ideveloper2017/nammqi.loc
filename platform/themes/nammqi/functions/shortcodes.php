@@ -49,7 +49,7 @@ app()->booted(function () {
         return Theme::partial('shortcodes.section-counter');
     });
 
-    add_shortcode('elonlar', __('E`lonlar'), __('E`lonlar'), function ($shortCode) {
+    add_shortcode('elonlar', __('Faculties'), __('Faculties'), function ($shortCode) {
         $attributes = $shortCode->toArray();
         $categories = collect([]);
         for ($i = 1; $i <= 1; $i++) {
@@ -76,9 +76,9 @@ app()->booted(function () {
         return Theme::partial('shortcodes.section-anonymons', compact('title','categories'));
     });
 
-    shortcode()->setAdminConfig('elonlar', function ($attributes) {
+    shortcode()->setAdminConfig('elonlar', function () {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.blog-categories-posts-admin-config', compact('attributes','categories'));
+        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
     });
 
     add_shortcode('faculties', __('Faculties'), __('Faculties'), function ($shortCode) {
