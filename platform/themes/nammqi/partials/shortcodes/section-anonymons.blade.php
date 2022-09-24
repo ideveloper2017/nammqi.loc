@@ -4,7 +4,6 @@
             <h3>{!! clean($title) !!}</h3>
         </div>
         <div class="row">
-            <?php dd($categories)?>
             <div class="event-items">
             @foreach($categories as $category)
                 @foreach($category->posts as $post)
