@@ -102,9 +102,9 @@ class MenuServiceProvider extends ServiceProvider
 
     public function registerMenuOptions()
     {
-        if (Auth::user()->hasPermission('menus.index')) {
+//        if (Auth::user()->hasPermission('menus.index')) {
             Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
-        }
+//        }
 
         return true;
     }
