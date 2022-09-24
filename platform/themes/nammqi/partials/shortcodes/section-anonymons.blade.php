@@ -19,11 +19,11 @@
                         <div class="event-content">
                             <h4>{{ $post->name }}</h4>
                             <ul>
-                                <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>08:00 am - 10:00 am</li>
-                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>
+                                <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>
+{{--                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>--}}
                             </ul>
-                            <p>Dratcaly novate fuly rarched an plication awesome theme education that plication creative theme education.</p>
-                            <a href="event.html" class="button-default">Join Now</a>
+{{--                            <p>Dratcaly novate fuly rarched an plication awesome theme education that plication creative theme education.</p>--}}
+{{--                            <a href="event.html" class="button-default">Join Now</a>--}}
                         </div>
                     </div>
                 </div>
