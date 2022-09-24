@@ -76,7 +76,7 @@ app()->booted(function () {
                     },
                 ],
             ]);
-            dd($category);
+
             if ($category) {
                 $categories[] = $category;
             }
