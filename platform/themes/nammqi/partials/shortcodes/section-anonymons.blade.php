@@ -5,8 +5,9 @@
         </div>
         <div class="event-items">
             <div class="row">
-                @foreach($categories->posts->take(12) as $post)
-                        <div class="col-md-4 col-sm-6 col-xs-12">
+                @foreach($categories as $category)
+                    @foreach($category->posts as $post)
+                <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="event-item">
                         <div class="event-image">
                             <img src="{!! Theme::asset()->url('images/adsphoto.jpeg') !!}" alt="event image" class="img-responsive">
@@ -26,6 +27,7 @@
                         </div>
                     </div>
                 </div>
+                    @endforeach
                 @endforeach
             </div><!-- row -->
         </div><!-- event items -->
