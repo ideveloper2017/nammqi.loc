@@ -14,6 +14,19 @@ app()->booted(function () {
     ThemeSupport::registerYoutubeShortcode();
 
 
+    if (is_plugin_active('testimonial')) {
+        add_shortcode('testimonial', __('Testimonial'), __('Testimonial'), function ($shortCode) {
+            $testimonials = app(TestimonialInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
+
+            return Theme::partial('short-codes.testimonial', [
+                'title'        => $shortCode->title,
+                'description'  => $shortCode->description,
+                'testimonials' => $testimonials,
+            ]);
+        });
+        shortcode()->setAdminConfig('testimonial', Theme::partial('short-codes.testimonial-admin-config'));
+    }
+
 
         add_shortcode('section-intro',"SectionIntro","SectionIntro",function ($shortcode){
 //            $counters = app(CounterupInterface::class)->getModel()
