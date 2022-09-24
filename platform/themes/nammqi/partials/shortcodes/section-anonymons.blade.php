@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="event-content">
-                            <h4>{{ $post->content }}</h4>
+                            <h4>{!!  $post->content !!}</h4>
 {{--                            <ul>--}}
 {{--                                <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>--}}
 {{--                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>--}}
