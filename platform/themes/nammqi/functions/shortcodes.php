@@ -82,7 +82,8 @@ app()->booted(function () {
             }
         }
 
-        return Theme::partial('shortcodes.section-anonymons', ['title'=>$shortCode->title,'category'=>$category]);
+        $title=$shortCode->title;
+        return Theme::partial('shortcodes.section-anonymons', compact('title','categories'));
     });
 
 
