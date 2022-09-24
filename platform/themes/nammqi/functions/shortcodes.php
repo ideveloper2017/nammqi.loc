@@ -49,7 +49,7 @@ app()->booted(function () {
         return Theme::partial('shortcodes.section-counter');
     });
 
-    add_shortcode('elonlar', __('Faculties'), __('Faculties'), function ($shortCode) {
+    add_shortcode('elonlar', __('Elonlar'), __('Elonlar'), function ($shortCode) {
         $attributes = $shortCode->toArray();
         $categories = collect([]);
         for ($i = 1; $i <= 1; $i++) {
