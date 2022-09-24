@@ -17,11 +17,11 @@
                                 </div>
                             </div>
                             <div class="event-content">
-                                <h4>{{ str_pad($post->name,20,"...",STR_PAD_RIGHT) }}</h4>
+                                <h4>{{ str_pad($post->name) }}</h4>
                                 <ul>
                                     <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>
                                 </ul>
-                                <p>Dratcaly novate fuly rarched an plication awesome theme education that plication creative theme education.</p>
+                                <p>{{ mb_substr($post->description,0,125) }}</p>
                             </div>
                         </div>
                     </div>
