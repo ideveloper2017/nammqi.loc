@@ -19,13 +19,13 @@ app()->booted(function () {
         add_shortcode('testimonial', __('Testimonial'), __('Testimonial'), function ($shortCode) {
             $testimonials = app(TestimonialInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
 
-            return Theme::partial('short-codes.testimonial', [
+            return Theme::partial('shortcodes.testimonial', [
                 'title'        => $shortCode->title,
                 'description'  => $shortCode->description,
                 'testimonials' => $testimonials,
             ]);
         });
-        shortcode()->setAdminConfig('testimonial', Theme::partial('short-codes.testimonial-admin-config'));
+        shortcode()->setAdminConfig('testimonial', Theme::partial('shortcodes.testimonial-admin-config'));
     }
 
 
