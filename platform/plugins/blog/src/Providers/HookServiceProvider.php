@@ -167,6 +167,10 @@ class HookServiceProvider extends ServiceProvider
      */
     public function registerMenuOptions()
     {
+        if (Auth::user()->hasPermission('posts.index')) {
+            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
+        }
+
         if (Auth::user()->hasPermission('categories.index')) {
             Menu::registerMenuOptions(Category::class, trans('plugins/blog::categories.menu'));
         }
@@ -175,9 +179,7 @@ class HookServiceProvider extends ServiceProvider
             Menu::registerMenuOptions(Tag::class, trans('plugins/blog::tags.menu'));
         }
 
-        if (Auth::user()->hasPermission('posts.index')) {
-            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
-        }
+
 
 
 
