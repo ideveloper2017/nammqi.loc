@@ -13,7 +13,7 @@
                             <img src="{!! Theme::asset()->url('images/adsphoto.jpeg') !!}" alt="event image" class="img-responsive">
                             <div class="date">
                                 <span>{{ $post->created_at->translatedFormat('d') }}</span>
-                                <p>{{ $post->created_at->translatedFormat('M y') }}</p>
+                                <p>{{ $post->created_at->translatedFormat('M') }}</p>
                             </div>
                         </div>
                         <div class="event-content">
