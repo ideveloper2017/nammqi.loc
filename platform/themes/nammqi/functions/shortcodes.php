@@ -6,6 +6,7 @@ use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Counterup\Repositories\Interfaces\CounterupInterface;
 use Botble\Faq\Repositories\Interfaces\FaqCategoryInterface;
 use Botble\PostCollection\Repositories\Interfaces\PostCollectionInterface;
+use Botble\Testimonial\Repositories\Interfaces\TestimonialInterface;
 use Botble\Theme\Supports\ThemeSupport;
 
 
@@ -13,6 +14,19 @@ app()->booted(function () {
     ThemeSupport::registerGoogleMapsShortcode();
     ThemeSupport::registerYoutubeShortcode();
 
+
+    if (is_plugin_active('testimonial')) {
+        add_shortcode('testimonial', __('Testimonial'), __('Testimonial'), function ($shortCode) {
+            $testimonials = app(TestimonialInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
+
+            return Theme::partial('short-codes.testimonial', [
+                'title'        => $shortCode->title,
+                'description'  => $shortCode->description,
+                'testimonials' => $testimonials,
+            ]);
+        });
+        shortcode()->setAdminConfig('testimonial', Theme::partial('short-codes.testimonial-admin-config'));
+    }
 
 
 
