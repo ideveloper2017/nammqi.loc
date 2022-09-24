@@ -56,7 +56,7 @@ app()->booted(function () {
     add_shortcode('elonlar', __('E`lonlar'), __('E`lonlar'), function ($shortCode) {
 
         $attributes = $shortCode->toArray();
-        dd($attributes);
+
         $categories = collect([]);
 
         for ($i = 1; $i <= 1; $i++) {
@@ -76,7 +76,7 @@ app()->booted(function () {
                     },
                 ],
             ]);
-
+            dd($category);
             if ($category) {
                 $categories[] = $category;
             }
