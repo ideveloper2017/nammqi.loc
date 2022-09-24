@@ -94,25 +94,8 @@ class MenuServiceProvider extends ServiceProvider
         $this->app->register(EventServiceProvider::class);
         $this->app->register(CommandServiceProvider::class);
 
-        if (defined('MENU_ACTION_SIDEBAR_OPTIONS')) {
-            Menu::addMenuOptionModel(Post::class);
-            add_action(MENU_ACTION_SIDEBAR_OPTIONS, [$this, 'registerMenuOptions'], 12);
-        }
+
     }
 
-    public function registerMenuOptions()
-    {
-//        if (Auth::user()->hasPermission('brands.index')) {
-//            Menu::registerMenuOptions(Brand::class, trans('plugins/ecommerce::brands.menu'));
-//        }
-//
-//        if (Auth::user()->hasPermission('product-categories.index')) {
-//            Menu::registerMenuOptions(ProductCategory::class, trans('plugins/ecommerce::product-categories.menu'));
-//        }
-        if (Auth::user()->hasPermission('posts.index')) {
-            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
-        }
 
-        return true;
-    }
 }

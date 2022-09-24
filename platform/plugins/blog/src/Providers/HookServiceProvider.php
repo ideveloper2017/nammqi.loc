@@ -30,6 +30,7 @@ class HookServiceProvider extends ServiceProvider
     public function boot()
     {
         if (defined('MENU_ACTION_SIDEBAR_OPTIONS')) {
+            Menu::addMenuOptionModel(Post::class);
             Menu::addMenuOptionModel(Category::class);
             Menu::addMenuOptionModel(Tag::class);
             add_action(MENU_ACTION_SIDEBAR_OPTIONS, [$this, 'registerMenuOptions'], 2);
@@ -173,6 +174,13 @@ class HookServiceProvider extends ServiceProvider
         if (Auth::user()->hasPermission('tags.index')) {
             Menu::registerMenuOptions(Tag::class, trans('plugins/blog::tags.menu'));
         }
+
+        if (Auth::user()->hasPermission('posts.index')) {
+            Menu::registerMenuOptions(Post::class, trans('plugins/blog::posts.menu_name'));
+        }
+
+
+
     }
 
     /**
