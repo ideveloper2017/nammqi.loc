@@ -22,7 +22,7 @@
 {{--                                <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>--}}
 {{--                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>--}}
 {{--                            </ul>--}}
-                            <p>{!! $post->content !!}</p>
+{{--                            <p>{!! $post->content !!}</p>--}}
 {{--                            <a href="event.html" class="button-default">Join Now</a>--}}
                         </div>
                     </div>
