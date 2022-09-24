@@ -1,7 +1,7 @@
 <section class="event section-bg padding-120">
     <div class="container">
         <div class="section-header">
-            <h3>Our Upcoming Events</h3>
+            <h3>{!! clean($title) !!}</h3>
         </div>
         <div class="event-items">
             <div class="row">
