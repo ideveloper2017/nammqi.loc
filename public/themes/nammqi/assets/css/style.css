@@ -924,7 +924,7 @@ header .menu_cart .check_out:hover{
 .header-two .main-menu ul li ul li a{
     background-color: #6c5ebf;
     color: #fff;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     padding: 10px 15px;
 }
 .header-two .main-menu ul li ul li a:hover, .header-two .main-menu ul li ul li a:focus, .header-two .main-menu ul li ul li.active a{
