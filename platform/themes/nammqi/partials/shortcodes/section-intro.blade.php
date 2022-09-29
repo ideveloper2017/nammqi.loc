@@ -24,19 +24,20 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
+                    <a href="http://video.nammqi.uz"><span class="icon"><i class="flaticon-tutorial"></i></span></a>
+                    <h5><a href="http://video.nammqi.uz" target="_blank">Video darslar</a></h5>
+                    {{--                    <p>Telegram tarmog`i</p>--}}
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="facility-item">
                     <a href="http://mtt.nammqi.uz/" target="_blank"><span class="icon"><i class="flaticon-student"></i></span></a>
                     <h5><a href="http://mtt.nammqi.uz/" target="_blank">Moodle</a></h5>
 {{--                    <p>Masofaviy ta`lim tizmi</p>--}}
                 </div>
             </div>
 
-            <div class="col-md-3 col-sm-6 col-xs-12">
-                <div class="facility-item">
-                    <a href="http://video.nammqi.uz"><span class="icon"><i class="flaticon-tutorial"></i></span></a>
-                    <h5><a href="http://video.nammqi.uz" target="_blank">Video darslar</a></h5>
-                    {{--                    <p>Telegram tarmog`i</p>--}}
-                </div>
-            </div>
+
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="http://dtm.uz" target="_blank"><span class="icon"><i class="flaticon-world"></i></span></a>
