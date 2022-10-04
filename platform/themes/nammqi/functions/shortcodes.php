@@ -105,7 +105,7 @@ app()->booted(function () {
                 $categories[] = $category;
             }
         }
-        return Theme::partial('shortcodes.faculties', compact('categories'));
+        return Theme::partial('shortcodes.faculties', ['categories'=>$categories, 'title'=> $shortCode->title]);
     });
     shortcode()->setAdminConfig('faculties', function () {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
