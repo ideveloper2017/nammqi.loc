@@ -1,41 +1,28 @@
 <section class="blog blog-two padding-120">
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="blog-items">
                     @foreach($categories as $category)
                         @foreach($category->posts as $post)
                     <div class="blog-item blog-item-wide">
                         <div class="blog-image">
-                            <a href="{{ $post->url }}"><img src="images/blog/blog_16.jpg" alt="blog image" class="img-responsive"></a>
+                            <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                         </div>
                         <div class="blog-content">
-                            <h4><a href="single.html">Quckly formulate high standard models thare for vertical </a></h4>
-                            <ul>
-                                <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">24 April 2017</a></li>
-                            </ul>
-                            <p>Aolaboravely enable virad nich and market Compelngly evsculat funcnal and share for Aolaboraved enable virad nich and market through forand goaloriented</p>
-                            <a href="single.html">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                            <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                         @endforeach
                     @endforeach
                 </div>
                 <div class="blog-button">
-                    <ul class="pagination">
-                        <li><a href="#"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
-                        <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
-                    </ul>
+                    {!! $posts->withQueryString()->links() !!}
                 </div>
 
             </div>
-            <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="col-md-4 col-sm-12 col-xs-12" style="display: none">
                 <div class="sidebar">
                     <div class="sidebar-item">
                         <h3 class="sidebar-title">Search Coures</h3>

@@ -107,11 +107,41 @@ app()->booted(function () {
         }
         return Theme::partial('shortcodes.faculties', compact('categories'));
     });
-
     shortcode()->setAdminConfig('faculties', function () {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
         return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
     });
+
+    add_shortcode('kafedra', __('Kafedra'), __('Kafedra'), function ($shortCode) {
+        $attributes = $shortCode->toArray();
+        $categories = collect([]);
+        for ($i = 1; $i <= 1; $i++) {
+            if (!Arr::has($attributes, 'category_id_' . $i)) {
+                continue;
+            }
+            $category = app(CategoryInterface::class)->advancedGet([
+                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
+                'take' => 1,
+                'with'      => [
+                    'slugable',
+                    'posts' => function ($query) {
+                        return $query
+                            ->latest()
+                            ->with(['slugable']);
+                    },
+                ],
+            ]);
+            if ($category) {
+                $categories[] = $category;
+            }
+        }
+        return Theme::partial('shortcodes.kafedra', compact('categories'));
+    });
+    shortcode()->setAdminConfig('kafedra', function () {
+        $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
+        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+    });
+
 
     if (is_plugin_active('counterup')){
         add_shortcode('counterup',"CounterUp","CounterUp",function ($shortcode){
