@@ -107,9 +107,9 @@ app()->booted(function () {
         }
         return Theme::partial('shortcodes.faculties', ['categories'=>$categories, 'title'=> $shortCode->title]);
     });
-    shortcode()->setAdminConfig('faculties', function () {
+    shortcode()->setAdminConfig('faculties', function ($attributes) {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+        return Theme::partial('shortcodes.faculties-admin-config', compact('attributes','categories'));
     });
 
     add_shortcode('kafedra', __('Kafedra'), __('Kafedra'), function ($shortCode) {
