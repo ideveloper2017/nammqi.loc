@@ -7,7 +7,7 @@
             <div class="row">
                 @foreach($categories as $category)
                     @foreach($category->posts as $post)
-                <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="col-md-5 col-sm-6 col-xs-12">
                     <div class="event-item">
                         <div class="event-image">
                             <img src="{!! Theme::asset()->url('images/adsphoto.jpeg') !!}" alt="event image" class="img-responsive">
