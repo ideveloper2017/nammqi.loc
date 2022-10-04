@@ -73,13 +73,12 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             @if (is_plugin_active('blog'))
-                                <div class="super-search" data-search-url="{{ route('public.ajax.search') }}">
+
                                     <form class="quick-search" action="{{ route('public.search') }}">
                                         <input type="text" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
-                                        <span class="close-search">&times;</span>
+                                        <button><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </form>
-                                    <div class="search-result"></div>
-                                </div>
+
                             @endif
 {{--                            <form>--}}
 {{--                                <input type="search" name="search" placeholder="Search...">--}}
