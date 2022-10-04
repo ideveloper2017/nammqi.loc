@@ -15,11 +15,10 @@
                         <div class="blog-content">
                             <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
                             <ul>
-{{--                                <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>--}}
-                                <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#">{{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
+{{--                            <li><i class="fa fa-user" aria-hidden="true"></i> <a href="#">Robot Smith</a></li>--}}
+                                <li><i class="fa fa-calendar" aria-hidden="true"></i> <a href="#"> {{ $post->created_at->translatedFormat('M d, Y') }}</a></li>
                             </ul>
                             <p>{{ $post->description }}</p>
-                            <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
