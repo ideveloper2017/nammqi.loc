@@ -9,7 +9,7 @@
                 <div class="testimonial-image">
                     <a href="{{ $post->url }}">
                         <img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" class="img-responsive"/>
-                        <h5><strong>{{ mb_substr($post->name,0,250) }}</strong></h5>
+                        <h5><strong>{{ substr($post->name,0,250) }}</strong></h5>
                     </a>
                 </div>
                 </div>
