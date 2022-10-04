@@ -3,7 +3,7 @@
         <div class="row">
             @foreach($categories as $category)
                 @foreach($category->posts as $post)
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="service-item">
                     <div class="testimonial-image">
                     <a href="{{ $post->url }}">
