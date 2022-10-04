@@ -75,7 +75,7 @@
                             @if (is_plugin_active('blog'))
 
                                     <form class="quick-search" action="{{ route('public.search') }}">
-                                        <input type="text" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
+                                        <input type="search" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
                                         <button><i class="fa fa-search" aria-hidden="true"></i></button>
                                     </form>
 
