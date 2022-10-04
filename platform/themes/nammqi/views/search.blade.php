@@ -9,7 +9,7 @@
                 <div class="blog-items">
                     <div class="blog-item blog-item-wide">
                         <div class="blog-image">
-                            <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
+                            <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive" style="width: 370px;height:300px;"></a>
                         </div>
                         <div class="blog-content">
                             <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
