@@ -2,7 +2,7 @@
 <section class="blog blog-two padding-120">
     <div class="container">
     <div class="row">
-        <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
 @if ($posts->count() > 0)
     @foreach ($posts as $post)
 
