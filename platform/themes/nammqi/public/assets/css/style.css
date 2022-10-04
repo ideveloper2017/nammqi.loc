@@ -3211,6 +3211,7 @@ header .menu_cart .check_out:hover{
     margin-bottom: 30px;
     -webkit-transition: .25s ease-out;
     transition: .25s ease-out;
+    height: 500px;
 }
 .event .event-item:hover{
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
