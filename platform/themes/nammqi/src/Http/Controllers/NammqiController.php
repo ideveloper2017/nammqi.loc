@@ -53,6 +53,29 @@ class NammqiController extends PublicController
         return parent::getSiteMap();
     }
 
+    public function getSearch(Request $request, PostInterface $postRepository, BaseHttpResponse $response)
+    {
+        $query = $request->input('q');
+
+        if (!empty($query)) {
+            $posts = $postRepository->getSearch($query);
+
+            $data = [
+                'items' => Theme::partial('search', compact('posts')),
+                'query' => $query,
+                'count' => $posts->count(),
+            ];
+
+            if ($data['count'] > 0) {
+                return $response->setData(apply_filters(BASE_FILTER_SET_DATA_SEARCH, $data, 10, 1));
+            }
+        }
+
+        return $response
+            ->setError()
+            ->setMessage(__('No results found, please try with different keywords.'));
+    }
+
     public function getAuthor($slug, MemberInterface $authorRepository)
     {
         $slug = SlugHelper::getSlug($slug, SlugHelper::getPrefix(Member::class), Member::class);

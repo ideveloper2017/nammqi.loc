@@ -9,7 +9,7 @@ Route::group(['namespace' => 'Theme\Nammqi\Http\Controllers', 'middleware' => ['
 
         Route::get('ajax/get-panel-inner', 'NammqiController@ajaxGetPanelInner')
             ->name('theme.ajax-get-panel-inner');
-
+        Route::get('ajax/search', 'NammqiController@getSearch')->name('public.ajax.search');
     });
 });
 
