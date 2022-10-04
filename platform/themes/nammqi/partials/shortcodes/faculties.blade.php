@@ -1,4 +1,4 @@
-<section class="services about about-three padding-120">
+<section class="services section-bg padding-120">
     <div class="container">
         <div class="row">
             @foreach($categories as $category)
