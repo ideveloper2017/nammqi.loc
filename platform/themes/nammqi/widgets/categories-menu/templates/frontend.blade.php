@@ -6,7 +6,7 @@
         <ul>
             @foreach(get_popular_categories(5) as $category)
                 <li class="cat-item">
-                    <a href="{{ $category->url }}">{{ $category->name }}</a>
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i> <a href="{{ $category->url }}">{{ $category->name }}</a>
                     ({{ $category->posts_count }})
                 </li>
             @endforeach
