@@ -73,13 +73,11 @@
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
                             @if (is_plugin_active('blog'))
-
-                                    <form class="quick-search" action="{{ route('public.search') }}">
+                            <form action="{{ route('public.search') }}">
                                         <input type="search" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
                                         <button><i class="fa fa-search" aria-hidden="true"></i></button>
-                                    </form>
-
-                            @endif
+                            </form>
+                          @endif
 {{--                            <form>--}}
 {{--                                <input type="search" name="search" placeholder="Search...">--}}
 {{--                                <button><i class="fa fa-search" aria-hidden="true"></i></button>--}}
