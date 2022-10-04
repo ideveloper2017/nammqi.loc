@@ -11,7 +11,7 @@
                         </div>
                         <div class="blog-content">
                             <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
-                            <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+{{--                            <a href="{{ $post->url }}">Read More <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>--}}
                         </div>
                     </div>
                         @endforeach
