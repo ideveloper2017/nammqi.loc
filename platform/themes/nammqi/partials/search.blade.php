@@ -1,3 +1,4 @@
+<section class="blog">
 <p class="search-result-title">{{ __('Search result') }}: </p>
 @if (count($posts) > 0)
     <div class="search-list">
@@ -16,3 +17,4 @@
 @else
     <p>{{ __('No result available for :name', ['name' => 'posts']) }}</p>
 @endif
+</section>
