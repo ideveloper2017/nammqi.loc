@@ -17,9 +17,7 @@
                         @endforeach
                     @endforeach
                 </div>
-                <div class="blog-button">
-                    {!! $posts->withQueryString()->links() !!}
-                </div>
+
 
             </div>
             <div class="col-md-4 col-sm-12 col-xs-12" style="display: none">
