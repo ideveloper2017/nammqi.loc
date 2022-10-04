@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="event-content">
-                            <h5><a href="{{ $post->url }}">{{  $post->name }}</a></h5>
+                            <h4><a href="{{ $post->url }}">{{  $post->name }}</a></h4>
                             <ul>
                                 <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span>{{ $post->created_at->translatedFormat('M d, Y') }}</li>
 {{--                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>--}}
