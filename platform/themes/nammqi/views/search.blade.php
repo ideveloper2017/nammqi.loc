@@ -1,5 +1,5 @@
 @php Theme::set('section-name', __('Search result for: ') . ' "' . Request::input('q') . '"') @endphp
-
+<section class="blog padding-120">
 @if ($posts->count() > 0)
     @foreach ($posts as $post)
         <article class="post post__horizontal mb-40 clearfix">
@@ -34,3 +34,4 @@
         <p>{{ __('There is no data to display!') }}</p>
     </div>
 @endif
+</section>
