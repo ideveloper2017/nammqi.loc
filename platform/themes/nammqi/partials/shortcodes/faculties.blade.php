@@ -1,6 +1,6 @@
 <section class="services section-bg padding-120">
     <div class="container">
-        <div class="section-header"></div>
+        <div class="section-header"><h3>{!! clean($title) !!}</h3></div>
         <div class="row">
             @foreach($categories as $category)
                 @foreach($category->posts as $post)
