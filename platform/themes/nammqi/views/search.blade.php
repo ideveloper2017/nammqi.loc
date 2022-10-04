@@ -2,10 +2,11 @@
 <section class="blog blog-two padding-120">
     <div class="container">
     <div class="row">
+        <div class="col-md-8 col-sm-12 col-xs-12">
 @if ($posts->count() > 0)
     @foreach ($posts as $post)
-        <article class="post post__horizontal mb-40 clearfix">
-            <div class="col-md-8 col-sm-12 col-xs-12">
+
+
                 <div class="blog-items">
                     <div class="blog-item blog-item-wide">
                         <div class="blog-image">
@@ -34,7 +35,7 @@
                     </ul>
                 </div>
 
-            </div>
+
 {{--            <div class="post__thumbnail">--}}
 {{--                <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"><a href="{{ $post->url }}" class="post__overlay"></a>--}}
 {{--            </div>--}}
@@ -66,6 +67,7 @@
         <p>{{ __('There is no data to display!') }}</p>
     </div>
 @endif
+        </div>
     </div>
     </div>
 </section>
