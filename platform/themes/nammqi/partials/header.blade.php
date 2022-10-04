@@ -72,10 +72,19 @@
                             </a>
                         </div>
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <form>
-                                <input type="search" name="search" placeholder="Search...">
-                                <button><i class="fa fa-search" aria-hidden="true"></i></button>
-                            </form>
+                            @if (is_plugin_active('blog'))
+                                <div class="super-search hide" data-search-url="{{ route('public.ajax.search') }}">
+                                    <form class="quick-search" action="{{ route('public.search') }}">
+                                        <input type="text" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
+                                        <span class="close-search">&times;</span>
+                                    </form>
+                                    <div class="search-result"></div>
+                                </div>
+                            @endif
+{{--                            <form>--}}
+{{--                                <input type="search" name="search" placeholder="Search...">--}}
+{{--                                <button><i class="fa fa-search" aria-hidden="true"></i></button>--}}
+{{--                            </form>--}}
                         </div>
                     </div>
                 </div><!-- container -->
