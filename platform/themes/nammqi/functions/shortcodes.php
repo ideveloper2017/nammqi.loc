@@ -139,7 +139,7 @@ app()->booted(function () {
     });
     shortcode()->setAdminConfig('kafedra', function () {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+        return Theme::partial('shortcodes.kafedra-admin-config', compact('categories'));
     });
 
 
