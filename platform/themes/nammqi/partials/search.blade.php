@@ -1,7 +1,7 @@
-<section class="blog">
+<section class="blog padding-120">
 <p class="search-result-title">{{ __('Search result') }}: </p>
 @if (count($posts) > 0)
-    <div class="search-list">
+    <div class="container">
         <div class="row">
             @foreach ($posts as $post)
                 <div class="col-md-4 col-sm-6 col-12">
