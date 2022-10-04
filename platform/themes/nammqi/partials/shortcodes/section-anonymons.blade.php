@@ -23,7 +23,7 @@
 {{--                                <li><span><i class="fa fa-home" aria-hidden="true"></i></span>218 New Elephant Road Dhaka</li>--}}
                             </ul>
 {{--                            <p>{!! $post->content !!}</p>--}}
-                            <a href="{{ $post->url }}">{{ __('readMore') }}</a>
+                            <a href="{{ $post->url }}" class="button-default">{{ __('readMore') }}</a>
                         </div>
                     </div>
                 </div>
