@@ -1,9 +1,4 @@
-    /*
-    Flaticon icon font: Flaticon
-    Creation date: 03/05/2017 10:32
-    */
-
-    @font-face {
+@font-face {
   font-family: "Flaticon";
   src: url("./Flaticon.eot");
   src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
@@ -21,7 +16,7 @@
   }
 }
 
-    .fi:before{
+  .fi:before{
         display: inline-block;
   font-family: "Flaticon";
   font-style: normal;
@@ -36,7 +31,7 @@
   font-smoothing: antialiased;
     }
 
-    .flaticon-html5:before { content: "\f100"; }
+.flaticon-html5:before { content: "\f100"; }
 .flaticon-quote-sign:before { content: "\f101"; }
 .flaticon-left-quote:before { content: "\f102"; }
 .flaticon-cup:before { content: "\f103"; }
@@ -86,7 +81,7 @@
 .flaticon-symbols:before { content: "\f12f"; }
 .flaticon-line-chart:before { content: "\f130"; }
 .flaticon-world:before { content: "\f131"; }
-    
+
     $font-Flaticon-html5: "\f100";
     $font-Flaticon-quote-sign: "\f101";
     $font-Flaticon-left-quote: "\f102";
