@@ -48,8 +48,8 @@
 
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
-                    <a href="http://my.gov.uz" target="_blank"><span class="icon"><i class="flaticon-line-chart"></i></span></a>
-                    <h5><a href="http://my.gov.uz" target="_blank">my.gov.uz</a></h5>
+                    <a href="https://nammqi.uz/kontrakteduuz-yorinqnoma" target="_blank"><span class="icon"><i class="flaticon-line-chart"></i></span></a>
+                    <h5><a href="https://nammqi.uz/kontrakteduuz-yorinqnoma" target="_blank">Kontrakt.edu.uz</a></h5>
 {{--                    <p>Yagona interaktiv davlat xizmatlari</p>--}}
                 </div>
             </div>
