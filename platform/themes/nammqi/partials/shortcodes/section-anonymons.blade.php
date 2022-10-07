@@ -11,9 +11,10 @@
                     <div class="event-item">
                         <div class="event-image">
                             @if ($post->image)
-                            <img src="{!! Theme::asset()->url('images/adsphoto.jpeg') !!}" alt="event image" class="img-responsive">
-                            @else
                                 <img src="{{ RvMedia::getImageUrl($post->image, 'small', false, RvMedia::getDefaultImage()) }}" alt="event image" class="img-responsive">
+
+                            @else
+                                <img src="{!! Theme::asset()->url('images/adsphoto.jpeg') !!}" alt="event image" class="img-responsive">
                              @endif
                             <div class="date">
                                 <span>{{ $post->created_at->translatedFormat('d') }}</span>
