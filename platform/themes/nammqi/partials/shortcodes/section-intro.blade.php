@@ -54,8 +54,6 @@
                 </div>
             </div>
 
-
-
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="https://t.me/NamMQI_rectori" target="_blank"><span class="icon"><i class="flaticon-chat"></i></span></a>
