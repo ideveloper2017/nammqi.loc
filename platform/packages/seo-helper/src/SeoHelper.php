@@ -263,8 +263,10 @@ class SeoHelper implements SeoHelperContract
         }
 
         config([
-            'packages.seo-helper.general.supported' => array_merge(config('packages.seo-helper.general.supported', []),
-                $model),
+            'packages.seo-helper.general.supported' => array_merge(
+                config('packages.seo-helper.general.supported', []),
+                $model
+            ),
         ]);
 
         return $this;

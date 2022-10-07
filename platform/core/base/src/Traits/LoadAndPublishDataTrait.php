@@ -130,7 +130,7 @@ trait LoadAndPublishDataTrait
      * @param string $file
      * @return string
      */
-    protected function getRouteFilePath($file): string
+    protected function getRouteFilePath(string $file): string
     {
         $file = $this->getBasePath() . $this->getDashedNamespace() . '/routes/' . $file . '.php';
 
@@ -171,8 +171,10 @@ trait LoadAndPublishDataTrait
     public function loadAndPublishTranslations(): self
     {
         $this->loadTranslationsFrom($this->getTranslationsPath(), $this->getDashedNamespace());
-        $this->publishes([$this->getTranslationsPath() => resource_path('lang/vendor/' . $this->getDashedNamespace())],
-            'cms-lang');
+        $this->publishes(
+            [$this->getTranslationsPath() => lang_path('vendor/' . $this->getDashedNamespace())],
+            'cms-lang'
+        );
 
         return $this;
     }

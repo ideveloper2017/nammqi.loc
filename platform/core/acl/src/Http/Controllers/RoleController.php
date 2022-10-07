@@ -15,9 +15,9 @@ use Botble\ACL\Repositories\Interfaces\UserInterface;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Supports\Helper;
 use Exception;
-use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use Throwable;
 
 class RoleController extends BaseController
@@ -45,7 +45,7 @@ class RoleController extends BaseController
 
     /**
      * @param RoleTable $dataTable
-     * @return Factory|View
+     * @return JsonResponse|View
      * @throws Throwable
      */
     public function index(RoleTable $dataTable)
@@ -129,7 +129,7 @@ class RoleController extends BaseController
         $role = $this->roleRepository->findOrFail($id);
 
         $role->name = $request->input('name');
-        $role->permissions = $this->cleanPermission($request->input('flags'));
+        $role->permissions = $this->cleanPermission((array)$request->input('flags', []));
         $role->description = $request->input('description');
         $role->updated_by = $request->user()->getKey();
         $role->is_default = $request->input('is_default');
@@ -146,11 +146,11 @@ class RoleController extends BaseController
     }
 
     /**
-     * Return a correctly type casted permissions array
+     * Return a correct type cast permissions array
      * @param array $permissions
      * @return array
      */
-    protected function cleanPermission($permissions)
+    protected function cleanPermission(array $permissions): array
     {
         if (!$permissions) {
             return [];
@@ -189,7 +189,7 @@ class RoleController extends BaseController
         $role = $this->roleRepository->createOrUpdate([
             'name'        => $request->input('name'),
             'slug'        => $this->roleRepository->createSlug($request->input('name'), 0),
-            'permissions' => $this->cleanPermission($request->input('flags')),
+            'permissions' => $this->cleanPermission((array)$request->input('flags', [])),
             'description' => $request->input('description'),
             'is_default'  => $request->input('is_default'),
             'created_by'  => $request->user()->getKey(),
@@ -245,6 +245,7 @@ class RoleController extends BaseController
     /**
      * @param Request $request
      * @param BaseHttpResponse $response
+     * @return BaseHttpResponse
      */
     public function postAssignMember(Request $request, BaseHttpResponse $response)
     {

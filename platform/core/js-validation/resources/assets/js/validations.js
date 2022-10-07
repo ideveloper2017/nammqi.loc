@@ -1,3 +1,14 @@
+/*!
+ * Laravel Javascript Validation
+ *
+ * https://github.com/proengsoft/laravel-jsvalidation
+ *
+ * Methods that implement Laravel Validations
+ *
+ * Copyright (c) 2017 Proengsoft
+ * Released under the MIT license
+ */
+
 $.extend(true, laravelValidation, {
 
     methods:{
@@ -335,7 +346,7 @@ $.extend(true, laravelValidation, {
                 return true;
             }
 
-            return $.isArray(value);
+            return laravelValidation.helpers.isArray(value);
         },
 
         /**
@@ -417,7 +428,9 @@ $.extend(true, laravelValidation, {
          * @return {boolean}
          */
         Min: function(value, element, params) {
-            return laravelValidation.helpers.getSize(this, element,value) >= parseFloat(params[0]);
+            value = laravelValidation.helpers.allElementValues(this, element);
+
+            return laravelValidation.helpers.getSize(this, element, value) >= parseFloat(params[0]);
         },
 
         /**
@@ -426,7 +439,9 @@ $.extend(true, laravelValidation, {
          * @return {boolean}
          */
         Max: function(value, element, params) {
-            return laravelValidation.helpers.getSize(this, element,value) <= parseFloat(params[0]);
+            value = laravelValidation.helpers.allElementValues(this, element);
+
+            return laravelValidation.helpers.getSize(this, element, value) <= parseFloat(params[0]);
         },
 
         /**
@@ -435,10 +450,14 @@ $.extend(true, laravelValidation, {
          * @return {boolean}
          */
         In: function(value, element, params) {
-            if ($.isArray(value) && laravelValidation.helpers.hasRules(element, "Array")) {
+            if (laravelValidation.helpers.isArray(value)
+                && laravelValidation.helpers.hasRules(element, "Array")
+            ) {
                 var diff = laravelValidation.helpers.arrayDiff(value, params);
+
                 return Object.keys(diff).length === 0;
             }
+
             return params.indexOf(value.toString()) !== -1;
         },
 
@@ -669,19 +688,16 @@ $.extend(true, laravelValidation, {
          * @return {boolean}
          */
         Before: function(value, element, params) {
+            return laravelValidation.helpers.compareDates(this, value, element, params[0], '<');
+        },
 
-            var timeCompare=parseFloat(params);
-            if (isNaN(timeCompare)) {
-                var target=laravelValidation.helpers.dependentElement(this, element, params);
-                if (target===undefined) {
-                    return false;
-                }
-                timeCompare= laravelValidation.helpers.parseTime(this.elementValue(target), target);
-            }
-
-            var timeValue=laravelValidation.helpers.parseTime(value, element);
-            return  (timeValue !==false && timeValue < timeCompare);
-
+        /**
+         * Validate the date is equal or before a given date.
+         *
+         * @return {boolean}
+         */
+        BeforeOrEqual: function(value, element, params) {
+            return laravelValidation.helpers.compareDates(this, value, element, params[0], '<=');
         },
 
         /**
@@ -690,18 +706,16 @@ $.extend(true, laravelValidation, {
          * @return {boolean}
          */
         After: function(value, element, params) {
-            var timeCompare=parseFloat(params);
-            if (isNaN(timeCompare)) {
-                var target=laravelValidation.helpers.dependentElement(this, element, params);
-                if (target===undefined) {
-                    return false;
-                }
-                timeCompare= laravelValidation.helpers.parseTime(this.elementValue(target), target);
-            }
+            return laravelValidation.helpers.compareDates(this, value, element, params[0], '>');
+        },
 
-            var timeValue=laravelValidation.helpers.parseTime(value, element);
-            return  (timeValue !==false && timeValue > timeCompare);
-
+        /**
+         * Validate the date is equal or after a given date.
+         *
+         * @return {boolean}
+         */
+        AfterOrEqual: function(value, element, params) {
+            return laravelValidation.helpers.compareDates(this, value, element, params[0], '>=');
         },
 
 
@@ -727,6 +741,16 @@ $.extend(true, laravelValidation, {
                 result = false;
             }
             return result;
-        }
+        },
+
+        /**
+         * Noop (always returns true).
+         *
+         * @param value
+         * @returns {boolean}
+         */
+        ProengsoftNoop: function (value) {
+            return true;
+        },
     }
 });

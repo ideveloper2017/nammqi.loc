@@ -18,10 +18,10 @@ class Breadcrumb
      * Add breadcrumb to array.
      *
      * @param mixed $label
-     * @param string $url
+     * @param string|null $url
      * @return Breadcrumb
      */
-    public function add(string $label, ?string $url = ''): self
+    public function add($label, ?string $url = ''): self
     {
         if (is_array($label)) {
             if (count($label) > 0) {
@@ -39,6 +39,7 @@ class Breadcrumb
             if (!preg_match('|^http(s)?|', $url)) {
                 $url = URL::to($url);
             }
+
             $this->crumbs[] = ['label' => $label, 'url' => $url];
         }
 

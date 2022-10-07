@@ -35,4 +35,9 @@ return [
         'flag'        => 'theme.custom-js',
         'parent_flag' => 'core.appearance',
     ],
+    [
+        'name'        => 'Custom HTML',
+        'flag'        => 'theme.custom-html',
+        'parent_flag' => 'core.appearance',
+    ],
 ];

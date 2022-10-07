@@ -4,6 +4,7 @@ namespace Botble\ACL\Providers;
 
 use Botble\ACL\Repositories\Interfaces\UserInterface;
 use Botble\Dashboard\Supports\DashboardWidgetInstance;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
 use Throwable;
@@ -20,12 +21,13 @@ class HookServiceProvider extends ServiceProvider
      * @param Collection $widgetSettings
      * @return array
      * @throws Throwable
+     * @throws BindingResolutionException
      */
-    public function addUserStatsWidget($widgets, $widgetSettings)
+    public function addUserStatsWidget(array $widgets, Collection $widgetSettings): array
     {
         $users = $this->app->make(UserInterface::class)->count();
 
-        return (new DashboardWidgetInstance)
+        return (new DashboardWidgetInstance())
             ->setType('stats')
             ->setPermission('users.index')
             ->setTitle(trans('core/acl::users.users'))

@@ -11,7 +11,6 @@ use Botble\SeoHelper\Contracts\SeoMetaContract;
 
 class SeoMeta implements SeoMetaContract
 {
-
     /**
      * The Title instance.
      *
@@ -58,11 +57,11 @@ class SeoMeta implements SeoMetaContract
      */
     public function __construct()
     {
-        $this->title(new Entities\Title);
-        $this->description(new Entities\Description);
-        $this->misc(new Entities\MiscTags);
-        $this->webmasters(new Entities\Webmasters);
-        $this->analytics(new Entities\Analytics);
+        $this->title(new Entities\Title());
+        $this->description(new Entities\Description());
+        $this->misc(new Entities\MiscTags());
+        $this->webmasters(new Entities\Webmasters());
+        $this->analytics(new Entities\Analytics());
     }
 
     /**

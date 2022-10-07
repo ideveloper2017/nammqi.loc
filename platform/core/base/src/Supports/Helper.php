@@ -34,7 +34,7 @@ class Helper
      * @param string $sessionName
      * @return bool
      */
-    public static function handleViewCount(Eloquent $object, $sessionName): bool
+    public static function handleViewCount(Eloquent $object, string $sessionName): bool
     {
         if (!array_key_exists($object->id, session()->get($sessionName, []))) {
             try {
@@ -58,7 +58,7 @@ class Helper
      * @param string $class
      * @return array
      */
-    public static function formatLog($input, $line = '', $function = '', $class = ''): array
+    public static function formatLog(array $input, string $line = '', string $function = '', string $class = ''): array
     {
         return array_merge($input, [
             'user_id'   => Auth::check() ? Auth::id() : 'System',
@@ -75,13 +75,13 @@ class Helper
      * @param string $type
      * @return boolean
      */
-    public static function removeModuleFiles(string $module, $type = 'packages'): bool
+    public static function removeModuleFiles(string $module, string $type = 'packages'): bool
     {
         $folders = [
             public_path('vendor/core/' . $type . '/' . $module),
             resource_path('assets/' . $type . '/' . $module),
             resource_path('views/vendor/' . $type . '/' . $module),
-            resource_path('lang/vendor/' . $type . '/' . $module),
+            lang_path('vendor/' . $type . '/' . $module),
             config_path($type . '/' . $module),
         ];
 
@@ -108,6 +108,7 @@ class Helper
             if (config('app.debug') && config('core.base.general.can_execute_command')) {
                 throw new Exception(trans('core/base::base.proc_close_disabled_error'));
             }
+
             return false;
         }
 
@@ -166,7 +167,7 @@ class Helper
             return false;
         }
 
-        $coreApi = new Core;
+        $coreApi = new Core();
 
         $result = $coreApi->verifyLicense(true);
 
@@ -178,7 +179,7 @@ class Helper
     }
 
     /**
-     * @param string $countryCode
+     * @param string|null $countryCode
      * @return string
      */
     public static function getCountryNameByCode(?string $countryCode): ?string
@@ -191,7 +192,7 @@ class Helper
     }
 
     /**
-     * @param string $countryName
+     * @param string|null $countryName
      * @return string
      */
     public static function getCountryCodeByName(?string $countryName): ?string
@@ -225,7 +226,7 @@ class Helper
     public static function getIpFromThirdParty()
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'http://ipecho.net/plain');
+        curl_setopt($curl, CURLOPT_URL, 'https://ipecho.net/plain');
         curl_setopt($curl, CURLOPT_HEADER, 0);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
@@ -273,8 +274,8 @@ class Helper
     }
 
     /**
-     * @param int $value
-     * @return int
+     * @param int|float $value
+     * @return int|float
      */
     public static function convertHrToBytes($value)
     {

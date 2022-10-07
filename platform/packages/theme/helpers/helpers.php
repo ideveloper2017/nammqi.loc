@@ -2,14 +2,16 @@
 
 use Botble\Theme\Facades\AdminBarFacade;
 use Botble\Theme\Facades\ThemeOptionFacade;
+use Botble\Theme\Supports\AdminBar as AdminBarBase;
+use Illuminate\Contracts\Foundation\Application;
 
 if (!function_exists('sanitize_html_class')) {
     /**
      * @param string $class
-     * @param string $fallback
+     * @param string|callable $fallback
      * @return string
      */
-    function sanitize_html_class($class, $fallback = '')
+    function sanitize_html_class(string $class, $fallback = ''): string
     {
         //Strip out any % encoded octets
         $sanitized = preg_replace('|%[a-fA-F0-9][a-fA-F0-9]|', '', $class);
@@ -36,7 +38,7 @@ if (!function_exists('sanitize_html_class')) {
 if (!function_exists('parse_args')) {
     /**
      * @param array|object $args
-     * @param string $defaults
+     * @param string|array $defaults
      * @return array
      */
     function parse_args($args, $defaults = '')
@@ -59,11 +61,11 @@ if (!function_exists('theme')) {
     /**
      * Get the theme instance.
      *
-     * @param string $themeName
-     * @param string $layoutName
-     * @return \Illuminate\Contracts\Foundation\Application|mixed
+     * @param string|null $themeName
+     * @param string|null $layoutName
+     * @return Application|mixed
      */
-    function theme($themeName = null, $layoutName = null)
+    function theme(?string $themeName = null, ?string $layoutName = null)
     {
         $theme = app('theme');
 
@@ -99,9 +101,10 @@ if (!function_exists('theme_option')) {
 
 if (!function_exists('theme_path')) {
     /**
+     * @param string|null $path
      * @return string
      */
-    function theme_path($path = null)
+    function theme_path(?string $path = null): string
     {
         return platform_path('themes' . DIRECTORY_SEPARATOR . $path);
     }
@@ -109,9 +112,9 @@ if (!function_exists('theme_path')) {
 
 if (!function_exists('admin_bar')) {
     /**
-     * @return Botble\Theme\Supports\AdminBar
+     * @return AdminBarBase
      */
-    function admin_bar()
+    function admin_bar(): AdminBarBase
     {
         return AdminBarFacade::getFacadeRoot();
     }

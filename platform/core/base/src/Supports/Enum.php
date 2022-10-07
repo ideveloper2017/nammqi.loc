@@ -66,7 +66,7 @@ abstract class Enum implements JsonSerializable
      * @param string|int $value
      * @return bool
      */
-    public static function isValid($value)
+    public static function isValid($value): bool
     {
         return in_array($value, static::toArray(), true);
     }
@@ -81,10 +81,10 @@ abstract class Enum implements JsonSerializable
         if (!isset(static::$cache[$class])) {
             try {
                 $reflection = new ReflectionClass($class);
+                static::$cache[$class] = $reflection->getConstants();
             } catch (ReflectionException $error) {
                 info($error->getMessage());
             }
-            static::$cache[$class] = $reflection->getConstants();
         }
 
         $result = static::$cache[$class];
@@ -101,7 +101,7 @@ abstract class Enum implements JsonSerializable
      *
      * @return array
      */
-    public static function keys()
+    public static function keys(): array
     {
         return array_keys(static::toArray());
     }
@@ -111,7 +111,7 @@ abstract class Enum implements JsonSerializable
      *
      * @return static[] Constant name in key, Enum instance in value
      */
-    public static function values()
+    public static function values(): array
     {
         $values = [];
 
@@ -131,7 +131,7 @@ abstract class Enum implements JsonSerializable
      * @return static
      * @throws BadMethodCallException
      */
-    public static function __callStatic($name, $arguments)
+    public static function __callStatic(string $name, array $arguments)
     {
         $array = static::toArray();
         if (isset($array[$name]) || array_key_exists($name, $array)) {
@@ -156,7 +156,7 @@ abstract class Enum implements JsonSerializable
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
     public static function getLabel(?string $value): ?string
@@ -175,7 +175,7 @@ abstract class Enum implements JsonSerializable
     /**
      * Returns the enum key (i.e. the constant name).
      *
-     * @return mixed
+     * @return false|int|string
      */
     public function getKey()
     {
@@ -187,7 +187,7 @@ abstract class Enum implements JsonSerializable
      *
      * @param string|int $value
      *
-     * @return mixed
+     * @return false|int|string
      */
     public static function search($value)
     {

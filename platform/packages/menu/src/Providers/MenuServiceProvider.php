@@ -3,7 +3,6 @@
 namespace Botble\Menu\Providers;
 
 use Botble\Base\Traits\LoadAndPublishDataTrait;
-use Botble\Blog\Models\Post;
 use Botble\Menu\Models\Menu as MenuModel;
 use Botble\Menu\Models\MenuLocation;
 use Botble\Menu\Models\MenuNode;
@@ -19,8 +18,8 @@ use Botble\Menu\Repositories\Interfaces\MenuNodeInterface;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Menu;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -34,22 +33,21 @@ class MenuServiceProvider extends ServiceProvider
 
     public function boot()
     {
-
         $this->app->bind(MenuInterface::class, function () {
             return new MenuCacheDecorator(
-                new MenuRepository(new MenuModel)
+                new MenuRepository(new MenuModel())
             );
         });
 
         $this->app->bind(MenuNodeInterface::class, function () {
             return new MenuNodeCacheDecorator(
-                new MenuNodeRepository(new MenuNode)
+                new MenuNodeRepository(new MenuNode())
             );
         });
 
         $this->app->bind(MenuLocationInterface::class, function () {
             return new MenuLocationCacheDecorator(
-                new MenuLocationRepository(new MenuLocation)
+                new MenuLocationRepository(new MenuLocation())
             );
         });
 
@@ -86,16 +84,16 @@ class MenuServiceProvider extends ServiceProvider
                     ]);
             }
 
-            if (function_exists('admin_bar') && Auth::check() && Auth::user()->hasPermission('menus.index')) {
-                admin_bar()->registerLink(trans('packages/menu::menu.name'), route('menus.index'), 'appearance');
+            if (function_exists('admin_bar')) {
+                View::composer('*', function () {
+                    if (Auth::check() && Auth::user()->hasPermission('menus.index')) {
+                        admin_bar()->registerLink(trans('packages/menu::menu.name'), route('menus.index'), 'appearance');
+                    }
+                });
             }
         });
 
         $this->app->register(EventServiceProvider::class);
         $this->app->register(CommandServiceProvider::class);
-
-
     }
-
-
 }

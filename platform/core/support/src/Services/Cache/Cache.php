@@ -2,10 +2,10 @@
 
 namespace Botble\Support\Services\Cache;
 
+use BaseHelper;
 use File;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Cache\Repository;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Arr;
 use Psr\SimpleCache\InvalidArgumentException;
 
@@ -29,15 +29,15 @@ class Cache implements CacheInterface
     /**
      * Cache constructor.
      * @param Repository|CacheManager $cache
-     * @param null|string $cacheGroup
+     * @param string|null $cacheGroup
      * @param array $config
      */
-    public function __construct(CacheManager $cache, $cacheGroup, $config = [])
+    public function __construct(CacheManager $cache, ?string $cacheGroup, array $config = [])
     {
         $this->cache = $cache;
         $this->cacheGroup = $cacheGroup;
         $this->config = !empty($config) ? $config : [
-            'cache_time'  => 3600,
+            'cache_time'  => setting('cache_time', 10),
             'stored_keys' => storage_path('cache_keys.json'),
         ];
     }
@@ -61,7 +61,7 @@ class Cache implements CacheInterface
      * @param string $key
      * @return string
      */
-    public function generateCacheKey($key)
+    public function generateCacheKey(string $key): string
     {
         return md5($this->cacheGroup) . $key;
     }
@@ -71,21 +71,20 @@ class Cache implements CacheInterface
      *
      * @param string $key Cache item key
      * @param mixed $value The data to store
-     * @param boolean $seconds The number of minutes to store the item
+     * @param boolean $minutes The number of minutes to store the item
      * @return bool
-     * @throws FileNotFoundException
      */
-    public function put($key, $value, $seconds = false)
+    public function put($key, $value, $minutes = false): bool
     {
-        if (!$seconds) {
-            $seconds = $this->config['cache_time'];
+        if (!$minutes) {
+            $minutes = $this->config['cache_time'];
         }
 
         $key = $this->generateCacheKey($key);
 
         $this->storeCacheKey($key);
 
-        $this->cache->put($key, $value, $seconds);
+        $this->cache->put($key, $value, $minutes);
 
         return true;
     }
@@ -95,12 +94,11 @@ class Cache implements CacheInterface
      *
      * @param string $key
      * @return bool
-     * @throws FileNotFoundException
      */
-    public function storeCacheKey($key)
+    public function storeCacheKey(string $key): bool
     {
         if (file_exists($this->config['stored_keys'])) {
-            $cacheKeys = get_file_data($this->config['stored_keys']);
+            $cacheKeys = BaseHelper::getFileData($this->config['stored_keys']);
             if (!empty($cacheKeys) && !in_array($key, Arr::get($cacheKeys, $this->cacheGroup, []))) {
                 $cacheKeys[$this->cacheGroup][] = $key;
             }
@@ -109,7 +107,7 @@ class Cache implements CacheInterface
             $cacheKeys[$this->cacheGroup][] = $key;
         }
 
-        save_file_data($this->config['stored_keys'], $cacheKeys);
+        BaseHelper::saveFileData($this->config['stored_keys'], $cacheKeys);
 
         return true;
     }
@@ -123,7 +121,7 @@ class Cache implements CacheInterface
      *
      * @throws InvalidArgumentException
      */
-    public function has($key)
+    public function has($key): bool
     {
         if (!file_exists($this->config['stored_keys'])) {
             return false;
@@ -138,13 +136,12 @@ class Cache implements CacheInterface
      * Clear cache of an object
      *
      * @return bool
-     * @throws FileNotFoundException
      */
     public function flush()
     {
         $cacheKeys = [];
         if (file_exists($this->config['stored_keys'])) {
-            $cacheKeys = get_file_data($this->config['stored_keys']);
+            $cacheKeys = BaseHelper::getFileData($this->config['stored_keys']);
         }
 
         if (!empty($cacheKeys)) {
@@ -158,7 +155,7 @@ class Cache implements CacheInterface
         }
 
         if (!empty($cacheKeys)) {
-            save_file_data($this->config['stored_keys'], $cacheKeys);
+            BaseHelper::saveFileData($this->config['stored_keys'], $cacheKeys);
         } else {
             File::delete($this->config['stored_keys']);
         }

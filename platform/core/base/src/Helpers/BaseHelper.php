@@ -4,6 +4,7 @@ namespace Botble\Base\Helpers;
 
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
@@ -12,10 +13,10 @@ class BaseHelper
 {
     /**
      * @param Carbon $timestamp
-     * @param string $format
+     * @param string|null $format
      * @return string
      */
-    public function formatTime(Carbon $timestamp, ?string $format = 'j M Y H:i')
+    public function formatTime(Carbon $timestamp, ?string $format = 'j M Y H:i'): string
     {
         $first = Carbon::create(0000, 0, 0, 00, 00, 00);
 
@@ -27,11 +28,11 @@ class BaseHelper
     }
 
     /**
-     * @param string $date
-     * @param string $format
+     * @param string|null $date
+     * @param string|null $format
      * @return string
      */
-    public function formatDate(?string $date, ?string $format = null)
+    public function formatDate(?string $date, ?string $format = null): ?string
     {
         if (empty($format)) {
             $format = config('core.base.general.date_format.date');
@@ -41,15 +42,15 @@ class BaseHelper
             return $date;
         }
 
-        return format_time(Carbon::parse($date), $format);
+        return $this->formatTime(Carbon::parse($date), $format);
     }
 
     /**
-     * @param string $date
-     * @param string $format
+     * @param string|null $date
+     * @param string|null $format
      * @return string
      */
-    public function formatDateTime(?string $date, string $format = null)
+    public function formatDateTime(?string $date, string $format = null): ?string
     {
         if (empty($format)) {
             $format = config('core.base.general.date_format.date_time');
@@ -59,7 +60,7 @@ class BaseHelper
             return $date;
         }
 
-        return format_time(Carbon::parse($date), $format);
+        return $this->formatTime(Carbon::parse($date), $format);
     }
 
     /**
@@ -67,7 +68,7 @@ class BaseHelper
      * @param int $precision
      * @return string
      */
-    public function humanFilesize(int $bytes, int $precision = 2)
+    public function humanFilesize(int $bytes, int $precision = 2): string
     {
         $units = ['B', 'kB', 'MB', 'GB', 'TB'];
 
@@ -84,8 +85,9 @@ class BaseHelper
      * @param string $file
      * @param bool $convertToArray
      * @return array|bool|mixed|null
+     * @throws FileNotFoundException
      */
-    public function getFileData($file, $convertToArray = true)
+    public function getFileData(string $file, bool $convertToArray = true)
     {
         $file = File::get($file);
         if (!empty($file)) {
@@ -107,9 +109,9 @@ class BaseHelper
      * @param string $path
      * @param string|array $data
      * @param bool $json
-     * @return bool|mixed
+     * @return bool
      */
-    public function saveFileData($path, $data, $json = true)
+    public function saveFileData(string $path, $data, bool $json = true): bool
     {
         try {
             if ($json) {
@@ -130,12 +132,12 @@ class BaseHelper
     }
 
     /**
-     * @param array $data
+     * @param array|string $data
      * @return string
      */
-    public function jsonEncodePrettify($data)
+    public function jsonEncodePrettify($data): string
     {
-        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -143,7 +145,7 @@ class BaseHelper
      * @param array $ignoreFiles
      * @return array
      */
-    public function scanFolder($path, array $ignoreFiles = [])
+    public function scanFolder(string $path, array $ignoreFiles = []): array
     {
         try {
             if (File::isDirectory($path)) {
@@ -177,7 +179,7 @@ class BaseHelper
     /**
      * @return string
      */
-    public function siteLanguageDirection()
+    public function siteLanguageDirection(): string
     {
         return apply_filters(BASE_FILTER_SITE_LANGUAGE_DIRECTION, setting('locale_direction', 'ltr'));
     }
@@ -185,7 +187,7 @@ class BaseHelper
     /**
      * @return string
      */
-    public function adminLanguageDirection()
+    public function adminLanguageDirection(): string
     {
         $direction = session('admin_locale_direction', setting('admin_locale_direction', 'ltr'));
 
@@ -193,10 +195,10 @@ class BaseHelper
     }
 
     /**
-     * @param int $pageId
+     * @param int|null $pageId
      * @return bool
      */
-    public function isHomepage($pageId = null)
+    public function isHomepage(?int $pageId = null): bool
     {
         $homepageId = $this->getHomepageId();
 
@@ -204,19 +206,19 @@ class BaseHelper
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getHomepageId()
+    public function getHomepageId(): ?string
     {
         return theme_option('homepage_id', setting('show_on_front'));
     }
 
     /**
-     * @param Builder $query
+     * @param Builder|\Illuminate\Database\Eloquent\Builder $query
      * @param string $table
      * @return bool
      */
-    public function isJoined($query, $table): bool
+    public function isJoined($query, string $table): bool
     {
         $joins = $query->getQuery()->joins;
 
@@ -242,11 +244,11 @@ class BaseHelper
     }
 
     /**
-     * @param string $url
+     * @param string|null $url
      * @param string|array $key
-     * @return false|mixed|string
+     * @return false|string
      */
-    public function removeQueryStringVars($url, $key)
+    public function removeQueryStringVars(?string $url, $key)
     {
         if (!is_array($key)) {
             $key = [$key];
@@ -261,14 +263,14 @@ class BaseHelper
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
-    public function cleanEditorContent($value): string
+    public function cleanEditorContent(?string $value): string
     {
         $value = str_replace('<span class="style-scope yt-formatted-string" dir="auto">', '', $value);
 
-        return htmlentities(clean($value));
+        return htmlentities($this->clean($value));
     }
 
     /**
@@ -280,19 +282,18 @@ class BaseHelper
     }
 
     /**
-     * @param Collection $collection
+     * @param Collection|array $collection
      * @param string $searchTerms
      * @param string $column
      * @return Collection
      */
-    public function sortSearchResults($collection, $searchTerms, string $column)
+    public function sortSearchResults($collection, string $searchTerms, string $column): Collection
     {
         if (!$collection instanceof Collection) {
             $collection = collect($collection);
         }
 
         return $collection->sortByDesc(function ($item) use ($searchTerms, $column) {
-
             $searchTerms = explode(' ', $searchTerms);
 
             // The bigger the weight, the higher the record
@@ -330,5 +331,48 @@ class BaseHelper
         $formats[] = 'M d, Y';
 
         return $formats;
+    }
+
+    /**
+     * @param string|null|array $dirty
+     * @param array|string|null $config
+     * @return mixed
+     */
+    public function clean($dirty, $config = null)
+    {
+        if (config('core.base.general.enable_less_secure_web', false)) {
+            return $dirty;
+        }
+
+        return clean($dirty, $config);
+    }
+
+    /**
+     * @param string $color
+     * @param float $opacity
+     * @return string
+     */
+    public function hexToRgba(string $color, float $opacity = 1): string
+    {
+        $rgb = implode(',', $this->hexToRgb($color));
+
+        if ($opacity == 1) {
+            return 'rgb(' . $rgb . ')';
+        }
+
+        return 'rgba(' . $rgb . ', ' . $opacity . ')';
+    }
+
+    /**
+     * @param string $color
+     * @return array
+     */
+    public function hexToRgb(string $color): array
+    {
+        [$red, $green, $blue] = sscanf($color, '#%02x%02x%02x');
+
+        $blue = $blue === null ? 0 : $blue;
+
+        return compact('red', 'green', 'blue');
     }
 }

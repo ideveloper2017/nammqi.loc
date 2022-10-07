@@ -9,7 +9,6 @@ use Illuminate\Support\Str;
 
 class Title implements TitleContract
 {
-
     /**
      * The title content.
      *

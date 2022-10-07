@@ -6,7 +6,9 @@ use Assets;
 use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Media\Services\ThumbnailService;
 use File;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Botble\ACL\Forms\PasswordForm;
@@ -30,13 +32,12 @@ use Botble\Media\Repositories\Interfaces\MediaFileInterface;
 use Botble\ACL\Http\Requests\AvatarRequest;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\Contracts\View\View;
 use RvMedia;
 use Throwable;
 
 class UserController extends BaseController
 {
-
     /**
      * @var UserInterface
      */
@@ -70,7 +71,7 @@ class UserController extends BaseController
 
     /**
      * @param UserTable $dataTable
-     * @return Factory|View
+     * @return JsonResponse|View
      *
      * @throws Throwable
      */
@@ -188,7 +189,7 @@ class UserController extends BaseController
      * @param int $id
      * @param Request $request
      * @param FormBuilder $formBuilder
-     * @return Factory|View| RedirectResponse
+     * @return Factory|Application|View
      */
     public function getUserProfile($id, Request $request, FormBuilder $formBuilder)
     {
@@ -282,6 +283,7 @@ class UserController extends BaseController
      * @param ChangePasswordService $service
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
+     * @throws \Illuminate\Auth\AuthenticationException
      */
     public function postChangePassword(
         $id,
@@ -315,7 +317,7 @@ class UserController extends BaseController
 
             $result = RvMedia::handleUpload($request->file('avatar_file'), 0, 'users');
 
-            if ($result['error'] != false) {
+            if ($result['error']) {
                 return $response->setError()->setMessage($result['message']);
             }
 
@@ -422,11 +424,13 @@ class UserController extends BaseController
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @param BaseHttpResponse $response
+     * @return BaseHttpResponse
      */
     public function toggleSidebarMenu(Request $request, BaseHttpResponse $response)
     {
         $status = $request->input('status') == 'true';
+
         session()->put('sidebar-menu-toggle', $status ? now() : '');
 
         return $response->setMessage($status);

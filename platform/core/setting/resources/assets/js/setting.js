@@ -100,6 +100,60 @@ class SettingManagement {
             });
         });
 
+        $('.generate-thumbnails-trigger-button').on('click', event => {
+            event.preventDefault();
+            let _self = $(event.currentTarget);
+            let defaultText = _self.text();
+
+            _self.text(_self.data('saving'));
+
+            $.ajax({
+                type: 'POST',
+                url: route('settings.media.post'),
+                data: _self.closest('form').serialize(),
+                success: res => {
+                    if (!res.error) {
+                        $('#generate-thumbnails-modal').modal('show');
+                    } else {
+                        Botble.showError(res.message);
+                    }
+
+                    _self.text(defaultText);
+                },
+                error: res => {
+                    Botble.handleError(res);
+                    _self.text(defaultText);
+                }
+            });
+        });
+
+        $('#generate-thumbnails-button').on('click', event => {
+            event.preventDefault();
+            let _self = $(event.currentTarget);
+
+            _self.addClass('button-loading');
+
+            $.ajax({
+                type: 'POST',
+                url: route('settings.media.generate-thumbnails'),
+                success: res => {
+                    if (!res.error) {
+                        Botble.showSuccess(res.message);
+                    } else {
+                        Botble.showError(res.message);
+                    }
+                    _self.removeClass('button-loading');
+                    _self.closest('.modal').modal('hide');
+                },
+                error: res => {
+                    Botble.handleError(res);
+                    _self.removeClass('button-loading');
+                    _self.closest('.modal').modal('hide');
+                }
+            });
+        });
+
+
         if (typeof CodeMirror !== 'undefined') {
             Botble.initCodeEditor('mail-template-editor');
         }
@@ -122,7 +176,8 @@ class SettingManagement {
                 url: _self.data('target'),
                 data: {
                     email_subject_key: $('input[name=email_subject_key]').val(),
-                    template_path: $('input[name=template_path]').val(),
+                    module: $('input[name=module]').val(),
+                    template_file: $('input[name=template_file]').val(),
                 },
                 success: res => {
                     if (!res.error) {
@@ -139,6 +194,30 @@ class SettingManagement {
                 error: res => {
                     Botble.handleError(res);
                     _self.removeClass('button-loading');
+                }
+            });
+        });
+
+        $(document).on('change', '.check-all', event => {
+            let _self = $(event.currentTarget);
+            let set = _self.attr('data-set');
+            let checked = _self.prop('checked');
+            $(set).each((index, el) => {
+                if (checked) {
+                    $(el).prop('checked', true);
+                } else {
+                    $(el).prop('checked', false);
+                }
+            });
+        });
+
+        $('input.setting-selection-option').each(function (index, el) {
+            const $settingContentContainer = $($(el).data('target'));
+            $(el).on('change', function() {
+                if ($(el).val() == '1') {
+                    $settingContentContainer.removeClass('d-none');
+                } else {
+                    $settingContentContainer.addClass('d-none');
                 }
             });
         });

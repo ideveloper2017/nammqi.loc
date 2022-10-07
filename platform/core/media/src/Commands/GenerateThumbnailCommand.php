@@ -46,7 +46,7 @@ class GenerateThumbnailCommand extends Command
     {
         $this->info('Starting to generate thumbnails...');
 
-        $files = $this->fileRepository->allBy([], [], ['url', 'mime_type']);
+        $files = $this->fileRepository->allBy([], [], ['url', 'mime_type', 'folder_id']);
 
         $this->info('Processing ' . $files->count() . ' ' . Str::plural('file', $files->count()) . '...');
 

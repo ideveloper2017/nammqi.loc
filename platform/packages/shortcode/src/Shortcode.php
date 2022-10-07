@@ -28,13 +28,13 @@ class Shortcode
      * Register a new shortcode
      *
      * @param string $key
-     * @param string $name
-     * @param null $description
-     * @param callable|string $callback
+     * @param string|null $name
+     * @param string|null $description
+     * @param null $callback
      * @return Shortcode
      * @since 2.1
      */
-    public function register($key, $name, $description = null, $callback = null)
+    public function register(string $key, ?string $name, ?string $description = null, $callback = null): Shortcode
     {
         $this->compiler->add($key, $name, $description, $callback);
 
@@ -47,7 +47,7 @@ class Shortcode
      * @return Shortcode
      * @since 2.1
      */
-    public function enable()
+    public function enable(): Shortcode
     {
         $this->compiler->enable();
 
@@ -60,7 +60,7 @@ class Shortcode
      * @return Shortcode
      * @since 2.1
      */
-    public function disable()
+    public function disable(): Shortcode
     {
         $this->compiler->disable();
 
@@ -74,7 +74,7 @@ class Shortcode
      * @return string
      * @since 2.1
      */
-    public function compile($value)
+    public function compile(string $value): string
     {
         // Always enable when we call the compile method directly
         $this->enable();
@@ -88,11 +88,11 @@ class Shortcode
     }
 
     /**
-     * @param string $value
-     * @return string
+     * @param string|null $value
+     * @return string|null
      * @since 2.1
      */
-    public function strip($value)
+    public function strip(?string $value): ?string
     {
         return $this->compiler->strip($value);
     }
@@ -100,7 +100,7 @@ class Shortcode
     /**
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->compiler->getRegistered();
     }
@@ -119,7 +119,7 @@ class Shortcode
      * @param array $attributes
      * @return string
      */
-    public function generateShortcode($name, array $attributes = [])
+    public function generateShortcode(string $name, array $attributes = []): string
     {
         $parsedAttributes = '';
         foreach ($attributes as $key => $attribute) {
@@ -132,7 +132,7 @@ class Shortcode
     /**
      * @return ShortcodeCompiler
      */
-    public function getCompiler()
+    public function getCompiler(): ShortcodeCompiler
     {
         return $this->compiler;
     }

@@ -4,7 +4,6 @@ namespace Botble\Base\Providers;
 
 use App\Http\Middleware\VerifyCsrfToken;
 use Botble\Base\Exceptions\Handler;
-use Botble\Base\Facades\MacroableModelsFacade;
 use Botble\Base\Http\Middleware\CoreMiddleware;
 use Botble\Base\Http\Middleware\DisableInDemoModeMiddleware;
 use Botble\Base\Http\Middleware\HttpsProtocolMiddleware;
@@ -21,14 +20,13 @@ use Botble\Setting\Providers\SettingServiceProvider;
 use Botble\Setting\Supports\SettingStore;
 use Botble\Support\Http\Middleware\BaseMiddleware;
 use DateTimeZone;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Routing\ResourceRegistrar;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use MetaBox;
 use URL;
@@ -46,7 +44,6 @@ class BaseServiceProvider extends ServiceProvider
      * Register any application services.
      *
      * @return void
-     * @throws BindingResolutionException
      */
     public function register()
     {
@@ -65,10 +62,10 @@ class BaseServiceProvider extends ServiceProvider
         $this->app->singleton(BreadcrumbsManager::class, BreadcrumbsManager::class);
 
         $this->app->bind(MetaBoxInterface::class, function () {
-            return new MetaBoxCacheDecorator(new MetaBoxRepository(new MetaBoxModel));
+            return new MetaBoxCacheDecorator(new MetaBoxRepository(new MetaBoxModel()));
         });
 
-        $this->app->make('config')->set([
+        $this->app['config']->set([
             'session.cookie'                   => 'botble_session',
             'ziggy.except'                     => ['debugbar.*'],
             'app.debug_blacklist'              => [
@@ -100,7 +97,12 @@ class BaseServiceProvider extends ServiceProvider
             ],
             'datatables-buttons.pdf_generator' => 'excel',
             'excel.exports.csv.use_bom'        => true,
+            'dompdf.public_path'               => public_path(),
         ]);
+
+        $this->app->bind('path.lang', function () {
+            return base_path('lang');
+        });
     }
 
     public function boot()
@@ -113,27 +115,19 @@ class BaseServiceProvider extends ServiceProvider
             ->loadMigrations()
             ->publishAssets();
 
-        /**
-         * @var Router $router
-         */
-        $router = $this->app['router'];
+        Schema::defaultStringLength(191);
 
-        $router->pushMiddlewareToGroup('web', LocaleMiddleware::class);
-        $router->pushMiddlewareToGroup('web', HttpsProtocolMiddleware::class);
-        $router->aliasMiddleware('preventDemo', DisableInDemoModeMiddleware::class);
-        $router->middlewareGroup('core', [CoreMiddleware::class]);
-
-        $config = $this->app->make('config');
+        $config = $this->app['config'];
 
         if ($this->app->environment('demo') || $config->get('core.base.general.disable_verify_csrf_token', false)) {
-            $this->app->instance(VerifyCsrfToken::class, new BaseMiddleware);
+            $this->app->instance(VerifyCsrfToken::class, new BaseMiddleware());
         }
 
         $this->app->booted(function () use ($config) {
             do_action(BASE_ACTION_INIT);
             add_action(BASE_ACTION_META_BOXES, [MetaBox::class, 'doMetaBoxes'], 8, 2);
 
-            $setting = $this->app->make(SettingStore::class);
+            $setting = $this->app[SettingStore::class];
             $timezone = $setting->get('time_zone', $config->get('app.timezone'));
             $locale = $setting->get('locale', $config->get('core.base.general.locale', $config->get('app.locale')));
 
@@ -151,18 +145,26 @@ class BaseServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             $this->registerDefaultMenus();
-        });
 
-        AliasLoader::getInstance()->alias('MacroableModels', MacroableModelsFacade::class);
+            /**
+             * @var Router $router
+             */
+            $router = $this->app['router'];
+
+            $router->pushMiddlewareToGroup('web', LocaleMiddleware::class);
+            $router->pushMiddlewareToGroup('web', HttpsProtocolMiddleware::class);
+            $router->aliasMiddleware('preventDemo', DisableInDemoModeMiddleware::class);
+            $router->middlewareGroup('core', [CoreMiddleware::class]);
+        });
 
         Paginator::useBootstrap();
 
-        $forceUrl = $this->app->make('config')->get('core.base.general.force_root_url');
+        $forceUrl = $config->get('core.base.general.force_root_url');
         if (!empty($forceUrl)) {
             URL::forceRootUrl($forceUrl);
         }
 
-        $forceSchema = $this->app->make('config')->get('core.base.general.force_schema');
+        $forceSchema = $config->get('core.base.general.force_schema');
         if (!empty($forceSchema)) {
             $this->app['request']->server->set('HTTPS', 'on');
 
@@ -172,11 +174,12 @@ class BaseServiceProvider extends ServiceProvider
         $this->configureIni();
 
         $config->set([
-            'purifier.settings' => array_merge(
+            'purifier.settings'                           => array_merge(
                 $config->get('purifier.settings'),
                 $config->get('core.base.general.purifier')
             ),
             'laravel-form-builder.defaults.wrapper_class' => 'form-group mb-3',
+            'database.connections.mysql.strict'           => $config->get('core.base.general.db_strict_mode'),
         ]);
     }
 
@@ -228,15 +231,12 @@ class BaseServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * @throws BindingResolutionException
-     */
     protected function configureIni()
     {
         $currentLimit = ini_get('memory_limit');
         $currentLimitInt = Helper::convertHrToBytes($currentLimit);
 
-        $memoryLimit = $this->app->make('config')->get('core.base.general.memory_limit');
+        $memoryLimit = $this->app['config']->get('core.base.general.memory_limit');
 
         // Define memory limits.
         if (!$memoryLimit) {

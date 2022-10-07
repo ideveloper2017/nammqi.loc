@@ -8,7 +8,6 @@ use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 
 class PageRepository extends RepositoriesAbstract implements PageInterface
 {
-
     /**
      * {@inheritDoc}
      */

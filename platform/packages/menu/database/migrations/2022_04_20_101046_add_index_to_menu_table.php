@@ -14,7 +14,8 @@ class AddIndexToMenuTable extends Migration
     public function up()
     {
         Schema::table('menu_nodes', function (Blueprint $table) {
-            $table->index(['parent_id', 'reference_id', 'reference_type'], 'menu_nodes_index');
+            $table->index('reference_id', 'reference_id');
+            $table->index('reference_type', 'reference_type');
         });
 
         Schema::table('menu_locations', function (Blueprint $table) {
@@ -30,7 +31,8 @@ class AddIndexToMenuTable extends Migration
     public function down()
     {
         Schema::table('menu_nodes', function (Blueprint $table) {
-            $table->dropIndex('menu_nodes_index');
+            $table->dropIndex('reference_id');
+            $table->dropIndex('reference_type');
         });
 
         Schema::table('menu_locations', function (Blueprint $table) {

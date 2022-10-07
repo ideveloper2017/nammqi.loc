@@ -6,20 +6,24 @@ use Botble\ACL\Notifications\ResetPasswordNotification;
 use Botble\ACL\Traits\PermissionTrait;
 use Botble\Base\Supports\Avatar;
 use Botble\Media\Models\MediaFile;
+use Eloquent;
 use Exception;
-use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use RvMedia;
 
 /**
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
+    use HasFactory;
     use PermissionTrait;
     use Notifiable;
 
@@ -29,8 +33,6 @@ class User extends Authenticatable
     protected $table = 'users';
 
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -54,8 +56,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The date fields for the model.clear
-     *
      * @var array
      */
     protected $dates = [
@@ -102,7 +102,7 @@ class User extends Authenticatable
     /**
      * @return string
      */
-    public function getNameAttribute()
+    public function getNameAttribute(): string
     {
         return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
@@ -110,13 +110,13 @@ class User extends Authenticatable
     /**
      * @return BelongsTo
      */
-    public function avatar()
+    public function avatar(): BelongsTo
     {
         return $this->belongsTo(MediaFile::class)->withDefault();
     }
 
     /**
-     * @return UrlGenerator|string
+     * @return string
      */
     public function getAvatarUrlAttribute()
     {
@@ -125,7 +125,7 @@ class User extends Authenticatable
         }
 
         try {
-            return (new Avatar)->create($this->name)->toBase64();
+            return (new Avatar())->create($this->name)->toBase64();
         } catch (Exception $exception) {
             return RvMedia::getDefaultImage();
         }
@@ -135,7 +135,7 @@ class User extends Authenticatable
      * @param string $value
      * @return array
      */
-    public function getPermissionsAttribute($value)
+    public function getPermissionsAttribute($value): array
     {
         try {
             return json_decode($value, true) ?: [];
@@ -158,24 +158,26 @@ class User extends Authenticatable
     /**
      * @return BelongsToMany
      */
-    public function roles()
+    public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id')->withTimestamps();
+        return $this
+            ->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id')
+            ->withTimestamps();
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isSuperUser()
+    public function isSuperUser(): bool
     {
         return $this->super_user || $this->hasAccess(ACL_ROLE_SUPER_USER);
     }
 
     /**
      * @param string $permission
-     * @return boolean
+     * @return bool
      */
-    public function hasPermission($permission)
+    public function hasPermission(string $permission): bool
     {
         if ($this->isSuperUser()) {
             return true;
@@ -188,25 +190,13 @@ class User extends Authenticatable
      * @param array $permissions
      * @return bool
      */
-    public function hasAnyPermission(array $permissions)
+    public function hasAnyPermission(array $permissions): bool
     {
         if ($this->isSuperUser()) {
             return true;
         }
 
         return $this->hasAnyAccess($permissions);
-    }
-
-    /**
-     * @return array
-     */
-    public function authorAttributes()
-    {
-        return [
-            'name'   => $this->name,
-            'email'  => $this->email,
-            'avatar' => $this->avatar_url,
-        ];
     }
 
     /**
@@ -221,11 +211,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Returns the activations relationship.
-     *
      * @return HasMany
      */
-    public function activations()
+    public function activations(): HasMany
     {
         return $this->hasMany(Activation::class, 'user_id');
     }
@@ -233,7 +221,7 @@ class User extends Authenticatable
     /**
      * {@inheritDoc}
      */
-    public function inRole($role)
+    public function inRole($role): bool
     {
         $roleId = null;
         if ($role instanceof Role) {

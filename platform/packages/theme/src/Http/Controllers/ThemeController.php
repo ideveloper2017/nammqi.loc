@@ -3,28 +3,30 @@
 namespace Botble\Theme\Http\Controllers;
 
 use Assets;
+use BaseHelper;
 use Botble\Base\Forms\FormBuilder;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Theme\Forms\CustomCSSForm;
+use Botble\Theme\Forms\CustomHTMLForm;
 use Botble\Theme\Forms\CustomJSForm;
 use Botble\Theme\Http\Requests\CustomCssRequest;
+use Botble\Theme\Http\Requests\CustomHtmlRequest;
 use Botble\Theme\Http\Requests\CustomJsRequest;
 use Botble\Theme\Services\ThemeService;
 use Exception;
 use File;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\View\View;
 use Theme;
 use ThemeOption;
 
 class ThemeController extends BaseController
 {
     /**
-     * @return Factory|View
+     * @return Factory|Application|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -44,7 +46,7 @@ class ThemeController extends BaseController
     }
 
     /**
-     * @return Factory|View
+     * @return Application|Factory|\Illuminate\Contracts\View\View
      */
     public function getOptions()
     {
@@ -78,7 +80,7 @@ class ThemeController extends BaseController
                 $field = ThemeOption::getField($key);
 
                 if ($field && Arr::get($field, 'clean_tags', true)) {
-                    $value = clean(strip_tags($value));
+                    $value = BaseHelper::clean(strip_tags($value));
                 }
             }
 
@@ -95,7 +97,6 @@ class ThemeController extends BaseController
      * @param BaseHttpResponse $response
      * @param ThemeService $themeService
      * @return BaseHttpResponse
-     * @throws FileNotFoundException
      */
     public function postActivateTheme(Request $request, BaseHttpResponse $response, ThemeService $themeService)
     {
@@ -154,7 +155,7 @@ class ThemeController extends BaseController
         if (empty($css)) {
             File::delete($file);
         } else {
-            $saved = save_file_data($file, $css, false);
+            $saved = BaseHelper::saveFileData($file, $css, false);
 
             if (!$saved) {
                 return $response
@@ -233,7 +234,7 @@ class ThemeController extends BaseController
 
         $theme = strtolower($request->input('theme'));
 
-        if (in_array($theme, scan_folder(theme_path()))) {
+        if (in_array($theme, BaseHelper::scanFolder(theme_path()))) {
             try {
                 $result = $themeService->remove($theme);
 
@@ -252,5 +253,54 @@ class ThemeController extends BaseController
         return $response
             ->setError()
             ->setMessage(trans('packages/theme::theme.theme_is_not_existed'));
+    }
+
+    /**
+     * @param FormBuilder $formBuilder
+     * @return string
+     */
+    public function getCustomHtml(FormBuilder $formBuilder)
+    {
+        if (!config('packages.theme.general.enable_custom_html')) {
+            abort(404);
+        }
+
+        page_title()->setTitle(trans('packages/theme::theme.custom_html'));
+
+        Assets::addStylesDirectly([
+            'vendor/core/core/base/libraries/codemirror/lib/codemirror.css',
+            'vendor/core/core/base/libraries/codemirror/addon/hint/show-hint.css',
+            'vendor/core/packages/theme/css/custom-css.css',
+        ])
+            ->addScriptsDirectly([
+                'vendor/core/core/base/libraries/codemirror/lib/codemirror.js',
+                'vendor/core/core/base/libraries/codemirror/lib/htmlmixed.js',
+                'vendor/core/core/base/libraries/codemirror/addon/hint/show-hint.js',
+                'vendor/core/core/base/libraries/codemirror/addon/hint/anyword-hint.js',
+                'vendor/core/core/base/libraries/codemirror/addon/hint/html-hint.js',
+                'vendor/core/packages/theme/js/custom-html.js',
+            ]);
+
+        return $formBuilder->create(CustomHTMLForm::class)->renderForm();
+    }
+
+    /**
+     * @param CustomHtmlRequest $request
+     * @param BaseHttpResponse $response
+     * @return BaseHttpResponse
+     */
+    public function postCustomHtml(CustomHtmlRequest $request, BaseHttpResponse $response)
+    {
+        if (!config('packages.theme.general.enable_custom_html')) {
+            abort(404);
+        }
+
+        setting()
+            ->set('custom_header_html', BaseHelper::clean($request->input('header_html') ?: ''))
+            ->set('custom_body_html', BaseHelper::clean($request->input('body_html') ?: ''))
+            ->set('custom_footer_html', BaseHelper::clean($request->input('footer_html') ?: ''))
+            ->save();
+
+        return $response->setMessage(trans('packages/theme::theme.update_custom_html_success'));
     }
 }

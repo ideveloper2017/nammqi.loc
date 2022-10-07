@@ -47,9 +47,9 @@ class EmailHandler
     }
 
     /**
-     * @param string $module
      * @param string $name
      * @param string|null $description
+     * @param string|null $module
      * @return $this
      */
     public function addVariable(string $name, ?string $description = null, ?string $module = null): self
@@ -100,6 +100,7 @@ class EmailHandler
     /**
      * @param string $variable
      * @param string $value
+     * @param string|null $module
      * @return $this
      */
     public function setVariableValue(string $variable, string $value, string $module = null): self
@@ -113,7 +114,7 @@ class EmailHandler
      * @param string|null $module
      * @return array
      */
-    public function getVariableValues(?string $module = null)
+    public function getVariableValues(?string $module = null): array
     {
         if ($module) {
             return Arr::get($this->variableValues, $module, []);
@@ -124,10 +125,10 @@ class EmailHandler
 
     /**
      * @param array $data
-     * @param string $module
+     * @param string|null $module
      * @return $this
      */
-    public function setVariableValues(array $data, string $module = null): self
+    public function setVariableValues(array $data, ?string $module = null): self
     {
         foreach ($data as $name => $value) {
             $this->variableValues[$module ?: $this->module][$name] = $value;
@@ -162,8 +163,8 @@ class EmailHandler
     }
 
     /**
-     * @param string $module
      * @param array $variables
+     * @param string|null $module
      * @return $this
      */
     public function addVariables(array $variables, ?string $module = null): self
@@ -181,15 +182,16 @@ class EmailHandler
 
     /**
      * @param string $template
-     * @param string|array $email
+     * @param string|null $email
      * @param array $args
      * @param bool $debug
      * @param string $type
+     * @param null $subject
      * @return bool
      * @throws FileNotFoundException
      * @throws Throwable
      */
-    public function sendUsingTemplate(string $template, $email = null, $args = [], $debug = false, $type = 'plugins', $subject = null)
+    public function sendUsingTemplate(string $template, ?string $email = null, array $args = [], bool $debug = false, string $type = 'plugins', $subject = null): bool
     {
         if (!$this->templateEnabled($template)) {
             return false;
@@ -217,15 +219,14 @@ class EmailHandler
     /**
      * @param string $content
      * @param string $title
-     * @param string $to
+     * @param string|array $to
      * @param array $args
      * @param bool $debug
      * @throws Throwable
      */
-    public function send(string $content, string $title, $to = null, $args = [], $debug = false)
+    public function send(string $content, string $title, $to = null, array $args = [], bool $debug = false)
     {
         try {
-
             if (empty($to)) {
                 $to = get_admin_email()->toArray();
                 if (empty($to)) {
@@ -256,7 +257,7 @@ class EmailHandler
      * @return string
      * @throws FileNotFoundException
      */
-    public function prepareData(string $content, $variables = []): string
+    public function prepareData(string $content, array $variables = []): string
     {
         $this->initVariable();
         $this->initVariableValues();
@@ -280,16 +281,17 @@ class EmailHandler
         return apply_filters(BASE_FILTER_EMAIL_TEMPLATE, $content);
     }
 
-    /**
-     * @throws FileNotFoundException
-     */
     public function initVariableValues()
     {
         $this->variableValues['core'] = [
-            'header'           => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_HEADER,
-                get_setting_email_template_content('core', 'base', 'header')),
-            'footer'           => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_FOOTER,
-                get_setting_email_template_content('core', 'base', 'footer')),
+            'header'           => apply_filters(
+                BASE_FILTER_EMAIL_TEMPLATE_HEADER,
+                get_setting_email_template_content('core', 'base', 'header')
+            ),
+            'footer'           => apply_filters(
+                BASE_FILTER_EMAIL_TEMPLATE_FOOTER,
+                get_setting_email_template_content('core', 'base', 'footer')
+            ),
             'site_title'       => setting('admin_title') ?: config('app.name'),
             'site_url'         => url(''),
             'site_logo'        => setting('admin_logo') ? RvMedia::getImageUrl(setting('admin_logo')) : url(config('core.base.general.logo')),
@@ -366,10 +368,10 @@ class EmailHandler
     }
 
     /**
-     * @param Throwable $exception
+     * @param Throwable|Exception $exception
      * @return string
      */
-    protected function renderException($exception)
+    protected function renderException($exception): string
     {
         $renderer = new HtmlErrorRenderer(true);
 
@@ -390,7 +392,6 @@ class EmailHandler
      * @param string $template
      * @param string $type
      * @return string|null
-     * @throws FileNotFoundException
      */
     public function getTemplateContent(string $template, string $type = 'plugins'): ?string
     {

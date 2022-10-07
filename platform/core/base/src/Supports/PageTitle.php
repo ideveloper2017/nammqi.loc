@@ -21,16 +21,18 @@ class PageTitle
      * @param bool $full
      * @return string
      */
-    public function getTitle(bool $full = true)
+    public function getTitle(bool $full = true): ?string
     {
+        $baseTitle = setting('admin_title', config('core.base.general.base_name'));
+
         if (empty($this->title)) {
-            return setting('admin_title', config('core.base.general.base_name'));
+            return $baseTitle;
         }
 
         if (!$full) {
             return $this->title;
         }
 
-        return $this->title . ' | ' . setting('admin_title', config('core.base.general.base_name'));
+        return $this->title . ' | ' . $baseTitle;
     }
 }

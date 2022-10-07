@@ -2,6 +2,7 @@
 
 namespace Botble\Theme;
 
+use BaseHelper;
 use File;
 use Theme as ThemeFacade;
 
@@ -40,7 +41,7 @@ class Manager
     {
         $themes = [];
         $themePath = theme_path();
-        foreach (scan_folder($themePath) as $folder) {
+        foreach (BaseHelper::scanFolder($themePath) as $folder) {
             $jsonFile = $themePath . '/' . $folder . '/theme.json';
 
             $publicJsonFile = public_path('themes/' . ThemeFacade::getPublicThemeName() . '/theme.json');
@@ -49,7 +50,7 @@ class Manager
                 $jsonFile = $publicJsonFile;
             }
 
-            $theme = get_file_data($jsonFile);
+            $theme = BaseHelper::getFileData($jsonFile);
             if (!empty($theme)) {
                 $themes[$folder] = $theme;
             }

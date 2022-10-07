@@ -5,10 +5,8 @@ namespace Botble\Media\Services;
 use Carbon\Carbon;
 use Exception;
 use File;
-use Illuminate\Contracts\Filesystem\FileExistsException;
 use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Http\UploadedFile;
-use League\Flysystem\FileNotFoundException;
 use Mimey\MimeTypes;
 use RvMedia;
 use Storage;
@@ -35,7 +33,7 @@ class UploadsManager
      * @param string $path
      * @return array
      */
-    public function fileDetails($path)
+    public function fileDetails(string $path): array
     {
         return [
             'filename'  => File::basename($path),
@@ -52,7 +50,7 @@ class UploadsManager
      * @param string $path
      * @return mixed|null|string
      */
-    public function fileMimeType($path): ?string
+    public function fileMimeType(string $path): ?string
     {
         return $this->mimeType->getMimeType(File::extension(RvMedia::getRealPath($path)));
     }
@@ -63,7 +61,7 @@ class UploadsManager
      * @param string $path
      * @return int
      */
-    public function fileSize($path)
+    public function fileSize(string $path): int
     {
         return Storage::size($path);
     }
@@ -74,7 +72,7 @@ class UploadsManager
      * @param string $path
      * @return string
      */
-    public function fileModified($path)
+    public function fileModified(string $path): string
     {
         return Carbon::createFromTimestamp(Storage::lastModified($path));
     }
@@ -83,7 +81,7 @@ class UploadsManager
      * @param string $folder
      * @return array|bool|Translator|string|null
      */
-    public function createDirectory($folder)
+    public function createDirectory(string $folder)
     {
         $folder = $this->cleanFolder($folder);
 
@@ -100,7 +98,7 @@ class UploadsManager
      * @param string $folder
      * @return string
      */
-    protected function cleanFolder($folder)
+    protected function cleanFolder(string $folder): string
     {
         return DIRECTORY_SEPARATOR . trim(str_replace('..', '', $folder), DIRECTORY_SEPARATOR);
     }
@@ -109,7 +107,7 @@ class UploadsManager
      * @param string $folder
      * @return array|bool|Translator|string|null
      */
-    public function deleteDirectory($folder)
+    public function deleteDirectory(string $folder)
     {
         $folder = $this->cleanFolder($folder);
 
@@ -126,7 +124,7 @@ class UploadsManager
      * @param string $path
      * @return bool
      */
-    public function deleteFile($path)
+    public function deleteFile(string $path): bool
     {
         $path = $this->cleanFolder($path);
 
@@ -138,10 +136,8 @@ class UploadsManager
      * @param string $content
      * @param UploadedFile|null $file
      * @return bool
-     * @throws FileExistsException
-     * @throws FileNotFoundException
      */
-    public function saveFile($path, $content, UploadedFile $file = null)
+    public function saveFile(string $path, string $content, UploadedFile $file = null): bool
     {
         if (!RvMedia::isChunkUploadEnabled() || !$file) {
             return Storage::put($this->cleanFolder($path), $content);

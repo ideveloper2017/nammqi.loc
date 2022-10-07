@@ -8,7 +8,6 @@ use Illuminate\Support\Str;
 
 class Meta implements MetaContract
 {
-
     /**
      * Meta prefix name.
      *

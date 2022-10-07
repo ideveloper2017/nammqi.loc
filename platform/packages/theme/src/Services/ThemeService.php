@@ -2,6 +2,7 @@
 
 namespace Botble\Theme\Services;
 
+use BaseHelper;
 use Botble\Base\Supports\Helper;
 use Botble\PluginManagement\Services\PluginService;
 use Botble\Setting\Repositories\Interfaces\SettingInterface;
@@ -65,7 +66,6 @@ class ThemeService
     /**
      * @param string $theme
      * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function activate(string $theme): array
     {
@@ -83,7 +83,7 @@ class ThemeService
         }
 
         try {
-            $content = get_file_data($this->getPath($theme, 'theme.json'));
+            $content = BaseHelper::getFileData($this->getPath($theme, 'theme.json'));
 
             if (!empty($content)) {
                 $requiredPlugins = Arr::get($content, 'required_plugins', []);
@@ -155,7 +155,7 @@ class ThemeService
      * @param string|null $path
      * @return string
      */
-    protected function getPath(string $theme, $path = null)
+    protected function getPath(string $theme, ?string $path = null): string
     {
         return rtrim(theme_path(), '/') . '/' . rtrim(ltrim(strtolower($theme), '/'), '/') . '/' . $path;
     }
@@ -169,7 +169,7 @@ class ThemeService
         if ($theme) {
             $themes = [$theme];
         } else {
-            $themes = scan_folder(theme_path());
+            $themes = BaseHelper::scanFolder(theme_path());
         }
 
         foreach ($themes as $theme) {
@@ -204,7 +204,7 @@ class ThemeService
     /**
      * @param string $theme
      * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws Exception
      */
     public function remove(string $theme): array
     {
@@ -223,7 +223,7 @@ class ThemeService
 
         $this->removeAssets($theme);
 
-        $this->files->deleteDirectory($this->getPath($theme), false);
+        $this->files->deleteDirectory($this->getPath($theme));
         $this->widgetRepository->deleteBy(['theme' => $theme]);
         $this->settingRepository->getModel()
             ->where('key', 'like', 'theme-' . $theme . '-%')

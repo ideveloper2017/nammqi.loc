@@ -1,3 +1,19 @@
+/*!
+ * Laravel Javascript Validation
+ *
+ * https://github.com/proengsoft/laravel-jsvalidation
+ *
+ * Helper functions used by validators
+ *
+ * Copyright (c) 2017 Proengsoft
+ * Released under the MIT license
+ */
+
+import strlen from './phpjs/strlen';
+import array_diff from './phpjs/array_diff';
+import strtotime from './phpjs/strtotime';
+import is_numeric from './phpjs/is_numeric';
+
 $.extend(true, laravelValidation, {
 
     helpers: {
@@ -39,7 +55,7 @@ $.extend(true, laravelValidation, {
          */
         selector: function (names) {
             var selector = [];
-            if (!$.isArray(names))  {
+            if (! this.isArray(names))  {
                 names = [names];
             }
             for (var i = 0; i < names.length; i++) {
@@ -122,7 +138,7 @@ $.extend(true, laravelValidation, {
 
             if (this.hasNumericRules(element) && this.is_numeric(value)) {
                 return parseFloat(value);
-            } else if ($.isArray(value)) {
+            } else if (this.isArray(value)) {
                 return parseFloat(value.length);
             } else if (element.type === 'file') {
                 return parseFloat(Math.floor(this.fileinfo(element).size));
@@ -167,8 +183,12 @@ $.extend(true, laravelValidation, {
             var timeValue = false;
             var fmt = new DateFormatter();
 
-            if ($.type(format) === 'object') {
-                var dateRule=this.getLaravelValidation('DateFormat', format);
+            if (typeof value === 'number' && typeof format === 'undefined') {
+                return value;
+            }
+
+            if (typeof format === 'object') {
+                var dateRule = this.getLaravelValidation('DateFormat', format);
                 if (dateRule !== undefined) {
                     format = dateRule[1][0];
                 } else {
@@ -180,12 +200,63 @@ $.extend(true, laravelValidation, {
                 timeValue = this.strtotime(value);
             } else {
                 timeValue = fmt.parseDate(value, format);
-                if (timeValue) {
+                if (timeValue instanceof Date && fmt.formatDate(timeValue, format) === value) {
                     timeValue = Math.round((timeValue.getTime() / 1000));
+                } else {
+                    timeValue = false;
                 }
             }
 
             return timeValue;
+        },
+
+        /**
+         * Compare a given date against another using an operator.
+         *
+         * @param validator
+         * @param value
+         * @param element
+         * @param params
+         * @param operator
+         * @return {boolean}
+         */
+        compareDates: function (validator, value, element, params, operator) {
+
+            var timeCompare = this.parseTime(params);
+
+            if (!timeCompare) {
+                var target = this.dependentElement(validator, element, params);
+                if (target === undefined) {
+                    return false;
+                }
+                timeCompare = this.parseTime(validator.elementValue(target), target);
+            }
+
+            var timeValue = this.parseTime(value, element);
+            if (timeValue === false) {
+                return false;
+            }
+
+            switch (operator) {
+                case '<':
+                    return timeValue < timeCompare;
+
+                case '<=':
+                    return timeValue <= timeCompare;
+
+                case '==':
+                case '===':
+                    return timeValue === timeCompare;
+
+                case '>':
+                    return timeValue > timeCompare;
+
+                case '>=':
+                    return timeValue >= timeCompare;
+
+                default:
+                    throw new Error('Unsupported operator.');
+            }
         },
 
         /**
@@ -226,6 +297,17 @@ $.extend(true, laravelValidation, {
         },
 
         /**
+         * Check whether the argument is of type Array.
+         * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray#Polyfill
+         *
+         * @param arg
+         * @returns {boolean}
+         */
+        isArray: function(arg) {
+            return Object.prototype.toString.call(arg) === '[object Array]';
+        },
+
+        /**
          * Returns Array diff based on PHP function array_diff.
          * http://php.net/manual/es/function.array_diff.php
          * http://phpjs.org/functions/array_diff/
@@ -246,7 +328,7 @@ $.extend(true, laravelValidation, {
          * @returns {*}
          */
         arrayEquals: function (arr1, arr2) {
-            if (! $.isArray(arr1) || ! $.isArray(arr2)) {
+            if (! this.isArray(arr1) || ! this.isArray(arr2)) {
                 return false;
             }
 
@@ -300,7 +382,7 @@ $.extend(true, laravelValidation, {
             var newResponse = ['Whoops, looks like something went wrong.'];
             if ('responseText' in response) {
                 var errorMsg = response.responseText.match(/<h1\s*>(.*)<\/h1\s*>/i);
-                if ($.isArray(errorMsg)) {
+                if (this.isArray(errorMsg)) {
                     newResponse = [errorMsg[1]];
                 }
             }
@@ -323,22 +405,131 @@ $.extend(true, laravelValidation, {
          * @param name
          * @returns {RegExp}
          */
-        regexFromWildcard: function(name) {
-            var nameParts = name.split("[*]");
-            if (nameParts.length === 1) {
-                nameParts.push('');
-            }
-            var regexpParts = nameParts.map(function(currentValue, index) {
-                if (index % 2 === 0) {
-                    currentValue = currentValue + '[';
-                } else {
-                    currentValue = ']' +currentValue;
+        regexFromWildcard: function (name) {
+            var nameParts = name.split('[*]');
+            if (nameParts.length === 1) nameParts.push('');
+
+            return new RegExp('^' + nameParts.map(function(x) {
+                return laravelValidation.helpers.escapeRegExp(x)
+            }).join('\\[[^\\]]*\\]') + '$');
+        },
+
+        /**
+         * Merge additional laravel validation rules into the current rule set.
+         *
+         * @param {object} rules
+         * @param {object} newRules
+         * @returns {object}
+         */
+        mergeRules: function (rules, newRules) {
+            var rulesList = {
+                'laravelValidation': newRules.laravelValidation || [],
+                'laravelValidationRemote': newRules.laravelValidationRemote || []
+            };
+
+            for (var key in rulesList) {
+                if (rulesList[key].length === 0) {
+                    continue;
                 }
 
-                return laravelValidation.helpers.escapeRegExp(currentValue);
-            });
+                if (typeof rules[key] === "undefined") {
+                    rules[key] = [];
+                }
 
-            return new RegExp('^'+regexpParts.join('[^\\]]*')+'$');
+                rules[key] = rules[key].concat(rulesList[key]);
+            }
+
+            return rules;
+        },
+
+        /**
+         * HTML entity encode a string.
+         *
+         * @param string
+         * @returns {string}
+         */
+        encode: function (string) {
+            return $('<div/>').text(string).html();
+        },
+
+        /**
+         * Lookup name in an array.
+         *
+         * @param validator
+         * @param {string} name Name in dot notation format.
+         * @returns {*}
+         */
+        findByArrayName: function (validator, name) {
+            var sqName = name.replace(/\.([^\.]+)/g, '[$1]'),
+                lookups = [
+                    // Convert dot to square brackets. e.g. foo.bar.0 becomes foo[bar][0]
+                    sqName,
+                    // Append [] to the name e.g. foo becomes foo[] or foo.bar.0 becomes foo[bar][0][]
+                    sqName + '[]',
+                    // Remove key from last array e.g. foo[bar][0] becomes foo[bar][]
+                    sqName.replace(/(.*)\[(.*)\]$/g, '$1[]')
+                ];
+
+            for (var i = 0; i < lookups.length; i++) {
+                var elem = validator.findByName(lookups[i]);
+                if (elem.length > 0) {
+                    return elem;
+                }
+            }
+
+            return $(null);
+        },
+
+        /**
+         * Attempt to find an element in the DOM matching the given name.
+         * Example names include:
+         *    - domain.0 which matches domain[]
+         *    - customfield.3 which matches customfield[3]
+         *
+         * @param validator
+         * @param {string} name
+         * @returns {*}
+         */
+        findByName: function (validator, name) {
+            // Exact match.
+            var elem = validator.findByName(name);
+            if (elem.length > 0) {
+                return elem;
+            }
+
+            // Find name in data, using dot notation.
+            var delim = '.',
+                parts  = name.split(delim);
+            for (var i = parts.length; i > 0; i--) {
+                var reconstructed = [];
+                for (var c = 0; c < i; c++) {
+                    reconstructed.push(parts[c]);
+                }
+
+                elem = this.findByArrayName(validator, reconstructed.join(delim));
+                if (elem.length > 0) {
+                    return elem;
+                }
+            }
+
+            return $(null);
+        },
+
+        /**
+         * If it's an array element, get all values.
+         *
+         * @param validator
+         * @param element
+         * @returns {*|string}
+         */
+        allElementValues: function (validator, element) {
+            if (element.name.indexOf('[]') !== -1) {
+                return validator.findByName(element.name).map(function (i, e) {
+                    return validator.elementValue(e);
+                }).get();
+            }
+
+            return validator.elementValue(element);
         }
     }
 });

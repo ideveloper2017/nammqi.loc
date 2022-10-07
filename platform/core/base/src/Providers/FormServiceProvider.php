@@ -7,7 +7,6 @@ use Illuminate\Support\ServiceProvider;
 
 class FormServiceProvider extends ServiceProvider
 {
-
     public function boot()
     {
         Form::component('mediaImage', 'core/base::forms.partials.image', [
@@ -111,7 +110,7 @@ class FormServiceProvider extends ServiceProvider
 
         Form::component('customSelect', 'core/base::forms.partials.custom-select', [
             'name',
-            'list'                => [],
+            'choices'             => [],
             'selected'            => null,
             'selectAttributes'    => [],
             'optionsAttributes'   => [],
@@ -120,7 +119,7 @@ class FormServiceProvider extends ServiceProvider
 
         Form::component('autocomplete', 'core/base::forms.partials.autocomplete', [
             'name',
-            'list'                => [],
+            'choices'             => [],
             'selected'            => null,
             'selectAttributes'    => [],
             'optionsAttributes'   => [],

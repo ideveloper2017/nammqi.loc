@@ -93,11 +93,11 @@ abstract class RepositoriesAbstract implements RepositoryInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @return $this
      */
     public function resetModel()
     {
-        $this->model = new $this->originalModel;
+        $this->model = new $this->originalModel();
 
         return $this;
     }
@@ -115,9 +115,7 @@ abstract class RepositoriesAbstract implements RepositoryInterface
             return $result;
         }
 
-        throw (new ModelNotFoundException)->setModel(
-            get_class($this->originalModel), $id
-        );
+        throw (new ModelNotFoundException())->setModel(get_class($this->originalModel), $id);
     }
 
     /**
@@ -219,13 +217,13 @@ abstract class RepositoriesAbstract implements RepositoryInterface
          */
         if (is_array($data)) {
             if (empty($condition)) {
-                $item = new $this->model;
+                $item = new $this->model();
             } else {
                 $item = $this->getFirstBy($condition);
             }
 
             if (empty($item)) {
-                $item = new $this->model;
+                $item = new $this->model();
             }
 
             $item = $item->fill($data);
@@ -382,7 +380,7 @@ abstract class RepositoriesAbstract implements RepositoryInterface
             'select'    => ['*'],
             'with'      => [],
             'withCount' => [],
-            'withAvg' => [],
+            'withAvg'   => [],
         ], $params);
 
         $this->applyConditions($params['condition']);
@@ -497,7 +495,7 @@ abstract class RepositoriesAbstract implements RepositoryInterface
     {
         $this->applyConditions($condition);
 
-        $result = $this->model->first() ?: new $this->originalModel;
+        $result = $this->model->first() ?: new $this->originalModel();
 
         $this->resetModel();
 

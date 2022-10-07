@@ -11,5 +11,6 @@ mix
     .js(source + '/resources/assets/js/filter.js', dist + '/js')
     .sass(source + '/resources/assets/sass/table.scss', dist + '/css')
 
-    .copyDirectory(dist + '/js', source + '/public/js')
-    .copyDirectory(dist + '/css', source + '/public/css');
+    .copy(dist + '/js/table.js', source + '/public/js')
+    .copy(dist + '/js/filter.js', source + '/public/js')
+    .copy(dist + '/css/table.css', source + '/public/css');

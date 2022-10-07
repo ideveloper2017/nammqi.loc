@@ -4,13 +4,12 @@ namespace Botble\Base\Supports;
 
 class Action extends ActionHookEvent
 {
-
     /**
      * Filters a value
      * @param string $action Name of action
      * @param array $args Arguments passed to the filter
      */
-    public function fire($action, $args)
+    public function fire(string $action, array $args)
     {
         if (!$this->getListeners()) {
             return;

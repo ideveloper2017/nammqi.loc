@@ -2,6 +2,7 @@
 
 namespace Botble\Theme\Providers;
 
+use BaseHelper;
 use Botble\Dashboard\Supports\DashboardWidgetInstance;
 use Botble\Theme\Supports\Vimeo;
 use Botble\Theme\Supports\Youtube;
@@ -166,6 +167,17 @@ class HookServiceProvider extends ServiceProvider
 
             return null;
         });
+
+        if (!$this->app->environment('demo') && config('packages.theme.general.enable_custom_html_shortcode')) {
+            add_shortcode('custom-html', __('Custom HTML'), __('Add custom HTML content'), function ($shortCode) {
+                return html_entity_decode($shortCode->content);
+            });
+
+            shortcode()->setAdminConfig('custom-html', function ($attributes, $content) {
+                return view('packages/theme::shortcodes.custom-html-admin-config', compact('attributes', 'content'))
+                    ->render();
+            });
+        }
     }
 
     /**
@@ -174,11 +186,11 @@ class HookServiceProvider extends ServiceProvider
      * @return array
      * @throws Throwable
      */
-    public function addStatsWidgets($widgets, $widgetSettings)
+    public function addStatsWidgets(array $widgets, Collection $widgetSettings): array
     {
-        $themes = count(scan_folder(theme_path()));
+        $themes = count(BaseHelper::scanFolder(theme_path()));
 
-        return (new DashboardWidgetInstance)
+        return (new DashboardWidgetInstance())
             ->setType('stats')
             ->setPermission('theme.index')
             ->setTitle(trans('packages/theme::theme.theme'))
@@ -195,7 +207,7 @@ class HookServiceProvider extends ServiceProvider
      * @return string
      * @throws Throwable
      */
-    public function addSetting($data = null)
+    public function addSetting($data = null): string
     {
         return $data . view('packages/theme::setting')->render();
     }

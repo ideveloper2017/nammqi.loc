@@ -4,6 +4,7 @@ namespace Botble\Base\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Str;
 use MacroableModels;
 use MetaBox as MetaBoxSupport;
@@ -29,7 +30,7 @@ class BaseModel extends Eloquent
     /**
      * @return MorphMany
      */
-    public function metadata()
+    public function metadata(): MorphMany
     {
         return $this->morphMany(MetaBox::class, 'reference')
             ->select([
@@ -63,12 +64,10 @@ class BaseModel extends Eloquent
     }
 
     /**
-     * Create a new Eloquent query builder for the model.
-     *
-     * @param \Illuminate\Database\Query\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder|static
+     * @param Builder $query
+     * @return BaseQueryBuilder
      */
-    public function newEloquentBuilder($query)
+    public function newEloquentBuilder($query): BaseQueryBuilder
     {
         return new BaseQueryBuilder($query);
     }

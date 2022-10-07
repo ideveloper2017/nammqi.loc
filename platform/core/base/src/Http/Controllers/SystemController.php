@@ -13,22 +13,22 @@ use Botble\Base\Supports\SystemManagement;
 use Botble\Base\Tables\InfoTable;
 use Botble\Table\TableBuilder;
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 use Menu;
 use Throwable;
 
 class SystemController extends Controller
 {
-
     /**
      * @param Request $request
      * @param TableBuilder $tableBuilder
@@ -73,7 +73,7 @@ class SystemController extends Controller
     }
 
     /**
-     * @return Factory|View
+     * @return Factory|Application|View
      */
     public function getCacheManagement()
     {
@@ -125,6 +125,7 @@ class SystemController extends Controller
      * @param MembershipAuthorization $authorization
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
+     * @throws GuzzleException
      */
     public function authorize(MembershipAuthorization $authorization, BaseHttpResponse $response)
     {
@@ -141,7 +142,7 @@ class SystemController extends Controller
      */
     public function getLanguage($lang, Request $request)
     {
-        if ($lang != false && array_key_exists($lang, Language::getAvailableLocales())) {
+        if ($lang && array_key_exists($lang, Language::getAvailableLocales())) {
             if (Auth::check()) {
                 cache()->forget(md5('cache-dashboard-menu-' . $request->user()->getKey()));
             }
@@ -173,7 +174,7 @@ class SystemController extends Controller
 
         $response->setData(['has_new_version' => false]);
 
-        $api = new Core;
+        $api = new Core();
 
         $updateData = $api->checkUpdate();
 
@@ -187,7 +188,7 @@ class SystemController extends Controller
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function getUpdater()
     {
@@ -202,7 +203,7 @@ class SystemController extends Controller
 
         page_title()->setTitle(trans('core/base::system.updater'));
 
-        $api = new Core;
+        $api = new Core();
 
         $updateData = $api->checkUpdate();
 

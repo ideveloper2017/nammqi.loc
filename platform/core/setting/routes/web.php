@@ -27,31 +27,38 @@ Route::group(['namespace' => 'Botble\Setting\Http\Controllers', 'middleware' => 
                 'middleware' => 'preventDemo',
             ]);
 
+            Route::post('media/generate-thumbnails', [
+                'as'         => 'settings.media.generate-thumbnails',
+                'uses'       => 'SettingController@generateThumbnails',
+                'permission' => 'settings.media',
+                'middleware' => 'preventDemo',
+            ]);
+
             Route::get('license/verify', [
                 'as'         => 'settings.license.verify',
                 'uses'       => 'SettingController@getVerifyLicense',
-                'permission' => 'settings.options',
+                'permission' => false,
             ]);
 
             Route::post('license/activate', [
                 'as'         => 'settings.license.activate',
                 'uses'       => 'SettingController@activateLicense',
                 'middleware' => 'preventDemo',
-                'permission' => 'settings.options',
+                'permission' => 'core.manage.license',
             ]);
 
             Route::post('license/deactivate', [
                 'as'         => 'settings.license.deactivate',
                 'uses'       => 'SettingController@deactivateLicense',
                 'middleware' => 'preventDemo',
-                'permission' => 'settings.options',
+                'permission' => 'core.manage.license',
             ]);
 
             Route::post('license/reset', [
                 'as'         => 'settings.license.reset',
                 'uses'       => 'SettingController@resetLicense',
                 'middleware' => 'preventDemo',
-                'permission' => 'settings.options',
+                'permission' => 'core.manage.license',
             ]);
 
             Route::group(['prefix' => 'email', 'permission' => 'settings.email'], function () {

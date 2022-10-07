@@ -20,8 +20,6 @@ class Role extends BaseModel
     protected $table = 'roles';
 
     /**
-     * The date fields for the model.clear
-     *
      * @var array
      */
     protected $dates = [
@@ -50,10 +48,10 @@ class Role extends BaseModel
     ];
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @return array
      */
-    public function getPermissionsAttribute($value)
+    public function getPermissionsAttribute($value): array
     {
         try {
             return json_decode($value, true) ?: [];
@@ -88,15 +86,17 @@ class Role extends BaseModel
     /**
      * @return BelongsToMany
      */
-    public function users()
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'role_users', 'role_id', 'user_id')->withTimestamps();
+        return $this
+            ->belongsToMany(User::class, 'role_users', 'role_id', 'user_id')
+            ->withTimestamps();
     }
 
     /**
      * @return BelongsTo
      */
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by')->withDefault();
     }

@@ -2,6 +2,7 @@
 
 namespace Botble\Base\Supports;
 
+use BaseHelper;
 use Botble\Media\Models\MediaFile;
 use Botble\Media\Models\MediaFolder;
 use Botble\PluginManagement\Services\PluginService;
@@ -10,21 +11,22 @@ use File;
 use Illuminate\Database\Seeder;
 use Mimey\MimeTypes;
 use RvMedia;
+use Setting;
 
 class BaseSeeder extends Seeder
 {
     /**
      * @param string $folder
-     * @param null|string $basePath
+     * @param string|null $basePath
      * @return array
      */
-    public function uploadFiles(string $folder, $basePath = null): array
+    public function uploadFiles(string $folder, ?string $basePath = null): array
     {
         File::deleteDirectory(config('filesystems.disks.public.root') . '/' . $folder);
         MediaFile::where('url', 'LIKE', $folder . '/%')->forceDelete();
         MediaFolder::where('name', $folder)->forceDelete();
 
-        $mimeType = new MimeTypes;
+        $mimeType = new MimeTypes();
 
         $files = [];
 
@@ -40,18 +42,31 @@ class BaseSeeder extends Seeder
 
     /**
      * @return array
-     * @throws Exception
      */
     public function activateAllPlugins(): array
     {
-        $plugins = array_values(scan_folder(plugin_path()));
+        try {
+            $plugins = array_values(BaseHelper::scanFolder(plugin_path()));
 
-        $pluginService = app(PluginService::class);
+            $pluginService = app(PluginService::class);
 
-        foreach ($plugins as $plugin) {
-            $pluginService->activate($plugin);
+            foreach ($plugins as $plugin) {
+                $pluginService->activate($plugin);
+            }
+
+            return $plugins;
+        } catch (Exception $exception) {
+            return [];
         }
+    }
 
-        return $plugins;
+    /**
+     * @return array
+     */
+    public function prepareRun(): array
+    {
+        Setting::forgetAll();
+
+        return $this->activateAllPlugins();
     }
 }

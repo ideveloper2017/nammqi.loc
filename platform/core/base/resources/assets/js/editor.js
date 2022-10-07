@@ -91,6 +91,7 @@ class EditorManagement {
                         'numberedList',
                         '|',
                         'alignment',
+                        'direction',
                         'shortcode',
                         'outdent',
                         'indent',

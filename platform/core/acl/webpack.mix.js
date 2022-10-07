@@ -13,5 +13,7 @@ mix
 
     .sass(source + '/resources/assets/sass/login.scss', dist + '/css')
 
-    .copyDirectory(dist + '/js', source + '/public/js')
-    .copyDirectory(dist + '/css', source + '/public/css');
+    .copy(dist + '/js/profile.js', source + '/public/js')
+    .copy(dist + '/js/login.js', source + '/public/js')
+    .copy(dist + '/js/role.js', source + '/public/js')
+    .copy(dist + '/css/login.css', source + '/public/css');

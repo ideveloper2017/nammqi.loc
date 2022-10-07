@@ -9,10 +9,17 @@ class BaseQueryBuilder extends Builder
     /**
      * @param string $column
      * @param string|null $term
+     * @param bool $isPartial
      * @return BaseQueryBuilder
      */
-    public function addSearch(string $column, ?string $term, $isPartial = true)
+    public function addSearch(string $column, ?string $term, bool $isPartial = true): BaseQueryBuilder
     {
+        if (!$isPartial) {
+            $this->orWhere($column, 'LIKE', '%' . trim($term) . '%');
+
+            return $this;
+        }
+
         $searchTerms = explode(' ', $term);
 
         $sql = 'LOWER(' . $this->getGrammar()->wrap($column) . ') LIKE ? ESCAPE ?';
@@ -22,9 +29,7 @@ class BaseQueryBuilder extends Builder
             $searchTerm = str_replace('\\', $this->getBackslashByPdo(), $searchTerm);
             $searchTerm = addcslashes($searchTerm, '%_');
 
-            $isPartial
-                ? $this->orWhereRaw($sql, ['%' . $searchTerm . '%', '\\'])
-                : $this->orWhere($column, $searchTerm);
+            $this->orWhereRaw($sql, ['%' . $searchTerm . '%', '\\']);
         }
 
         return $this;
@@ -33,7 +38,7 @@ class BaseQueryBuilder extends Builder
     /**
      * @return string
      */
-    protected function getBackslashByPdo()
+    protected function getBackslashByPdo(): string
     {
         if (config('database.default') === 'sqlite') {
             return '\\\\';

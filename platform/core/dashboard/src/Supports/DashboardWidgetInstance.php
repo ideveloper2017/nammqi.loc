@@ -291,7 +291,7 @@ class DashboardWidgetInstance
     }
 
     /**
-     * @return bool
+     * @return int
      */
     public function isHasLoadCallback(): int
     {
@@ -326,7 +326,7 @@ class DashboardWidgetInstance
      * @return array
      * @throws Throwable
      */
-    public function init($widgets, $widgetSettings)
+    public function init(array $widgets, Collection $widgetSettings): array
     {
         if (!Auth::user()->hasPermission($this->permission)) {
             return $widgets;
@@ -348,15 +348,19 @@ class DashboardWidgetInstance
             $widget->bodyClass = $this->bodyClass;
             $widget->column = $this->column;
 
-            $settings = array_merge($widgetSetting && $widgetSetting->settings ? $widgetSetting->settings : [],
-                $this->settings);
+            $settings = array_merge(
+                $widgetSetting && $widgetSetting->settings ? $widgetSetting->settings : [],
+                $this->settings
+            );
             $predefinedRanges = $this->getPredefinedRanges();
 
             $data = [
                 'id'   => $widget->id,
                 'type' => $this->type,
-                'view' => view('core/dashboard::widgets.base',
-                    compact('widget', 'widgetSetting', 'settings', 'predefinedRanges'))->render(),
+                'view' => view(
+                    'core/dashboard::widgets.base',
+                    compact('widget', 'widgetSetting', 'settings', 'predefinedRanges')
+                )->render(),
             ];
 
             if (empty($widgetSetting) || array_key_exists($widgetSetting->order, $widgets)) {
@@ -452,7 +456,7 @@ class DashboardWidgetInstance
     }
 
     /**
-     * @param string $filterRangeInput
+     * @param string|null $filterRangeInput
      * @return mixed
      */
     public function getFilterRange(?string $filterRangeInput)
@@ -478,7 +482,7 @@ class DashboardWidgetInstance
      * @param array $settings
      * @return bool
      */
-    public function saveSettings($widgetName, array $settings)
+    public function saveSettings(string $widgetName, array $settings): bool
     {
         $widget = app(DashboardWidgetInterface::class)->getFirstBy(['name' => $widgetName]);
 

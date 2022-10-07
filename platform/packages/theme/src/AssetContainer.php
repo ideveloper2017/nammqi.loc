@@ -9,7 +9,6 @@ use Theme as ThemeFacade;
 
 class AssetContainer
 {
-
     /**
      * Use a theme path.
      *
@@ -41,7 +40,7 @@ class AssetContainer
      *
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -49,10 +48,10 @@ class AssetContainer
     /**
      * Root asset path.
      *
-     * @param string $uri
+     * @param string|null $uri
      * @return string
      */
-    public function originUrl($uri)
+    public function originUrl(?string $uri): string
     {
         return $this->configAssetUrl($uri);
     }
@@ -60,10 +59,10 @@ class AssetContainer
     /**
      * Generate a URL to an application asset.
      *
-     * @param string $path
+     * @param string|null $path
      * @return string
      */
-    protected function configAssetUrl($path)
+    protected function configAssetUrl(?string $path): string
     {
         return asset($path);
     }
@@ -71,10 +70,10 @@ class AssetContainer
     /**
      * Return asset path with current theme path.
      *
-     * @param string $uri
+     * @param string|null $uri
      * @return string
      */
-    public function url($uri)
+    public function url(?string $uri): string
     {
         // If path is full, so we just return.
         if (preg_match('#^http|//:#', $uri)) {
@@ -91,7 +90,7 @@ class AssetContainer
      *
      * @return string
      */
-    public function getCurrentPath()
+    public function getCurrentPath(): string
     {
         return Asset::$path;
     }
@@ -115,13 +114,13 @@ class AssetContainer
      * </code>
      *
      * @param string $name
-     * @param string $source
+     * @param string|array $source
      * @param array $dependencies
      * @param array $attributes
-     * @param null $version
+     * @param string|null $version
      * @return AssetContainer
      */
-    public function add($name, $source, $dependencies = [], $attributes = [], $version = null)
+    public function add(string $name, $source, array $dependencies = [], array $attributes = [], ?string $version = null): self
     {
         if (is_array($source)) {
             foreach ($source as $path) {
@@ -175,7 +174,7 @@ class AssetContainer
      * @param string $name
      * @return array
      */
-    public function get($name)
+    public function get(string $name): array
     {
         foreach ($this->assets as $type) {
             foreach ($type as $assetKey => $asset) {
@@ -196,7 +195,7 @@ class AssetContainer
      * @param array $dependencies
      * @return AssetContainer
      */
-    public function writeScript($name, $source, $dependencies = [])
+    public function writeScript(string $name, string $source, array $dependencies = []): self
     {
         $source = '<script>' . $source . '</script>';
 
@@ -212,7 +211,7 @@ class AssetContainer
      * @param array $dependencies
      * @return AssetContainer
      */
-    protected function write($name, $type, $source, $dependencies = [])
+    protected function write(string $name, string $type, string $source, array $dependencies = []): self
     {
         $types = [
             'script' => 'script',
@@ -235,17 +234,13 @@ class AssetContainer
      *
      * @param string $type
      * @param string $name
-     * @param string $source
+     * @param string|array $source
      * @param array $dependencies
      * @param array $attributes
      * @return void
      */
-    protected function register($type, $name, $source, $dependencies, $attributes)
+    protected function register(string $type, string $name, $source, array $dependencies, array $attributes)
     {
-        $dependencies = (array)$dependencies;
-
-        $attributes = (array)$attributes;
-
         $this->assets[$type][$name] = compact('source', 'dependencies', 'attributes');
     }
 
@@ -257,7 +252,7 @@ class AssetContainer
      * @param array $dependencies
      * @return AssetContainer
      */
-    public function writeStyle($name, $source, $dependencies = [])
+    public function writeStyle(string $name, string $source, array $dependencies = []): self
     {
         $source = '<style>' . $source . '</style>';
 
@@ -272,7 +267,7 @@ class AssetContainer
      * @param array $dependencies
      * @return AssetContainer
      */
-    public function writeContent($name, $source, $dependencies = [])
+    public function writeContent(string $name, string $source, array $dependencies = []): self
     {
         return $this->write($name, 'script', $source, $dependencies);
     }
@@ -284,10 +279,9 @@ class AssetContainer
      * @param string $source
      * @param array $dependencies
      * @param array $attributes
-     * @param null $version
      * @return AssetContainer
      */
-    public function style($name, $source, $dependencies = [], $attributes = [])
+    public function style(string $name, string $source, array $dependencies = [], array $attributes = []): self
     {
         if (!array_key_exists('media', $attributes)) {
             $attributes['media'] = 'all';
@@ -311,9 +305,9 @@ class AssetContainer
      *
      * @return boolean
      */
-    public function isUsePath()
+    public function isUsePath(): bool
     {
-        return (boolean)$this->usePath;
+        return $this->usePath;
     }
 
     /**
@@ -322,7 +316,7 @@ class AssetContainer
      * @param string $source
      * @return string
      */
-    protected function evaluatePath($source)
+    protected function evaluatePath(string $source): string
     {
         static $theme;
 
@@ -353,7 +347,7 @@ class AssetContainer
      * @param boolean $use
      * @return AssetContainer
      */
-    public function usePath($use = true)
+    public function usePath(bool $use = true): self
     {
         $this->usePath = $use;
 
@@ -369,7 +363,7 @@ class AssetContainer
      * @param array $attributes
      * @return AssetContainer
      */
-    public function script($name, $source, $dependencies = [], $attributes = [])
+    public function script(string $name, string $source, array $dependencies = [], array $attributes = []): self
     {
         // Prepend path to theme.
         if ($this->isUsePath()) {
@@ -390,7 +384,7 @@ class AssetContainer
      * @return  string
      * @throws Exception
      */
-    public function styles()
+    public function styles(): string
     {
         return $this->group('style');
     }
@@ -402,7 +396,7 @@ class AssetContainer
      * @return string
      * @throws Exception
      */
-    protected function group($group)
+    protected function group(string $group): string
     {
         if (!isset($this->assets[$group]) || count($this->assets[$group]) == 0) {
             return '';
@@ -424,7 +418,7 @@ class AssetContainer
      * @return  array
      * @throws Exception
      */
-    protected function arrange($assets)
+    protected function arrange(array $assets): array
     {
         [$original, $sorted] = [$assets, []];
 
@@ -441,14 +435,14 @@ class AssetContainer
      * Evaluate an asset and its dependencies.
      *
      * @param string $asset
-     * @param string $value
+     * @param string|null|array $value
      * @param array $original
      * @param array $sorted
      * @param array $assets
      * @return void
      * @throws Exception
      */
-    protected function evaluateAsset($asset, $value, $original, &$sorted, &$assets)
+    protected function evaluateAsset(string $asset, $value, array $original, array &$sorted, array &$assets)
     {
         // If the asset has no more dependencies, we can add it to the sorted list
         // and remove it from the array of assets. Otherwise, we will not verify
@@ -491,7 +485,7 @@ class AssetContainer
      * @return bool
      * @throws Exception
      */
-    protected function dependencyIsValid($asset, $dependency, $original, $assets)
+    protected function dependencyIsValid(string $asset, string $dependency, array $original, array $assets): bool
     {
         if (!isset($original[$dependency])) {
             return false;
@@ -511,7 +505,7 @@ class AssetContainer
      * @param string $name
      * @return string
      */
-    protected function asset($group, $name)
+    protected function asset(string $group, string $name): ?string
     {
         if (!isset($this->assets[$group][$name])) {
             return '';
@@ -543,7 +537,7 @@ class AssetContainer
      * @param string $source
      * @return string
      */
-    public function path($source)
+    public function path(string $source): string
     {
         return $source;
     }
@@ -556,7 +550,7 @@ class AssetContainer
      * @param array $attributes
      * @return string
      */
-    public function html($group, $source, $attributes)
+    public function html(string $group, string $source, array $attributes): ?string
     {
         switch ($group) {
             case 'script':
@@ -582,14 +576,14 @@ class AssetContainer
      * @param array $attributes
      * @return string
      */
-    public function attributes($attributes)
+    public function attributes(array $attributes): string
     {
         $html = [];
 
         // For numeric keys we will assume that the key and the value are the same
         // as this will convert HTML attributes such as "required" to a correct
         // form like required="required" instead of using incorrect numeric.
-        foreach ((array)$attributes as $key => $value) {
+        foreach ($attributes as $key => $value) {
             $element = $this->attributeElement($key, $value);
 
             if (!empty($element)) {
@@ -604,10 +598,10 @@ class AssetContainer
      * Build a single attribute element.
      *
      * @param string $key
-     * @param string $value
+     * @param string|null $value
      * @return string
      */
-    protected function attributeElement($key, $value)
+    protected function attributeElement(string $key, ?string $value): ?string
     {
         if (is_numeric($key)) {
             $key = $value;
@@ -625,7 +619,7 @@ class AssetContainer
      * @return array
      * @throws Exception
      */
-    public function getAssets($group)
+    public function getAssets(string $group): array
     {
         if (!isset($this->assets[$group])) {
             return [];
@@ -644,7 +638,7 @@ class AssetContainer
      * @param string $name
      * @return string
      */
-    protected function assetUrl($group, $name)
+    protected function assetUrl(string $group, string $name): string
     {
         if (!isset($this->assets[$group][$name])) {
             return '';
@@ -659,7 +653,7 @@ class AssetContainer
             $asset['source'] = $this->path($asset['source']);
         }
 
-        // If source is not a path to asset, render without wrap a HTML.
+        // If source is not a path to asset, render without wrap an HTML.
         if (strpos($asset['source'], '<') !== false) {
             return $asset['source'];
         }
@@ -673,7 +667,7 @@ class AssetContainer
      * @return  string
      * @throws Exception
      */
-    public function scripts()
+    public function scripts(): string
     {
         return $this->group('script');
     }

@@ -9,7 +9,6 @@ use Botble\Page\Models\Page;
 
 class PageForm extends FormAbstract
 {
-
     /**
      * @var string
      */
@@ -21,7 +20,7 @@ class PageForm extends FormAbstract
     public function buildForm()
     {
         $this
-            ->setupModel(new Page)
+            ->setupModel(new Page())
             ->setValidatorClass(PageRequest::class)
             ->withCustomFields()
             ->add('name', 'text', [

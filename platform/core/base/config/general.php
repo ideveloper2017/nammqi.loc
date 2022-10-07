@@ -41,7 +41,6 @@ return [
             'date_time' => env('CMS_JS_DATE_TIME_FORMAT', 'yyyy-mm-dd H:i:s'),
         ],
     ],
-    'cache_site_map'            => env('ENABLE_CACHE_SITE_MAP', false),
     'public_single_ending_url'  => env('PUBLIC_SINGLE_ENDING_URL'),
     'send_mail_using_job_queue' => env('SEND_MAIL_USING_JOB_QUEUE', false),
     'locale'                    => env('APP_LOCALE', 'en'),
@@ -132,6 +131,7 @@ return [
         'IM Fell French Canon SC',
         'IM Fell Great Primer',
         'IM Fell Great Primer SC',
+        'Inter',
         'Irish Grover',
         'Irish Growler',
         'Istok Web',
@@ -292,7 +292,9 @@ return [
         'Zeyada',
     ],
 
-    'countries' => [
+    'custom_google_fonts' => env('CMS_CUSTOM_GOOGLE_FONTS', ''),
+
+    'countries'                 => [
         'AF' => 'Afghanistan',
         'AX' => 'Åland Islands',
         'AL' => 'Albania',
@@ -544,10 +546,10 @@ return [
         'ZM' => 'Zambia',
         'ZW' => 'Zimbabwe',
     ],
-    'purifier'  => [
-        'default' => [
+    'purifier'                  => [
+        'default'           => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title|rel|style|target],ul,ol,li,p[style],br,span[style],img[width|height|alt|src|style],button,ins[style|data-ad-client|data-ad-slot|data-ad-format|data-full-width-responsive],video[src|type|width|height|preload|controls|autoplay|autostart|poster|id|class]',
+            'HTML.Allowed'             => 'div,b,strong,i,em,u,a[href|title|rel|style|target],ul,ol,li,p[style],br,span[style],img[width|height|alt|src|style],button,ins[style|data-ad-client|data-ad-slot|data-ad-format|data-full-width-responsive],video[src|type|width|height|preload|controls|autoplay|autostart|poster|id|class,muted],meta[name|content|property],link[media|type|rel|href]',
             'HTML.AllowedElements'     => [
                 'a',
                 'b',
@@ -601,6 +603,8 @@ return [
                 'ins',
                 'video',
                 'source',
+                'meta',
+                'link',
             ],
             'HTML.SafeIframe'          => 'true',
             // Add to .env if you want to allow all.
@@ -639,6 +643,8 @@ return [
             ['u', 'Inline', 'Inline', 'Common'],
             ['button', 'Inline', 'Inline', 'Common'],
             ['ins', 'Inline', 'Inline', 'Common'],
+            ['meta', 'Inline', 'Empty', 'Common'],
+            ['link', 'Inline', 'Empty', 'Common'],
         ],
         'custom_attributes' => [
             ['a', 'rel', 'Text'],
@@ -648,9 +654,18 @@ return [
             ['ins', 'data-ad-full-width-responsive', 'Text'],
             ['img', 'data-src', 'Text'],
             ['video', 'autoplay', 'Text'],
+            ['meta', 'name', 'Text'],
+            ['meta', 'content', 'Text'],
+            ['meta', 'property', 'Text'],
+            ['link', 'media', 'Text'],
+            ['link', 'type', 'Text'],
+            ['link', 'rel', 'Text'],
+            ['link', 'href', 'Text'],
         ],
     ],
     'enable_system_updater'     => env('CMS_ENABLE_SYSTEM_UPDATER', true),
     'phone_validation_rule'     => env('CMS_PHONE_VALIDATION_RULE', 'min:8|max:15|regex:/^([0-9\s\-\+\(\)]*)$/'),
     'disable_verify_csrf_token' => env('CMS_DISABLE_VERIFY_CSRF_TOKEN', false),
+    'enable_less_secure_web'    => env('CMS_ENABLE_LESS_SECURE_WEB', false),
+    'db_strict_mode'            => env('DB_STRICT', true),
 ];

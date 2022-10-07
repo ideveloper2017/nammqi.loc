@@ -156,13 +156,13 @@ class Avatar
      * @param string $default
      * @return mixed
      */
-    protected function getRandomElement(array $array, $default)
+    protected function getRandomElement(array $array, string $default)
     {
         // Make it work for associative array
         $array = array_values($array);
 
         $name = $this->name;
-        if (strlen($name) === 0) {
+        if ($name == null || strlen($name) === 0) {
             $name = chr(rand(65, 90));
         }
 
@@ -192,7 +192,7 @@ class Avatar
     /**
      * @return string
      */
-    public function toBase64()
+    public function toBase64(): string
     {
         $key = $this->cacheKey();
         if ($base64 = Cache::get($key)) {
@@ -211,7 +211,7 @@ class Avatar
     /**
      * @return string
      */
-    protected function cacheKey()
+    protected function cacheKey(): string
     {
         $keys = [];
         $attributes = [
@@ -278,17 +278,17 @@ class Avatar
     }
 
     /**
-     * @param string $name
+     * @param string|array $name
      * @param int $length
      * @param bool $uppercase
      * @param bool $ascii
      * @return string
      */
-    public function make($name, $length = 1, $uppercase = false, $ascii = false)
+    public function make($name, int $length = 1, bool $uppercase = false, bool $ascii = false): string
     {
         $this->setName($name, $ascii);
 
-        $words = new Collection(explode(' ', $this->name));
+        $words = collect(explode(' ', $this->name));
 
         // if name contains single word, use first N character
         if ($words->count() === 1) {
@@ -299,7 +299,7 @@ class Avatar
             }
         } else {
             // otherwise, use initial char from each word
-            $initials = new Collection;
+            $initials = new Collection();
             $words->each(function ($word) use ($initials) {
                 $initials->push(Str::substr($word, 0, 1));
             });
@@ -315,10 +315,10 @@ class Avatar
     }
 
     /**
-     * @param string $name
+     * @param string|array $name
      * @param bool $ascii
      */
-    protected function setName($name, $ascii)
+    protected function setName($name, bool $ascii)
     {
         if (is_array($name)) {
             throw new InvalidArgumentException(
@@ -346,7 +346,7 @@ class Avatar
      * @param string $name
      * @return $this
      */
-    public function create($name): self
+    public function create(?string $name): self
     {
         $this->name = $name;
 
@@ -358,7 +358,7 @@ class Avatar
      * @param int $quality
      * @return Image
      */
-    public function save($path, $quality = 90)
+    public function save(string $path, int $quality = 90): Image
     {
         $this->buildAvatar();
 

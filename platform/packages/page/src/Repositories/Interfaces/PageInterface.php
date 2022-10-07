@@ -6,7 +6,6 @@ use Botble\Support\Repositories\Interfaces\RepositoryInterface;
 
 interface PageInterface extends RepositoryInterface
 {
-
     /**
      * @return mixed
      */

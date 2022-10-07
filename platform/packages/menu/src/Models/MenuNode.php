@@ -9,7 +9,6 @@ use Request;
 
 class MenuNode extends BaseModel
 {
-
     /**
      * The database table used by the model.
      *
@@ -31,6 +30,7 @@ class MenuNode extends BaseModel
         'css_class',
         'target',
         'has_child',
+        'position',
     ];
 
     /**
@@ -68,7 +68,7 @@ class MenuNode extends BaseModel
         }
 
         if (!$this->reference_type) {
-            return $value ? (string)$value : '/';
+            return '/';
         }
 
         if (!$this->reference) {
@@ -84,6 +84,14 @@ class MenuNode extends BaseModel
     public function setUrlAttribute($value)
     {
         $this->attributes['url'] = $value;
+    }
+
+    /**
+     * @param string $value
+     */
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = str_replace('&amp;', '&', $value);
     }
 
     /**
