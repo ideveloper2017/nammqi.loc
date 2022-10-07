@@ -50,11 +50,11 @@
                         <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ theme_option('phone') }}</li>
                         <li><span><i class="fa fa-email" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>
                     </ul>
-{{--                    <ul class="right">--}}
-{{--                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="#">Register</a></li>--}}
-{{--                        <li>|</li>--}}
+                    <ul class="right">
+                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="http://virtualtour.nammqi.uz">VirtualTour</a></li>
+                        <li>|</li>
 {{--                        <li><i class="fa fa-lock" aria-hidden="true"></i> <a href="#">Login</a></li>--}}
-{{--                    </ul>--}}
+                    </ul>
 
                     <ul class="right">
                                 {!! apply_filters('language_switcher') !!}
