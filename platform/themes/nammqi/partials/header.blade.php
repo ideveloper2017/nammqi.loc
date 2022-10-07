@@ -48,7 +48,7 @@
                     <ul class="left">
                         <li><span><i class="fa fa-address-book" aria-hidden="true"></i></span> {{ theme_option('address') }}</li>
                         <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ theme_option('phone') }}</li>
-                        <li><span><i class="fa fa-email" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>
+{{--                        <li><span><i class="fa fa-email" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>--}}
                     </ul>
 
 
