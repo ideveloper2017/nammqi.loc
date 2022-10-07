@@ -37,7 +37,6 @@
         </div><!-- event items -->
     </div><!-- container -->
 </section>
-
 <section class="event section-bg padding-120" style="display: none">
     <div class="container">
         <div class="section-header">
