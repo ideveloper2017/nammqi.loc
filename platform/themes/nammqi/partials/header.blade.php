@@ -55,7 +55,7 @@
                     <ul class="right">
                         <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="http://virtualtour.nammqi.uz">VirtualTour</a></li>
                         <li>|</li>
-                        <li><i class="fa fa-globe" aria-hidden="true"></i> <a href="/davlat-ramzlari">Davlat ramzlari</a></li>
+                        <li><i class="fa fa-globe" aria-hidden="true"></i><a href="/davlat-ramzlari"> Davlat ramzlari</a></li>
 
                                 {!! apply_filters('language_switcher') !!}
                     </ul>
