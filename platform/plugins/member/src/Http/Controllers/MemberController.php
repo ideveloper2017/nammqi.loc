@@ -70,20 +70,20 @@ class MemberController extends BaseController
      */
     public function store(MemberCreateRequest $request, BaseHttpResponse $response)
     {
-        $member = $this->memberRepository->getModel();
-        $member->fill($request->input());
-        $member->confirmed_at = now();
-        $member->password = bcrypt($request->input('password'));
-        $member->dob = Carbon::parse($request->input('dob'))->toDateString();
+        $request->merge([
+            'password'     => bcrypt($request->input('password')),
+            'confirmed_at' => now(),
+            'dob'          => Carbon::parse($request->input('dob'))->toDatetimeString()
+        ]);
 
         if ($request->input('avatar_image')) {
             $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('avatar_image')]);
             if ($image) {
-                $member->avatar_id = $image->id;
+                $request->merge(['avatar_id' => $image->id]);
             }
         }
 
-        $member = $this->memberRepository->createOrUpdate($member);
+        $member = $this->memberRepository->createOrUpdate($request->input());
 
         event(new CreatedContentEvent(MEMBER_MODULE_SCREEN_NAME, $request, $member));
 
@@ -94,7 +94,7 @@ class MemberController extends BaseController
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param FormBuilder $formBuilder
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
@@ -122,24 +122,21 @@ class MemberController extends BaseController
      */
     public function update($id, MemberEditRequest $request, BaseHttpResponse $response)
     {
-        $member = $this->memberRepository->findOrFail($id);
-
-        $member->fill($request->except('password'));
-
-        if ($request->input('is_change_password') == 1) {
-            $member->password = bcrypt($request->input('password'));
-        }
-
-        $member->dob = Carbon::parse($request->input('dob'))->toDateString();
-
         if ($request->input('avatar_image')) {
             $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('avatar_image')]);
             if ($image) {
-                $member->avatar_id = $image->id;
+                $request->merge(['avatar_id' => $image->id]);
             }
         }
 
-        $member = $this->memberRepository->createOrUpdate($member);
+        if ($request->input('is_change_password') == 1) {
+            $request->merge(['password' => bcrypt($request->input('password'))]);
+            $data = $request->input();
+        } else {
+            $data = $request->except('password');
+        }
+
+        $member = $this->memberRepository->createOrUpdate($data, ['id' => $id]);
 
         event(new UpdatedContentEvent(MEMBER_MODULE_SCREEN_NAME, $request, $member));
 

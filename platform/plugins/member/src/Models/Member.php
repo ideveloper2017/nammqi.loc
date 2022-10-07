@@ -8,7 +8,9 @@ use Botble\Member\Notifications\ResetPasswordNotification;
 use Exception;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
+use MacroableModels;
 use RvMedia;
 
 /**
@@ -80,7 +82,7 @@ class Member extends Authenticatable
         }
 
         try {
-            return (new Avatar)->create($this->name)->toBase64();
+            return (new Avatar())->create($this->name)->toBase64();
         } catch (Exception $exception) {
             return RvMedia::getDefaultImage();
         }
@@ -96,7 +98,7 @@ class Member extends Authenticatable
         }
 
         try {
-            return (new Avatar)->create($this->name)->toBase64();
+            return (new Avatar())->create($this->name)->toBase64();
         } catch (Exception $exception) {
             return RvMedia::getDefaultImage();
         }
@@ -145,5 +147,21 @@ class Member extends Authenticatable
     public function posts()
     {
         return $this->morphMany('Botble\Blog\Models\Post', 'author');
+    }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function __get($key)
+    {
+        if (class_exists('MacroableModels')) {
+            $method = 'get' . Str::studly($key) . 'Attribute';
+            if (MacroableModels::modelHasMacro(get_class($this), $method)) {
+                return call_user_func([$this, $method]);
+            }
+        }
+
+        return parent::__get($key);
     }
 }

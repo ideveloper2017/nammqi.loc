@@ -22,7 +22,7 @@ Vue.component('activity-log-component', ActivityLogComponent);
  * This let us access the `__` method for localization in VueJS templates
  * ({{ __('key') }})
  */
-Vue.prototype.__ = key => {
+Vue.prototype.__ = (key) => {
     return _.get(window.trans, key, key);
 };
 

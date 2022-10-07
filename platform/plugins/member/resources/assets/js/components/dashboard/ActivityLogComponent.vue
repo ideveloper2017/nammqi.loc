@@ -6,7 +6,7 @@
                 <a @click.prevent="setActiveTab(activityLogTab)"
                    :class="[activeTab === activityLogTab ? 'show active b' : '']"
                    class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db"
-                   style="text-decoration: none; line-height: 32px;" data-toggle="tab" :href="'#' + activityLogTab">{{
+                   style="text-decoration: none; line-height: 32px;" data-bs-toggle="tab" :href="'#' + activityLogTab">{{
                     __('activity_logs') }}</a>
             </li>
         </ul>

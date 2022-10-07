@@ -71,8 +71,6 @@ class PublicController extends Controller
 
         SeoHelper::setTitle($user->name);
 
-        Assets::addScriptsDirectly(['vendor/core/plugins/member/libraries/cropper.js']);
-
         return view('plugins/member::dashboard.index', compact('user'));
     }
 
@@ -86,8 +84,6 @@ class PublicController extends Controller
         SeoHelper::setTitle(__('Account settings'));
 
         $user = auth('member')->user();
-
-        Assets::addScriptsDirectly(['vendor/core/plugins/member/libraries/cropper.js']);
 
         return view('plugins/member::settings.index', compact('user'));
     }
@@ -242,7 +238,7 @@ class PublicController extends Controller
             $receiver = new FileReceiver('file', $request, DropZoneUploadHandler::class);
             // Check if the upload is success, throw exception or return response you need
             if ($receiver->isUploaded() === false) {
-                throw new UploadMissingFileException;
+                throw new UploadMissingFileException();
             }
             // Receive the file
             $save = $receiver->receive();

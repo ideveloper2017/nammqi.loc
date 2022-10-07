@@ -54,7 +54,7 @@ class RegisterController extends Controller
     /**
      * Show the application registration form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function showRegistrationForm()
@@ -68,10 +68,6 @@ class RegisterController extends Controller
         Theme::breadcrumb()
             ->add(__('Home'), route('public.index'))
             ->add(__('Register'), route('public.member.register'));
-
-        if (view()->exists(Theme::getThemeNamespace() . '::views.member.auth.register')) {
-            return Theme::scope('member.auth.register')->render();
-        }
 
         return view('plugins/member::auth.register');
     }
@@ -174,7 +170,6 @@ class RegisterController extends Controller
         $member->confirmed_at = now();
         $this->memberRepository->createOrUpdate($member);
         $this->guard()->login($member);
-
         return $this->registered($request, $member)
             ?: $response->setNextUrl($this->redirectPath());
     }
@@ -187,21 +182,11 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        $rules = [
+        return Validator::make($data, [
             'first_name' => 'required|max:120',
             'last_name'  => 'required|max:120',
             'email'      => 'required|email|max:255|unique:members',
             'password'   => 'required|min:6|confirmed',
-        ];
-
-        if (is_plugin_active('captcha') && setting('enable_captcha') && setting('member_enable_recaptcha_in_register_page',
-                0)) {
-            $rules += ['g-recaptcha-response' => 'required|captcha'];
-        }
-
-        return Validator::make($data, $rules, [
-            'g-recaptcha-response.required' => __('Captcha Verification Failed!'),
-            'g-recaptcha-response.captcha'  => __('Captcha Verification Failed!'),
         ]);
     }
 

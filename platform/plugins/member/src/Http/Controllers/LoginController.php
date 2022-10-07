@@ -29,7 +29,7 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login / registration.
-     *auth
+     *
      * @var string
      */
     public $redirectTo;
@@ -37,7 +37,7 @@ class LoginController extends Controller
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function showLoginForm()
@@ -49,10 +49,6 @@ class LoginController extends Controller
         }
 
         Theme::breadcrumb()->add(__('Home'), route('public.index'))->add(__('Login'), route('public.member.login'));
-
-        if (view()->exists(Theme::getThemeNamespace() . '::views.member.auth.login')) {
-            return Theme::scope('member.auth.login')->render();
-        }
 
         return view('plugins/member::auth.login');
     }
@@ -100,8 +96,10 @@ class LoginController extends Controller
         if ($this->guard()->validate($this->credentials($request))) {
             $member = $this->guard()->getLastAttempted();
 
-            if (setting('verify_account_email',
-                    config('plugins.member.general.verify_email')) && empty($member->confirmed_at)) {
+            if (setting(
+                'verify_account_email',
+                config('plugins.member.general.verify_email')
+            ) && empty($member->confirmed_at)) {
                 throw ValidationException::withMessages([
                     'confirmation' => [
                         trans('plugins/member::member.not_confirmed', [

@@ -12,6 +12,7 @@ return [
         'toastr',
         'select2',
         'form-validation',
+        'cropper',
         'custom-scrollbar',
         'stickytableheaders',
     ],
@@ -65,6 +66,13 @@ return [
                 'src'      => [
                     'local' => '/vendor/core/core/base/libraries/fancybox/jquery.fancybox.min.js',
                     'cdn'   => '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js',
+                ],
+            ],
+            'cropper'          => [
+                'use_cdn'  => false,
+                'location' => 'footer',
+                'src'      => [
+                    'local' => 'vendor/core/plugins/real-estate/libraries/cropper.js',
                 ],
             ],
             'are-you-sure'      => [

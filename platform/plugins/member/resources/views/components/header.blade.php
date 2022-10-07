@@ -10,7 +10,7 @@
         @endif
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,7 +33,7 @@
           <li>
             <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db mr2" style="text-decoration: none; line-height: 32px;" href="{{ route('public.member.dashboard') }}" title="{{ trans('plugins/member::dashboard.header_profile_link') }}">
               <span>
-                <img src="{{ auth('member')->user()->avatar_url }}" class="br-100 v-mid mr1" style="width: 30px;">
+                <img src="{{ auth('member')->user()->avatar_url }}" class="br-100 v-mid mr1" style="width: 30px; height: 30px">
                 <span>{{ auth('member')->user()->name }}</span>
               </span>
             </a>

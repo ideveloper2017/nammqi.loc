@@ -110,9 +110,8 @@
   <script type="text/javascript" src="{{ asset('vendor/core/core/js-validation/js/js-validation.js')}}"></script>
   {!! JsValidator::formRequest(\Botble\Member\Http\Requests\SettingRequest::class); !!}
   <script type="text/javascript">
-      "use strict";
-
-      let numberDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    "use strict";
+    let numberDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31];
 
     $(document).ready(function() {
       initSelectBox();

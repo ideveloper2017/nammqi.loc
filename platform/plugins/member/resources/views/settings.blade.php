@@ -14,23 +14,12 @@
                 <div class="form-group mb-3">
                     <input type="hidden" name="verify_account_email" value="0">
                     <label>
-                        <input type="checkbox"  value="1" @if (setting('verify_account_email', 0)) checked @endif name="verify_account_email">
+                        <input type="checkbox" class="hrv-checkbox" value="1" @if (setting('verify_account_email', 0)) checked @endif name="verify_account_email">
                         {{ trans('plugins/member::settings.verify_account_email') }}
                     </label>
                     <span class="help-ts">{{ trans('plugins/member::settings.verify_account_email_description') }}</span>
                 </div>
             </div>
-
-            @if (is_plugin_active('captcha'))
-                <div class="form-group mb-3">
-                    <input type="hidden" name="member_enable_recaptcha_in_register_page" value="0">
-                    <label>
-                        <input type="checkbox"  value="1" @if (setting('member_enable_recaptcha_in_register_page', 0)) checked @endif name="member_enable_recaptcha_in_register_page">
-                        {{ trans('plugins/member::settings.enable_recaptcha_in_register_page') }}
-                    </label>
-                    <span class="help-ts">{{ trans('plugins/member::settings.enable_recaptcha_in_register_page_description') }}</span>
-                </div>
-            @endif
         </div>
     </div>
 </div>

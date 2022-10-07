@@ -8,7 +8,6 @@ use RvMedia;
 
 class PostRequest extends BasePostRequest
 {
-
     /**
      * Get the validation rules that apply to the request.
      *

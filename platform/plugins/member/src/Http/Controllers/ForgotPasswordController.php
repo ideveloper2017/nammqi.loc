@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Botble\ACL\Traits\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Password;
 use SeoHelper;
-use Theme;
 
 class ForgotPasswordController extends Controller
 {
@@ -26,16 +25,12 @@ class ForgotPasswordController extends Controller
     /**
      * Display the form to request a password reset link.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function showLinkRequestForm()
     {
         SeoHelper::setTitle(trans('plugins/member::member.forgot_password'));
-
-        if (view()->exists(Theme::getThemeNamespace() . '::views.member.auth.passwords.email')) {
-            return Theme::scope('member.auth.passwords.email')->render();
-        }
 
         return view('plugins/member::auth.passwords.email');
     }

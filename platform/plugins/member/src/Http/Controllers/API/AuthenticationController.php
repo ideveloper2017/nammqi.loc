@@ -88,7 +88,7 @@ class AuthenticationController extends Controller
         $member->email_verify_token = $token;
         $member->save();
 
-        $member->notify(new ConfirmEmailNotification);
+        $member->notify(new ConfirmEmailNotification($token));
 
         return $response
             ->setMessage(__('Registered successfully! We sent an email to you to verify your account!'));
