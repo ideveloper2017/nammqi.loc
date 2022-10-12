@@ -21,12 +21,18 @@
         <!--WARNING: Respond.js doesn't work if you view the page via file://-->
         <!--[if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
-
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+            }
+        </script>
     </head>
     <!--[if IE 7]><body class="ie7 lt-ie8 lt-ie9 lt-ie10"><![endif]-->
     <!--[if IE 8]><body class="ie8 lt-ie9 lt-ie10"><![endif]-->
     <!--[if IE 9]><body class="ie9 lt-ie10"><![endif]-->
     <body id="scroll-top">
+    <div id="google_translate_element">
         {!! apply_filters(THEME_FRONT_BODY, null) !!}
 {{--        <table class="loader">--}}
 {{--            <tr>--}}
