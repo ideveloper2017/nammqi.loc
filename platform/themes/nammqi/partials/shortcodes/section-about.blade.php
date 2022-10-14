@@ -9,31 +9,31 @@
                 <li>
                     <div class="icon flaticon-calendar"></div>
                     <div class="content">
-                        <h4>1979 yil - Toshkent politexnika institutining Namangan filiali</h4>
+                        <h4>{{ __('about_year1') }}</h4>
                     </div>
                 </li>
                 <li>
                     <div class="icon flaticon-calendar"></div>
                     <div class="content">
-                        <h4>1989 yil - Toshkent mashinasozlik  institutining Namangan filiali</h4>
+                        <h4>{{ __('about_year2') }}</h4>
                     </div>
                 </li>
                 <li>
                     <div class="icon flaticon-calendar"></div>
                     <div class="content">
-                        <h4>1991 yil - Namangan sanoat-texnologiya instituti</h4>
+                        <h4>{{ __('about_year3') }}</h4>
                     </div>
                 </li>
                 <li>
                     <div class="icon flaticon-calendar"></div>
                     <div class="content">
-                        <h4>1998 yil - Namangan muhandislik-pedagogika instituti</h4>
+                        <h4>{{ __('about_year4') }}</h4>
                     </div>
                 </li>
                 <li>
                     <div class="icon flaticon-calendar"></div>
                     <div class="content">
-                        <h4>2017 yil - Namangan muhandislik-qurilish instituti</h4>
+                        <h4>{{ __('about_year5') }}</h4>
                     </div>
                 </li>
             </ul>
