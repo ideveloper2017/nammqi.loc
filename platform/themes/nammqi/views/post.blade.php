@@ -61,33 +61,7 @@
                         @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($post)))
                             {!! render_object_gallery($galleries, ($post->first_category ? $post->first_category->name : __('Uncategorized'))) !!}
                         @endif
-                        @if($videoLink)
-                            <div class="embed-responsive embed-responsive-16by9 mb-30">
-                                <iframe class="embed-responsive-item" src="{{ $videoLink }}" allowfullscreen></iframe>
-                            </div>
-                        @elseif($videoUploadId)
-                            @php $videoLink = RvMedia::getImageUrl($videoUploadId); @endphp
-                            <video id="player" playsinline controls>
-                                <source src="{{ $videoLink }}"
-                                        type="video/mp4">
-                                <source src="{{ $videoLink }}"
-                                        type="video/webm">
-                            </video>
-                        @else
-                            <figure class="single-thumnail">
-                                <div class="border-radius-5">
-                                    <div class="slider-single text-center">
-                                        <img class="border-radius-10 lazy"
-                                             src="{{ RvMedia::getImageUrl($post->image) }}"
-                                             data-src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"
-                                             src="{{ RvMedia::getImageUrl(theme_option('img_loading')) }}"
-                                             loading="lazy"
-                                             style="width: 100%;"
-                                             alt="{{ $post->name }}">
-                                    </div>
-                                </div>
-                            </figure>
-                        @endif
+
                         <div class="fb-like" data-href="{{ Request::url() }}" data-layout="standard" data-action="like"
                              data-show-faces="false" data-share="true"></div>
                         <div class="content-bottom">
