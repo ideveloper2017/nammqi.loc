@@ -78,7 +78,7 @@ app()->booted(function () {
 
     shortcode()->setAdminConfig('elonlar', function ($attributes) {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+        return Theme::partial('shortcodes.faculties-admin-config', compact('attributes','categories'));
 
     });
 
