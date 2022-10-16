@@ -2,9 +2,10 @@
 
 namespace Botble\PluginManagement\Commands;
 
-use BaseHelper;
 use Botble\PluginManagement\Services\PluginService;
+use File;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class PluginActivateAllCommand extends Command
 {
@@ -39,11 +40,12 @@ class PluginActivateAllCommand extends Command
     }
 
     /**
-     * @return int
+     * @return boolean
+     * @throws FileNotFoundException
      */
     public function handle()
     {
-        foreach (BaseHelper::scanFolder(plugin_path()) as $plugin) {
+        foreach (scan_folder(plugin_path()) as $plugin) {
             $this->pluginService->activate($plugin);
         }
 

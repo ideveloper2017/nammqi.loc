@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 
 class PluginAssetsPublishCommand extends Command
 {
+
     /**
      * The console command name.
      *
