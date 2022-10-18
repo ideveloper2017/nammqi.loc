@@ -4,35 +4,35 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="https://student.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
-                    <h5><a href="https://student.nammqi.uz/dashboard/login" target="_blank">{{__('Hemis (For Students)')}}</a></h5>
+                    <h5><a href="https://student.nammqi.uz/dashboard/login" target="_blank">{{ __('Hemis (For Students)')}}</a></h5>
 {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="https://hemis.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
-                    <h5><a href="https://hemis.nammqi.uz/dashboard/login" target="_blank">{{__('Hemis (for Teacher)')}}</a></h5>
+                    <h5><a href="https://hemis.nammqi.uz/dashboard/login" target="_blank">{{ __('Hemis (for Teacher)')}}</a></h5>
                     {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="http://elektronkutubxona.nammqi.uz"><span class="icon"><i class="flaticon-open-book-top-view"></i></span></a>
-                    <h5><a href="http://elektronkutubxona.nammqi.uz" target="_blank">{{__('Electronic library')}}</a></h5>
+                    <h5><a href="http://elektronkutubxona.nammqi.uz" target="_blank">{{ __('Electronic library')}}</a></h5>
                     {{--                    <p>Telegram tarmog`i</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="http://video.nammqi.uz"><span class="icon"><i class="flaticon-tutorial"></i></span></a>
-                    <h5><a href="http://video.nammqi.uz" target="_blank">{{__('Video lessons')}}</a></h5>
+                    <h5><a href="http://video.nammqi.uz" target="_blank">{{ __('Video lessons')}}</a></h5>
                     {{--                    <p>Telegram tarmog`i</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
                     <a href="http://mtt.nammqi.uz/" target="_blank"><span class="icon"><i class="flaticon-student"></i></span></a>
-                    <h5><a href="http://mtt.nammqi.uz/" target="_blank">{{__('Moodle')}}</a></h5>
+                    <h5><a href="http://mtt.nammqi.uz/" target="_blank">{{ __('Moodle')}}</a></h5>
 {{--                    <p>Masofaviy ta`lim tizmi</p>--}}
                 </div>
             </div>

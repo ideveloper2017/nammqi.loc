@@ -53,7 +53,7 @@
 
 
                     <ul class="right">
-                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="http://virtualtour.nammqi.uz">VirtualTour</a></li>
+                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="http://virtualtour.nammqi.uz">{{__('VirtualTour')}}</a></li>
                         <li>|</li>
                         <li><i class="fa fa-globe" aria-hidden="true"></i><a href="/gosudarstvennye-simvoly"> Davlat ramzlari</a></li>
 
