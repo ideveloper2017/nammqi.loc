@@ -2,7 +2,6 @@
 
 namespace Botble\PluginManagement\Providers;
 
-use BaseHelper;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Composer\Autoload\ClassLoader;
 use Exception;
@@ -32,19 +31,19 @@ class PluginManagementServiceProvider extends ServiceProvider
             ->publishAssets();
 
         $plugins = get_active_plugins();
-        if (!empty($plugins)) {
-            $loader = new ClassLoader();
+        if (!empty($plugins) && is_array($plugins)) {
+            $loader = new ClassLoader;
             $providers = [];
             $namespaces = [];
             if (cache()->has('plugin_namespaces') && cache()->has('plugin_providers')) {
                 $providers = cache('plugin_providers');
-                if (!is_array($providers) || empty($providers) || count($providers) != count($plugins)) {
+                if (!is_array($providers) || empty($providers)) {
                     $providers = [];
                 }
 
                 $namespaces = cache('plugin_namespaces');
 
-                if (!is_array($namespaces) || empty($namespaces) || count($namespaces) != count($namespaces)) {
+                if (!is_array($namespaces) || empty($namespaces)) {
                     $namespaces = [];
                 }
             }
@@ -60,7 +59,7 @@ class PluginManagementServiceProvider extends ServiceProvider
                     if (!File::exists($pluginPath . '/plugin.json')) {
                         continue;
                     }
-                    $content = BaseHelper::getFileData($pluginPath . '/plugin.json');
+                    $content = get_file_data($pluginPath . '/plugin.json');
                     if (!empty($content)) {
                         if (Arr::has($content, 'namespace') && !class_exists($content['provider'])) {
                             $namespaces[$plugin] = $content['namespace'];
@@ -70,10 +69,8 @@ class PluginManagementServiceProvider extends ServiceProvider
                     }
                 }
 
-                if (count($providers) == count($plugins) && count($namespaces) == count($namespaces)) {
-                    cache()->forever('plugin_namespaces', $namespaces);
-                    cache()->forever('plugin_providers', $providers);
-                }
+                cache()->forever('plugin_namespaces', $namespaces);
+                cache()->forever('plugin_providers', $providers);
             }
 
             foreach ($namespaces as $key => $namespace) {
@@ -109,5 +106,6 @@ class PluginManagementServiceProvider extends ServiceProvider
         $this->app->booted(function () {
             $this->app->register(HookServiceProvider::class);
         });
+
     }
 }

@@ -7,6 +7,26 @@
     if ($bannerImage) {
         Theme::set('breadcrumbBannerImage', RvMedia::getImageUrl($bannerImage));
     }
+
+ Theme::layout('full');
+    $totalComment = get_total_comment($post);
+    MetaBox::getMetaData($post, 'time_to_read', true);
+    $singleLayout = MetaBox::getMetaData($post, 'layout', true);
+    if (empty($singleLayout)) {
+        $singleLayout = theme_option('single_layout', 'default');
+    }
+
+    $videoLink = MetaBox::getMetaData($post, 'video_link', true);
+    $videoEmbedCode = MetaBox::getMetaData($post, 'video_embed_code', true);
+    $videoUploadId = MetaBox::getMetaData($post, 'video_upload_id', true);
+    if ($videoLink || $videoUploadId) {
+        $singleLayout = 'default';
+    }
+
+    if (is_plugin_active('pro-posts')) {
+        Theme::asset()->container('footer')->usePath(false)->add('favorite-post', 'vendor/core/plugins/pro-posts/js/favorite-posts.js');
+        Theme::asset()->container('footer')->usePath()->add('post-js', 'js/post.js');
+    }
 @endphp
 <section class="blog padding-120">
     <div class="container">
@@ -41,6 +61,7 @@
                         @if (defined('GALLERY_MODULE_SCREEN_NAME') && !empty($galleries = gallery_meta_data($post)))
                             {!! render_object_gallery($galleries, ($post->first_category ? $post->first_category->name : __('Uncategorized'))) !!}
                         @endif
+
                         <div class="fb-like" data-href="{{ Request::url() }}" data-layout="standard" data-action="like"
                              data-show-faces="false" data-share="true"></div>
                         <div class="content-bottom">
