@@ -5,11 +5,11 @@ namespace Botble\ACL\Http\Controllers\Auth;
 use Assets;
 use BaseHelper;
 use Botble\Base\Http\Controllers\BaseController;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Botble\ACL\Traits\ResetsPasswords;
-use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ResetPasswordController extends BaseController
 {
@@ -45,12 +45,13 @@ class ResetPasswordController extends BaseController
     /**
      * @param Request $request
      * @param null $token
-     * @return Factory|Application|View
+     * @return Factory|RedirectResponse|View
      */
     public function showResetForm(Request $request, $token = null)
     {
         page_title()->setTitle(trans('core/acl::auth.reset.title'));
 
+        $email = $request->email;
         Assets::addScripts(['jquery-validation'])
             ->addScriptsDirectly('vendor/core/core/acl/js/login.js')
             ->addStylesDirectly('vendor/core/core/acl/css/animate.min.css')
@@ -68,8 +69,6 @@ class ResetPasswordController extends BaseController
                 'fancybox',
                 'cookie',
             ]);
-
-        $email = $request->input('email');
 
         return view('core/acl::auth.reset', compact('email', 'token'));
     }

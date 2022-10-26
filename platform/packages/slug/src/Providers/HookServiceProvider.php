@@ -3,12 +3,15 @@
 namespace Botble\Slug\Providers;
 
 use Assets;
+use Botble\Base\Forms\FormAbstract;
 use Botble\Base\Models\BaseModel;
+use Botble\Slug\Forms\Fields\PermalinkField;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\ServiceProvider;
+use Kris\LaravelFormBuilder\FormHelper;
 use SlugHelper;
 
 class HookServiceProvider extends ServiceProvider
@@ -18,16 +21,19 @@ class HookServiceProvider extends ServiceProvider
         add_filter(BASE_FILTER_SLUG_AREA, [$this, 'addSlugBox'], 17, 2);
 
         add_filter(BASE_FILTER_BEFORE_GET_FRONT_PAGE_ITEM, [$this, 'getItemSlug'], 3, 2);
+
+        add_filter('form_custom_fields', [$this, 'addCustomFormFields'], 29, 2);
     }
 
     /**
-     * @param string|null $html
+     * @param string $html
      * @param BaseModel $object
      * @return null|string
      */
-    public function addSlugBox(?string $html = null, $object = null)
+    public function addSlugBox($html = null, $object = null)
     {
         if ($object && SlugHelper::isSupportedModel(get_class($object))) {
+
             Assets::addScriptsDirectly('vendor/core/packages/slug/js/slug.js')
                 ->addStylesDirectly('vendor/core/packages/slug/css/slug.css');
 
@@ -42,7 +48,7 @@ class HookServiceProvider extends ServiceProvider
     /**
      * @param Builder $data
      * @param Model $model
-     * @return Builder
+     * @return mixed
      */
     public function getItemSlug($data, $model)
     {
@@ -81,5 +87,19 @@ class HookServiceProvider extends ServiceProvider
         }
 
         return $data;
+    }
+
+    /**
+     * @param FormAbstract $form
+     * @param FormHelper $formHelper
+     * @return FormAbstract
+     */
+    public function addCustomFormFields(FormAbstract $form, FormHelper $formHelper)
+    {
+        if (!$formHelper->hasCustomField('permalink') && SlugHelper::supportedModels()) {
+            $form->addCustomField('permalink', PermalinkField::class);
+        }
+
+        return $form;
     }
 }

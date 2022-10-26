@@ -46,7 +46,7 @@ class PostTable extends TableAbstract
         $data = $this->table
             ->eloquent($this->query())
             ->editColumn('name', function ($item) {
-                return Html::link(route('public.member.posts.edit', $item->id), $item->name);
+                return Html::link(route('public.member.posts.edit', $item->id), clean($item->name));
             })
             ->editColumn('image', function ($item) {
                 return $this->displayThumbnail($item->image);

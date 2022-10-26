@@ -22,7 +22,7 @@ class MacroableModels
     /**
      * @return array
      */
-    public function getAllMacros(): array
+    public function getAllMacros()
     {
         return $this->macros;
     }
@@ -56,7 +56,7 @@ class MacroableModels
     /**
      * @param string $name
      */
-    protected function syncMacros(string $name)
+    protected function syncMacros($name)
     {
         $models = $this->macros[$name];
         Builder::macro($name, function (...$args) use ($name, $models) {
@@ -89,7 +89,7 @@ class MacroableModels
      * @param string $name
      * @return bool
      */
-    public function removeMacro(string $model, string $name): bool
+    public function removeMacro($model, string $name)
     {
         $this->checkModelSubclass($model);
 
@@ -112,7 +112,7 @@ class MacroableModels
      * @param string $name
      * @return bool
      */
-    public function modelHasMacro(string $model, string $name): bool
+    public function modelHasMacro($model, $name)
     {
         $this->checkModelSubclass($model);
 
@@ -123,7 +123,7 @@ class MacroableModels
      * @param string $name
      * @return array
      */
-    public function modelsThatImplement(string $name): array
+    public function modelsThatImplement($name)
     {
         if (!isset($this->macros[$name])) {
             return [];
@@ -137,7 +137,7 @@ class MacroableModels
      * @return array
      * @throws ReflectionException
      */
-    public function macrosForModel(string $model): array
+    public function macrosForModel($model)
     {
         $this->checkModelSubclass($model);
 

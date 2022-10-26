@@ -2,17 +2,17 @@
 
 use Botble\Base\Facades\DashboardMenuFacade;
 use Botble\Base\Facades\PageTitleFacade;
-use Botble\Base\Supports\DashboardMenu;
 use Botble\Base\Supports\Editor;
 use Botble\Base\Supports\PageTitle;
 use Illuminate\Support\Arr;
 
 if (!function_exists('anchor_link')) {
     /**
-     * @param string|null $link
-     * @param string|null $name
+     * @param string $link
+     * @param string $name
      * @param array $options
      * @return string
+     * @throws Throwable
      * @deprecated
      */
     function anchor_link(?string $link, ?string $name, array $options = []): string
@@ -24,7 +24,7 @@ if (!function_exists('anchor_link')) {
 if (!function_exists('language_flag')) {
     /**
      * @param string $flag
-     * @param string|null $name
+     * @param string $name
      * @return string
      */
     function language_flag(string $flag, ?string $name = null): string
@@ -42,9 +42,9 @@ if (!function_exists('render_editor')) {
      * @return string
      * @throws Throwable
      */
-    function render_editor(string $name, ?string $value = null, bool $withShortCode = false, array $attributes = []): string
+    function render_editor(string $name, ?string $value = null, $withShortCode = false, array $attributes = []): string
     {
-        return (new Editor())->render($name, $value, $withShortCode, $attributes);
+        return (new Editor)->render($name, $value, $withShortCode, $attributes);
     }
 }
 
@@ -53,7 +53,7 @@ if (!function_exists('is_in_admin')) {
      * @param bool $force
      * @return bool
      */
-    function is_in_admin(bool $force = false): bool
+    function is_in_admin($force = false): bool
     {
         $prefix = BaseHelper::getAdminPrefix();
 
@@ -69,7 +69,7 @@ if (!function_exists('page_title')) {
     /**
      * @return PageTitle
      */
-    function page_title(): PageTitle
+    function page_title()
     {
         return PageTitleFacade::getFacadeRoot();
     }
@@ -77,9 +77,9 @@ if (!function_exists('page_title')) {
 
 if (!function_exists('dashboard_menu')) {
     /**
-     * @return DashboardMenu
+     * @return \Botble\Base\Supports\DashboardMenu
      */
-    function dashboard_menu(): DashboardMenu
+    function dashboard_menu()
     {
         return DashboardMenuFacade::getFacadeRoot();
     }
@@ -91,10 +91,10 @@ if (!function_exists('get_cms_version')) {
      */
     function get_cms_version(): string
     {
-        $version = '...';
+        $version = '5.26.3';
 
         try {
-            $core = BaseHelper::getFileData(core_path('core.json'));
+            $core = get_file_data(core_path('core.json'));
 
             return Arr::get($core, 'version', $version);
         } catch (Exception $exception) {
@@ -108,7 +108,7 @@ if (!function_exists('platform_path')) {
      * @param string|null $path
      * @return string
      */
-    function platform_path(?string $path = null): string
+    function platform_path($path = null): string
     {
         return base_path('platform/' . $path);
     }
@@ -119,7 +119,7 @@ if (!function_exists('core_path')) {
      * @param string|null $path
      * @return string
      */
-    function core_path(?string $path = null): string
+    function core_path($path = null): string
     {
         return platform_path('core/' . $path);
     }
@@ -130,7 +130,7 @@ if (!function_exists('package_path')) {
      * @param string|null $path
      * @return string
      */
-    function package_path(?string $path = null): string
+    function package_path($path = null): string
     {
         return platform_path('packages/' . $path);
     }

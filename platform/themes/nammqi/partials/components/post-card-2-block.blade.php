@@ -6,7 +6,7 @@
         <div class="img-hover-slide border-radius-5 position-relative lazy"
              data-bg="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}"
              style="background-image: url({{ RvMedia::getImageUrl(theme_option('img_loading')) }})">
-{{--            <a class="img-link" href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}></a>--}}
+            <a class="img-link" href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}></a>
             @if(is_video_post($post))
                 <span class="top-right-icon background3"><i class="ti-video-camera"></i></span>
             @endif
@@ -32,7 +32,7 @@
             @endif
         </div>
         <h4 class="post-title">
-            <a href="" >
+            <a href="{{ get_external_link($post) }}" {{ is_external_link($post) ? 'target="_blank"' : '' }}>
                 {{ $post->name }}
             </a>
         </h4>

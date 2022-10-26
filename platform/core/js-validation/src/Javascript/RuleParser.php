@@ -15,12 +15,12 @@ class RuleParser
     /**
      * Rule used to validate remote requests.
      */
-    public const REMOTE_RULE = 'laravelValidationRemote';
+    const REMOTE_RULE = 'laravelValidationRemote';
 
     /**
      * Rule used to validate javascript fields.
      */
-    public const JAVASCRIPT_RULE = 'laravelValidation';
+    const JAVASCRIPT_RULE = 'laravelValidation';
 
     /**
      * Token used to secure remote validations.

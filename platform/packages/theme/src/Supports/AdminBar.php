@@ -2,7 +2,6 @@
 
 namespace Botble\Theme\Supports;
 
-use Illuminate\Support\Facades\Auth;
 use Throwable;
 
 class AdminBar
@@ -31,12 +30,17 @@ class AdminBar
             'appearance' => [
                 'link'  => 'javascript:;',
                 'title' => trans('packages/theme::theme.appearance'),
-                'items' => [],
+                'items' => [
+                    trans('core/base::layouts.dashboard') => route('dashboard.index'),
+                    trans('core/setting::setting.title')  => route('settings.options'),
+                ],
             ],
             'add-new'    => [
                 'link'  => 'javascript:;',
                 'title' => trans('packages/theme::theme.add_new'),
-                'items' => [],
+                'items' => [
+                    trans('core/acl::users.users') => route('users.create'),
+                ],
             ],
         ];
     }
@@ -53,7 +57,7 @@ class AdminBar
      * @param bool $isDisplay
      * @return $this
      */
-    public function setIsDisplay(bool $isDisplay = true): self
+    public function setIsDisplay($isDisplay = true): self
     {
         $this->isDisplay = $isDisplay;
 
@@ -82,7 +86,7 @@ class AdminBar
      * @param string $link
      * @return $this
      */
-    public function registerGroup(string $slug, string $title, string $link = 'javascript:;'): self
+    public function registerGroup($slug, $title, $link = 'javascript:;'): self
     {
         if (isset($this->groups[$slug])) {
             $this->groups[$slug]['items'][$title] = $link;
@@ -124,20 +128,6 @@ class AdminBar
      */
     public function render(): string
     {
-        if (Auth::check()) {
-            if (Auth::user()->hasPermission('users.create')) {
-                $this->registerLink(trans('core/acl::users.users'), route('users.create'), 'add-new');
-            }
-
-            if (Auth::user()->hasPermission('dashboard.index')) {
-                $this->registerLink(trans('core/base::layouts.dashboard'), route('dashboard.index'), 'appearance');
-            }
-
-            if (Auth::user()->hasPermission('settings.options')) {
-                $this->registerLink(trans('core/setting::setting.title'), route('settings.options'), 'appearance');
-            }
-        }
-
         return view('packages/theme::admin-bar')->render();
     }
 }

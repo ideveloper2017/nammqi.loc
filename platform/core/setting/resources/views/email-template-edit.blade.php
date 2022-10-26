@@ -1,8 +1,6 @@
 @extends(BaseHelper::getAdminMasterLayoutTemplate())
 @section('content')
     {!! Form::open(['route' => ['setting.email.template.store']]) !!}
-    <input type="hidden" name="module" value="{{ $pluginData['name'] }}">
-    <input type="hidden" name="template_file" value="{{ $pluginData['template_file'] }}">
     <div class="max-width-1200">
         <div class="flexbox-annotated-section">
             <div class="flexbox-annotated-section-annotation">
@@ -11,7 +9,7 @@
                 </div>
                 <div class="annotated-section-description pd-all-20 p-none-t">
                     <p class="color-note">
-                        {!! BaseHelper::clean(trans('core/setting::setting.email.description')) !!}
+                        {!! clean(trans('core/setting::setting.email.description')) !!}
                     </p>
                     <div class="available-variable">
                         @foreach(EmailHandler::getVariables('core') as $coreKey => $coreVariable)
@@ -41,6 +39,7 @@
                         </div>
                     @endif
                     <div class="form-group mb-3">
+                        <input type="hidden" name="template_path" value="{{ get_setting_email_template_path($pluginData['name'], $pluginData['template_file']) }}">
                         <label class="text-title-field"
                                for="email_content">{{ trans('core/setting::setting.email.content') }}</label>
                         <textarea id="mail-template-editor" name="email_content" class="form-control" style="overflow-y:scroll; height: 500px;">{{ $emailContent }}</textarea>

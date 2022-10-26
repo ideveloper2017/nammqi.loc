@@ -7,6 +7,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class MediaImagesField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

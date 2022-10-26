@@ -6,6 +6,7 @@ use Botble\Chart\Supports\Chart;
 
 class LineChart extends Chart
 {
+
     /**
      * Array containing colors for the series lines/points.
      *
@@ -42,7 +43,7 @@ class LineChart extends Chart
     protected $pointSize = 4;
 
     /**
-     * Colors for the series points. By default, uses the same values as lineColors
+     * Colors for the series points. By default uses the same values as lineColors
      *
      * @brief Point fill colors
      *
@@ -79,7 +80,7 @@ class LineChart extends Chart
     protected $dateFormat = '';
 
     /**
-     * Sets the x axis labelling interval. By default, the interval will be automatically computed.
+     * Sets the x axis labelling interval. By default the interval will be automatically computed.
      * The following are valid interval strings:
      *
      * "decade"

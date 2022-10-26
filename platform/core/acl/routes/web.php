@@ -8,6 +8,7 @@ use Botble\ACL\Http\Controllers\UserController;
 Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['web', 'core']], function () {
     Route::group(['prefix' => BaseHelper::getAdminPrefix()], function () {
         Route::group(['middleware' => 'guest'], function () {
+
             Route::get('login', [LoginController::class, 'showLoginForm'])->name('access.login');
             Route::post('login', [LoginController::class, 'login'])->name('access.login.post');
 
@@ -32,8 +33,11 @@ Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['we
     });
 
     Route::group(['prefix' => BaseHelper::getAdminPrefix(), 'middleware' => 'auth'], function () {
+
         Route::group(['prefix' => 'system'], function () {
+
             Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+
                 Route::resource('', 'UserController')->except(['edit', 'update'])->parameters(['' => 'users']);
 
                 Route::delete('items/destroy', [
@@ -111,6 +115,7 @@ Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['we
                 ]);
             });
         });
+
     });
 
     Route::get('admin-theme/{theme}', [UserController::class, 'getTheme'])->name('admin.theme');

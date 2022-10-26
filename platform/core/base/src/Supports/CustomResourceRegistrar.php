@@ -97,7 +97,7 @@ class CustomResourceRegistrar extends ResourceRegistrar
      * @param string $base
      * @param string $controller
      * @param array $options
-     * @return Route
+     * @return \Illuminate\Routing\Route
      */
     protected function addResourceIndex($name, $base, $controller, $options)
     {

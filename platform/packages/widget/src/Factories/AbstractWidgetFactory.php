@@ -50,7 +50,7 @@ abstract class AbstractWidgetFactory
     public $widgetFullParams;
 
     /**
-     * Laravel's application wrapper for better testability.
+     * Laravel application wrapper for better testability.
      *
      * @var ApplicationWrapperContract;
      */
@@ -80,7 +80,7 @@ abstract class AbstractWidgetFactory
      * @param array $params
      * @return mixed
      */
-    public function __call(string $widgetName, array $params = [])
+    public function __call($widgetName, array $params = [])
     {
         array_unshift($params, $widgetName);
 
@@ -123,7 +123,7 @@ abstract class AbstractWidgetFactory
      * @param string $widgetName
      * @return string
      */
-    protected function parseFullWidgetNameFromString(string $widgetName): string
+    protected function parseFullWidgetNameFromString($widgetName)
     {
         return Str::studly(str_replace('.', '\\', $widgetName));
     }

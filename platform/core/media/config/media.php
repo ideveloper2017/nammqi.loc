@@ -30,10 +30,8 @@ return [
             'vendor/core/core/media/js/media.js?v=' . time(),
         ],
     ],
-    'allowed_mime_types' => env(
-        'RV_MEDIA_ALLOWED_MIME_TYPES',
-        'jpg,jpeg,png,gif,txt,docx,zip,mp3,bmp,csv,xls,xlsx,ppt,pptx,pdf,mp4,doc,mpga,wav,webp'
-    ),
+    'allowed_mime_types' => env('RV_MEDIA_ALLOWED_MIME_TYPES',
+        'jpg,jpeg,png,gif,txt,docx,zip,mp3,bmp,csv,xls,xlsx,ppt,pptx,pdf,mp4,doc,mpga,wav,webp'),
     'mime_types'         => [
         'image'    => [
             'image/png',
@@ -74,7 +72,7 @@ return [
 
     'chunk' => [
         'enabled'       => env('RV_MEDIA_UPLOAD_CHUNK', false),
-        'chunk_size'    => 1024 * 1024, // Bytes
+        'chunk_size'    => 1 * 1024 * 1024, // Bytes
         'max_file_size' => 1024 * 1024, // MB
 
         /*
@@ -104,30 +102,6 @@ return [
                     'session' => true, // should the chunk name use the session id? The uploader must send cookie!,
                     'browser' => false, // instead of session we can use the ip and browser?
                 ],
-            ],
-        ],
-    ],
-
-    'preview' => [
-        'document' => [
-            'enabled'   => env('RV_MEDIA_DOCUMENT_PREVIEW_ENABLED', true),
-            'providers' => [
-                'google'    => 'https://docs.google.com/gview?embedded=true&url={url}',
-                'microsoft' => 'https://view.officeapps.live.com/op/view.aspx?src={url}',
-            ],
-            'default'    => env('RV_MEDIA_DOCUMENT_PREVIEW_PROVIDER', 'microsoft'),
-            'type'       => env('RV_MEDIA_DOCUMENT_PREVIEW_TYPE', 'iframe'),          // use iframe or popup
-            'mime_types' => [
-                'application/pdf',
-                'application/vnd.ms-excel',
-                'application/excel',
-                'application/x-excel',
-                'application/x-msexcel',
-                'application/msword',
-                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-                'application/vnd.ms-powerpoint',
-                'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             ],
         ],
     ],

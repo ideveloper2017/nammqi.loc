@@ -38,7 +38,7 @@ class SortItemsWithChildrenHelper
      * @return $this
      * @throws Exception
      */
-    public function setItems($items): SortItemsWithChildrenHelper
+    public function setItems($items)
     {
         if (is_array($items)) {
             $this->items = collect($items);

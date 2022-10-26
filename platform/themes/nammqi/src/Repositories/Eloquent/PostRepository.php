@@ -1,6 +1,6 @@
 <?php
 
-namespace Theme\Nammqi\Repositories\Eloquent;
+namespace Theme\Chorsuname\Repositories\Eloquent;
 
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Repositories\Eloquent\PostRepository as BasePostRepository;

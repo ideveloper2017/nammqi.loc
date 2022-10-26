@@ -63,6 +63,7 @@ class DashboardMenu
         }
 
         if (isset($this->links[$id])) {
+
             $options['children'] = array_merge($options['children'], $this->links[$id]['children']);
             $options['permissions'] = array_merge($options['permissions'], $this->links[$id]['permissions']);
 
@@ -102,13 +103,12 @@ class DashboardMenu
         foreach ($id as $item) {
             if (!$parentId) {
                 Arr::forget($this->links, $item);
-                break;
-            }
-
-            foreach ($this->links[$parentId]['children'] as $key => $child) {
-                if ($child['id'] === $item) {
-                    Arr::forget($this->links[$parentId]['children'], $key);
-                    break;
+            } else {
+                foreach ($this->links[$parentId]['children'] as $key => $child) {
+                    if ($child['id'] === $item) {
+                        Arr::forget($this->links[$parentId]['children'], $key);
+                        break;
+                    }
                 }
             }
         }
@@ -118,19 +118,17 @@ class DashboardMenu
 
     /**
      * @param string $id
-     * @param string|null $parentId
+     * @param null|string $parentId
      * @return bool
      */
-    public function hasItem(string $id, ?string $parentId = null): bool
+    public function hasItem($id, $parentId = null): bool
     {
         if ($parentId) {
             if (!isset($this->links[$parentId])) {
                 return false;
             }
-
             $id = $parentId . '.children.' . $id;
         }
-
         return Arr::has($this->links, $id . '.name');
     }
 
@@ -172,7 +170,6 @@ class DashboardMenu
         } else {
             $protocol = 'http://';
         }
-
         $protocol .= BaseHelper::getAdminPrefix();
 
         foreach ($links as $key => &$link) {

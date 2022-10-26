@@ -6,6 +6,7 @@ use Botble\Base\Models\BaseModel;
 
 class Widget extends BaseModel
 {
+
     /**
      * The database table used by the model.
      *

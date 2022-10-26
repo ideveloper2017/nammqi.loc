@@ -7,6 +7,7 @@ use Exception;
 
 class BeforeEditContentListener
 {
+
     /**
      * Handle the event.
      *

@@ -8,6 +8,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class CkEditorField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

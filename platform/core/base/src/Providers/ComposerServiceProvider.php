@@ -12,6 +12,7 @@ use RvMedia;
 
 class ComposerServiceProvider extends ServiceProvider
 {
+
     /**
      * @param Factory $view
      */

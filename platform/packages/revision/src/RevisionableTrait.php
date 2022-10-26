@@ -177,8 +177,8 @@ trait RevisionableTrait
                     'old_value'         => Arr::get($this->originalData, $key),
                     'new_value'         => $this->updatedData[$key],
                     'user_id'           => $this->getSystemUserId(),
-                    'created_at'        => new DateTime(),
-                    'updated_at'        => new DateTime(),
+                    'created_at'        => new DateTime,
+                    'updated_at'        => new DateTime,
                 ];
             }
 
@@ -189,7 +189,7 @@ trait RevisionableTrait
                         $delete->delete();
                     }
                 }
-                $revision = new Revision();
+                $revision = new Revision;
                 DB::table($revision->getTable())->insert($revisions);
                 event('revisionable.saved', ['model' => $this, 'revisions' => $revisions]);
             }
@@ -293,11 +293,11 @@ trait RevisionableTrait
                 'old_value'         => null,
                 'new_value'         => $this->{self::CREATED_AT},
                 'user_id'           => $this->getSystemUserId(),
-                'created_at'        => new DateTime(),
-                'updated_at'        => new DateTime(),
+                'created_at'        => new DateTime,
+                'updated_at'        => new DateTime,
             ];
 
-            $revision = new Revision();
+            $revision = new Revision;
             DB::table($revision->getTable())->insert($revisions);
             event('revisionable.created', ['model' => $this, 'revisions' => $revisions]);
         }
@@ -322,10 +322,10 @@ trait RevisionableTrait
                 'old_value'         => null,
                 'new_value'         => $this->{$this->getDeletedAtColumn()},
                 'user_id'           => $this->getSystemUserId(),
-                'created_at'        => new DateTime(),
-                'updated_at'        => new DateTime(),
+                'created_at'        => new DateTime,
+                'updated_at'        => new DateTime,
             ];
-            $revision = new Revision();
+            $revision = new Revision;
             DB::table($revision->getTable())->insert($revisions);
             event('revisionable.deleted', ['model' => $this, 'revisions' => $revisions]);
         }

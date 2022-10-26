@@ -113,7 +113,7 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
      * @param int $number
      * @return string
      */
-    protected function getNameFromNumber(int $number): string
+    protected function getNameFromNumber($number)
     {
         $numeric = ($number - 1) % 26;
         $letter = chr(65 + $numeric);
@@ -126,10 +126,10 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
     }
 
     /**
-     * @param string|null $imageUrl
+     * @param string $imageUrl
      * @return null|resource
      */
-    protected function getImageResourceFromURL(?string $imageUrl)
+    protected function getImageResourceFromURL($imageUrl)
     {
         if (!$imageUrl) {
             return null;
@@ -150,12 +150,10 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
 
     /**
      * @param Event $event
-     * @param string $column
-     * @param int $row
-     * @return bool
+     * @param string $cell
      * @throws Exception
      */
-    protected function drawingImage(Event $event, string $column, int $row): bool
+    protected function drawingImage(Event $event, string $column, int $row)
     {
         if (request()->input('action') !== 'excel') {
             return false;
@@ -168,7 +166,7 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
         $imageContent = $this->getImageResourceFromURL($image);
 
         if ($imageContent) {
-            $drawing = new MemoryDrawing();
+            $drawing = new MemoryDrawing;
             $drawing->setName('Image')
                 ->setWorksheet($event->sheet->getDelegate());
 

@@ -76,13 +76,13 @@ class DatabaseSettingStore extends SettingStore
             Setting::insert($this->prepareInsertData($insertData));
         }
 
-        if ($deleteKeys) {
-            Setting::whereIn('key', $deleteKeys)->delete();
-        }
+        // if ($deleteKeys) {
+            // Setting::whereIn('key', $deleteKeys)->delete();
+        // }
 
         if (config('core.setting.general.cache.enabled')) {
             try {
-                $jsonSettingStore = new JsonSettingStore(new Filesystem());
+                $jsonSettingStore = new JsonSettingStore(new Filesystem);
                 $jsonSettingStore->write($data);
             } catch (Exception $exception) {
                 info($exception->getMessage());
@@ -99,7 +99,7 @@ class DatabaseSettingStore extends SettingStore
      *
      * @return array
      */
-    protected function prepareInsertData(array $data): array
+    protected function prepareInsertData(array $data)
     {
         $dbData = [];
 
@@ -114,7 +114,7 @@ class DatabaseSettingStore extends SettingStore
      * {@inheritDoc}
      * @throws FileNotFoundException
      */
-    protected function read(): array
+    protected function read()
     {
         if (!$this->connectedDatabase) {
             $this->connectedDatabase = Helper::isConnectedDatabase();
@@ -124,10 +124,8 @@ class DatabaseSettingStore extends SettingStore
             return [];
         }
 
-        $isSettingCacheEnabled = config('core.setting.general.cache.enabled');
-
-        if ($isSettingCacheEnabled) {
-            $jsonSettingStore = new JsonSettingStore(new Filesystem());
+        if (config('core.setting.general.cache.enabled')) {
+            $jsonSettingStore = new JsonSettingStore(new Filesystem);
             if (File::exists($jsonSettingStore->getPath())) {
                 $data = $jsonSettingStore->read();
                 if (!empty($data)) {
@@ -138,9 +136,9 @@ class DatabaseSettingStore extends SettingStore
 
         $data = $this->parseReadData(Setting::get());
 
-        if ($isSettingCacheEnabled) {
+        if (config('core.setting.general.cache.enabled')) {
             if (!isset($jsonSettingStore)) {
-                $jsonSettingStore = new JsonSettingStore(new Filesystem());
+                $jsonSettingStore = new JsonSettingStore(new Filesystem);
             }
 
             $jsonSettingStore->write($data);
@@ -152,11 +150,11 @@ class DatabaseSettingStore extends SettingStore
     /**
      * Parse data coming from the database.
      *
-     * @param Collection|array $data
+     * @param Collection $data
      *
      * @return array
      */
-    public function parseReadData($data): array
+    public function parseReadData($data)
     {
         $results = [];
 

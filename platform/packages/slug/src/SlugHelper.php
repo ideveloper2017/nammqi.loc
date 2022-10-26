@@ -81,22 +81,6 @@ class SlugHelper
     }
 
     /**
-     * @param string $model
-     * @param string $column
-     * @return $this
-     */
-    public function setColumnUsedForSlugGenerator(string $model, string $column): self
-    {
-        $columns = config('packages.slug.general.slug_generated_columns', []);
-        $columns[$model] = $column;
-
-        config(['packages.slug.general.slug_generated_columns' => $columns]);
-
-        return $this;
-    }
-
-    /**
-     * @param string $model
      * @return bool
      */
     public function isSupportedModel(string $model): bool
@@ -115,10 +99,8 @@ class SlugHelper
         }
 
         config([
-            'packages.slug.general.disable_preview' => array_merge(
-                config('packages.slug.general.disable_preview', []),
-                $model
-            ),
+            'packages.slug.general.disable_preview' => array_merge(config('packages.slug.general.disable_preview', []),
+                $model),
         ]);
 
         return $this;
@@ -135,9 +117,7 @@ class SlugHelper
 
     /**
      * @param string|null $key
-     * @param string|null $prefix
-     * @param string|null $model
-     * @param null $referenceId
+     * @param string $model
      * @return mixed
      */
     public function getSlug(
@@ -145,7 +125,8 @@ class SlugHelper
         ?string $prefix = null,
         ?string $model = null,
         $referenceId = null
-    ) {
+    )
+    {
         $condition = [];
 
         if ($key !== null) {
@@ -187,25 +168,6 @@ class SlugHelper
         }
 
         return $default;
-    }
-
-    /**
-     * @param string|object $model
-     * @return string|null
-     */
-    public function getColumnNameToGenerateSlug($model): ?string
-    {
-        if (is_object($model)) {
-            $model = get_class($model);
-        }
-
-        $config = Arr::get(config('packages.slug.general.slug_generated_columns', []), $model);
-
-        if ($config !== null) {
-            return (string)$config;
-        }
-
-        return 'name';
     }
 
     /**

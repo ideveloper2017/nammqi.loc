@@ -13,9 +13,6 @@
 
   {!! SeoHelper::render() !!}
 
-  <!-- Datetime picker -->
-  <link rel="stylesheet" href="{{ asset('vendor/core/plugins/member/libs/tempusdominus-bootstrap-4/tempusdominus-bootstrap-4.min.css') }}" />
-
   {!! Assets::renderHeader(['core']) !!}
 
   {!! Html::style('/vendor/core/core/base/css/themes/default.css') !!}
@@ -45,7 +42,8 @@
 
   <!-- Put translation key to translate in VueJS -->
   <script type="text/javascript">
-      'use strict';
+      "use strict";
+
       window.trans = JSON.parse('{!! addslashes(json_encode(trans('plugins/member::dashboard'))) !!}');
       var BotbleVariables = BotbleVariables || {};
       BotbleVariables.languages = {
@@ -90,7 +88,6 @@
 
   @if (session()->has('status') || session()->has('success_msg') || session()->has('error_msg') || (isset($errors) && $errors->count() > 0) || isset($error_msg))
     <script type="text/javascript">
-      'use strict';
       window.noticeMessages = [];
       @if (session()->has('success_msg'))
       noticeMessages.push({'type': 'success', 'message': "{!! addslashes(session('success_msg')) !!}"});
@@ -114,9 +111,6 @@
 
   <!-- Scripts -->
   <script src="{{ asset('vendor/core/plugins/member/js/app.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('vendor/core/plugins/member/libs/moment/moment.min.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('vendor/core/plugins/member/libs/moment/tempusdominus-bootstrap-4.min.js') }}"></script>
-  <script src="{{ asset('vendor/core/core/media/libraries/lodash/lodash.min.js') }}"></script>
   {!! Assets::renderFooter() !!}
   @stack('scripts')
   @stack('footer')

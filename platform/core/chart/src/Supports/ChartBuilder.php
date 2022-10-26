@@ -27,7 +27,7 @@ class ChartBuilder
      * @return Chart
      * @throws BindingResolutionException
      */
-    public function create(string $chartClass): Chart
+    public function create($chartClass)
     {
         if (!class_exists($chartClass)) {
             throw new InvalidArgumentException(

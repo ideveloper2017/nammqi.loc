@@ -25,7 +25,7 @@ class Revision extends BaseModel
      *
      * @return MorphTo
      */
-    public function revisionable(): MorphTo
+    public function revisionable()
     {
         return $this->morphTo();
     }
@@ -57,10 +57,10 @@ class Revision extends BaseModel
      * @param string $key
      * @return bool
      */
-    protected function formatFieldName(string $key): bool
+    protected function formatFieldName($key)
     {
         $relatedModel = $this->revisionable_type;
-        $relatedModel = new $relatedModel();
+        $relatedModel = new $relatedModel;
         $revisionFormattedFieldNames = $relatedModel->getRevisionFormattedFieldNames();
 
         if (isset($revisionFormattedFieldNames[$key])) {
@@ -78,7 +78,7 @@ class Revision extends BaseModel
      *
      * @return string old value
      */
-    public function oldValue(): ?string
+    public function oldValue()
     {
         return $this->getValue('old');
     }
@@ -91,7 +91,7 @@ class Revision extends BaseModel
      *
      * @return string value
      */
-    protected function getValue(string $which = 'new'): ?string
+    protected function getValue($which = 'new')
     {
         $whichValue = $which . '_value';
 
@@ -99,13 +99,13 @@ class Revision extends BaseModel
         $mainModel = $this->revisionable_type;
         // Load it, WITH the related model
         if (class_exists($mainModel)) {
-            $mainModel = new $mainModel();
+            $mainModel = new $mainModel;
 
             try {
                 if ($this->isRelated()) {
                     $relatedModel = $this->getRelatedModel();
 
-                    // Now we can find out the namespace of related model
+                    // Now we can find out the namespace of of related model
                     if (!method_exists($mainModel, $relatedModel)) {
                         $relatedModel = Str::camel($relatedModel); // for cases like published_status_id
                         if (!method_exists($mainModel, $relatedModel)) {
@@ -118,13 +118,13 @@ class Revision extends BaseModel
                     // we can load it, to find the information we so desire
                     $item = $relatedClass::find($this->$whichValue);
 
-                    if ($this->$whichValue == '') {
-                        $item = new $relatedClass();
+                    if ($this->$whichValue === null || $this->$whichValue == '') {
+                        $item = new $relatedClass;
 
                         return $item->getRevisionNullString();
                     }
                     if (!$item) {
-                        $item = new $relatedClass();
+                        $item = new $relatedClass;
 
                         return $this->format($this->key, $item->getRevisionUnknownString());
                     }
@@ -163,7 +163,7 @@ class Revision extends BaseModel
      *
      * @return bool
      */
-    protected function isRelated(): bool
+    protected function isRelated()
     {
         $isRelated = false;
         $idSuffix = '_id';
@@ -181,7 +181,7 @@ class Revision extends BaseModel
      *
      * @return string
      */
-    protected function getRelatedModel(): string
+    protected function getRelatedModel()
     {
         $idSuffix = '_id';
 
@@ -192,14 +192,14 @@ class Revision extends BaseModel
      * Format the value according to the $revisionFormattedFields array.
      *
      * @param string $key
-     * @param string|null $value
+     * @param string $value
      *
      * @return string formatted value
      */
-    public function format(string $key, ?string $value): ?string
+    public function format($key, $value)
     {
         $relatedModel = $this->revisionable_type;
-        $relatedModel = new $relatedModel();
+        $relatedModel = new $relatedModel;
         $revisionFormattedFields = $relatedModel->getRevisionFormattedFields();
 
         if (isset($revisionFormattedFields[$key])) {
@@ -217,7 +217,7 @@ class Revision extends BaseModel
      *
      * @return string old value
      */
-    public function newValue(): ?string
+    public function newValue()
     {
         return $this->getValue();
     }

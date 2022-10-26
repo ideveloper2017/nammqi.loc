@@ -3,6 +3,7 @@
 namespace Botble\Optimize\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -12,10 +13,11 @@ class HookServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param string|null $data
+     * @param null $data
      * @return string
+     * @throws Throwable
      */
-    public function addSetting(?string $data = null): string
+    public function addSetting($data = null)
     {
         return $data . view('packages/optimize::setting')->render();
     }

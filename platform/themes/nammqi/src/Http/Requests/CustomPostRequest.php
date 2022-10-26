@@ -1,6 +1,6 @@
 <?php
 
-namespace Theme\Nammqi\Http\Requests;
+namespace Theme\Chorsuname\Http\Requests;
 
 use Botble\Blog\Http\Requests\PostRequest;
 

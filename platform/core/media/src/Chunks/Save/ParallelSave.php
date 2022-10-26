@@ -65,9 +65,7 @@ class ParallelSave extends ChunkSave
     protected function getSavedChunksFiles()
     {
         $chunkFileName = preg_replace(
-            '/\\.[\\d]+\\.' . ChunkStorage::CHUNK_EXTENSION . '$/',
-            '',
-            $this->handler()->getChunkFileName()
+            '/\\.[\\d]+\\.' . ChunkStorage::CHUNK_EXTENSION . '$/', '', $this->handler()->getChunkFileName()
         );
 
         return $this->chunkStorage->files(function ($file) use ($chunkFileName) {
@@ -85,7 +83,7 @@ class ParallelSave extends ChunkSave
         $chunkFiles = $this->getSavedChunksFiles()->all();
 
         if (0 === count($chunkFiles)) {
-            throw new MissingChunkFilesException();
+            throw new MissingChunkFilesException;
         }
 
         // Sort the chunk order

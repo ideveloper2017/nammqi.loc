@@ -38,7 +38,7 @@ class BunnyCDNAdapter extends AbstractAdapter
      * @param string $path
      * @param string $contents
      * @param Config $config
-     * @return bool
+     * @return array|bool|false
      */
     public function update($path, $contents, Config $config)
     {
@@ -108,6 +108,7 @@ class BunnyCDNAdapter extends AbstractAdapter
                 $this->fullPath($path),
                 stream_get_meta_data($temp_pointer)['uri']
             );
+
         } catch (BunnyCDNStorageException $e) {
             return false;
         }
@@ -120,7 +121,7 @@ class BunnyCDNAdapter extends AbstractAdapter
 
     /**
      * @param string $path
-     * @return array
+     * @return array|false
      * @throws BunnyCDNStorageException
      * @throws FileNotFoundException
      * @throws UnreadableFileException
@@ -131,10 +132,9 @@ class BunnyCDNAdapter extends AbstractAdapter
     }
 
     /**
-     * @param stdClass $fileObject
-     * @return array
+     * {@inheritdoc}
      */
-    protected function normalizeObject(stdClass $fileObject): array
+    protected function normalizeObject(stdClass $fileObject)
     {
         return [
             'type'              => $fileObject->IsDirectory ? 'dir' : 'file',
@@ -216,7 +216,7 @@ class BunnyCDNAdapter extends AbstractAdapter
 
     /**
      * @param string $dirname
-     * @return bool
+     * @return bool|void
      */
     public function deleteDir($dirname)
     {
@@ -232,7 +232,7 @@ class BunnyCDNAdapter extends AbstractAdapter
     /**
      * @param string $dirname
      * @param Config $config
-     * @return bool
+     * @return array|false|void
      */
     public function createDir($dirname, Config $config)
     {
@@ -263,13 +263,11 @@ class BunnyCDNAdapter extends AbstractAdapter
             $file = Util::splitPathIntoDirectoryAndFile($path)['file'];
             $directory = Util::splitPathIntoDirectoryAndFile($path)['dir'];
 
-            return count(array_filter(
-                $this->bunnyCDNStorage->getStorageObjects($this->fullPath($directory)),
-                function ($value) use ($file, $directory) {
+            return count(array_filter($this->bunnyCDNStorage->getStorageObjects(
+                    $this->fullPath($directory)
+                ), function ($value) use ($file, $directory) {
                     return $value->Path . $value->ObjectName === $this->fullPath($directory . '/' . $file);
-                },
-                ARRAY_FILTER_USE_BOTH
-            )) === 1;
+                }, ARRAY_FILTER_USE_BOTH)) === 1;
         } catch (BunnyCDNStorageException $e) {
             return false;
         }
@@ -278,7 +276,7 @@ class BunnyCDNAdapter extends AbstractAdapter
     /**
      * @param string $directory
      * @param bool $recursive
-     * @return array
+     * @return array|mixed
      * @throws BunnyCDNStorageException
      */
     public function listContents($directory = '', $recursive = false)
@@ -294,7 +292,7 @@ class BunnyCDNAdapter extends AbstractAdapter
 
     /**
      * @param string $path
-     * @return array
+     * @return array|false
      * @throws BunnyCDNStorageException
      * @throws FileNotFoundException
      * @throws UnreadableFileException
@@ -329,10 +327,10 @@ class BunnyCDNAdapter extends AbstractAdapter
     }
 
     /**
-     * @param string|null $path
+     * @param string $path
      * @return string
      */
-    public function getUrl(?string $path): string
+    public function getUrl($path)
     {
         return 'https://' . config('filesystems.disks.bunnycdn.hostname') . '/' . $path;
     }

@@ -36,12 +36,12 @@
 ----------------------------------------------*/
 /* --- 1.0 - Normalize ---*/
 html {
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
 body {
-     font-family: 'Lora', serif;
+     font-family: 'Open Sans', serif;
      font-size: 16px; /*  base font size  15px= 1em*/
      margin: 0;
 }
@@ -173,7 +173,7 @@ optgroup {
 /* --- 2.0 - Typography --- */
 body,button,input,select,textarea {
     color: #1a1a1a;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     line-height: 1.75;
 }
 h1,h2,h3,h4,h5,h6 {
@@ -198,8 +198,7 @@ h4{
 	font-size: 24px;
 }
 h5{
-	font-size: 16px;
-    font-weight: bold;
+	font-size: 18px;
 }
 p {
 	font-size: 16px;
@@ -270,7 +269,7 @@ address {
     margin-bottom: 10px;
 }
 code,kbd,tt,var,samp,pre {
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 pre {
     border: 1px solid #d1d1d1;
@@ -388,21 +387,21 @@ th,td {
 /* Placeholder text color -- selectors need to be separate to work. */
 ::-webkit-input-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 :-moz-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 ::-moz-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 :-ms-input-placeholder {
     color: #696969;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 
 /* --- 4.0 - Forms --- */
@@ -425,7 +424,7 @@ input[type="submit"][disabled]:focus {
     border: 0;
     border-radius: 2px;
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     font-weight: 700;
     letter-spacing: 0.046875em;
     line-height: 1;
@@ -448,7 +447,7 @@ input[type="submit"][disabled]:focus {
     background-color: #ffb400;
 }
 .padding-120{
-    padding: 20px 0px;
+    padding: 120px 0px;
 }
 .section-bg{
     background-color: #f5f8fa;
@@ -456,7 +455,7 @@ input[type="submit"][disabled]:focus {
 .section-header{
     text-align: center;
     max-width: 650px;
-    margin: 0px auto 15px;
+    margin: 0px auto 55px;
 }
 .section-header h3{
     color: #6c5ebf;
@@ -924,7 +923,7 @@ header .menu_cart .check_out:hover{
 .header-two .main-menu ul li ul li a{
     background-color: #6c5ebf;
     color: #fff;
-    /*text-transform: capitalize;*/
+    text-transform: capitalize;
     padding: 10px 15px;
 }
 .header-two .main-menu ul li ul li a:hover, .header-two .main-menu ul li ul li a:focus, .header-two .main-menu ul li ul li.active a{
@@ -1608,7 +1607,7 @@ header .menu_cart .check_out:hover{
     border: none;
 }
 .page-header .overlay{
-    padding: 10px 0px;
+    padding: 158px 0px;
     background-color: rgba(0,0,0,.5);
     text-align: center;
 }
@@ -1843,13 +1842,6 @@ header .menu_cart .check_out:hover{
 ----------------------------------------------*/
 .facility .facility-item{
     text-align: center;
-    background-color: #fff;
-    padding: 30px 25px;
-    margin-bottom: 30px;
-    -webkit-box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 10%);
-    box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 10%);
-    -webkit-transition: .25s ease-out;
-    transition: .25s ease-out;
 }
 .facility .facility-item .icon{
     height: 120px;
@@ -1927,7 +1919,6 @@ header .menu_cart .check_out:hover{
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,.1);
     -webkit-transition: .25s ease-out;
     transition: .25s ease-out;
-    height: 330px;
 }
 .services .service-item:hover{
     -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -3199,10 +3190,12 @@ header .menu_cart .check_out:hover{
 .partner .partner-item img{
     margin: 0 auto;
 }
-.event{
-    padding: 0px 0px 90px;
-}
 
+/*  19  - Event
+----------------------------------------------*/
+.event{
+    padding: 120px 0px 90px;
+}
 .event .event-item{
     -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,.1);
     box-shadow: 0px 0px 10px 2px rgba(0,0,0,.1);
@@ -3210,7 +3203,6 @@ header .menu_cart .check_out:hover{
     margin-bottom: 30px;
     -webkit-transition: .25s ease-out;
     transition: .25s ease-out;
-    height: 500px;
 }
 .event .event-item:hover{
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -3461,16 +3453,14 @@ header .menu_cart .check_out:hover{
 /*  21  - Blog
 ----------------------------------------------*/
 .blog{
-    padding: 15px 0px 90px;
+    padding: 0px 0px 90px;
 }
 .blog .blog-item{
     background-color: #fff;
-    box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 10%);
-    margin-bottom: 16px;
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,.1);
+    margin-bottom: 30px;
     -webkit-transition: .25s ease-out;
     transition: .25s ease-out;
-    border-bottom: 2px solid #000;
-
 }
 .blog .blog-item:hover{
     -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -3492,9 +3482,7 @@ header .menu_cart .check_out:hover{
 }
 .blog .blog-item .blog-content{
     padding: 15px;
-    height: 150px;
 }
-
 .blog .blog-item .blog-content h4 a{
     text-decoration: none;
     color: #212121;
@@ -4957,21 +4945,21 @@ header .menu_cart .check_out:hover{
 }
 .subscribe ::-webkit-input-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe :-moz-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe ::-moz-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
     opacity: 1;
     /* Since FF19 lowers the opacity of the placeholder by default */
 }
 .subscribe :-ms-input-placeholder {
     color: #fff;
-    font-family: 'Lora', serif;
+    font-family: 'Open Sans', serif;
 }
 .subscribe-two:before{
     display: none;

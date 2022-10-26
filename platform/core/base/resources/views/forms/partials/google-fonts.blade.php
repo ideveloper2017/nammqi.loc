@@ -5,12 +5,6 @@
     <select name="{{ $name }}" class='form-control select2_google_fonts_picker'>
         @php
             $field['options'] = ['' => __('-- Select --')] + config('core.base.general.google_fonts', []);
-
-            $customGoogleFonts = config('core.base.general.custom_google_fonts');
-
-            if ($customGoogleFonts) {
-                $field['options'] = array_merge($field['options'], explode(',', $customGoogleFonts));
-            }
         @endphp
         @foreach (array_combine($field['options'], $field['options']) as $key => $value)
             <option value='{{ $key }}' @if ($key == $selected) selected @endif>{{ $value }}</option>

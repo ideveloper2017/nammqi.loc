@@ -6,6 +6,7 @@ use Kris\LaravelFormBuilder\Fields\SelectType;
 
 class RepeaterField extends SelectType
 {
+
     /**
      * {@inheritDoc}
      */

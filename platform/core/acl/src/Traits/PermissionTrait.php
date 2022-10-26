@@ -16,7 +16,7 @@ trait PermissionTrait
     /**
      * Create a new permissions instance.
      *
-     * @param array|null $permissions
+     * @param array $permissions
      */
     public function __construct(array $permissions = null)
     {

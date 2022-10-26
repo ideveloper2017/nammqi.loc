@@ -4,9 +4,7 @@ use Botble\Ads\Repositories\Interfaces\AdsInterface;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Counterup\Repositories\Interfaces\CounterupInterface;
-use Botble\Faq\Repositories\Interfaces\FaqCategoryInterface;
 use Botble\PostCollection\Repositories\Interfaces\PostCollectionInterface;
-use Botble\Testimonial\Repositories\Interfaces\TestimonialInterface;
 use Botble\Theme\Supports\ThemeSupport;
 
 
@@ -15,139 +13,12 @@ app()->booted(function () {
     ThemeSupport::registerYoutubeShortcode();
 
 
-    if (is_plugin_active('testimonial')) {
-        add_shortcode('testimonial', __('Testimonial'), __('Testimonial'), function ($shortCode) {
-            $testimonials = app(TestimonialInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-
-            return Theme::partial('shortcodes.testimonial', [
-                'title'        => $shortCode->title,
-                'description'  => $shortCode->description,
-                'testimonials' => $testimonials,
-            ]);
-        });
-        shortcode()->setAdminConfig('testimonial', Theme::partial('shortcodes.testimonial-admin-config'));
-    }
-
-        add_shortcode('section-intro',"SectionIntro","SectionIntro",function ($shortcode){
-//            $counters = app(CounterupInterface::class)->getModel()
-//                ->where('status', BaseStatusEnum::PUBLISHED)
-//                ->get();
-            return Theme::partial('shortcodes.section-intro');
-        });
-
-
-    add_shortcode('section-about',"SectionAbout","SectionAbout",function ($shortcode){
-//            $counters = app(CounterupInterface::class)->getModel()
-//                ->where('status', BaseStatusEnum::PUBLISHED)
-//                ->get();
-        return Theme::partial('shortcodes.section-about');
-    });
-    add_shortcode('section-counter',"SectionCounter","SectionCounter",function ($shortcode){
-//            $counters = app(CounterupInterface::class)->getModel()
-//                ->where('status', BaseStatusEnum::PUBLISHED)
-//                ->get();
-        return Theme::partial('shortcodes.section-counter');
-    });
-
-    add_shortcode('elonlar', __('Elonlar'), __('Elonlar'), function ($shortCode) {
-        $attributes = $shortCode->toArray();
-        $categories = collect([]);
-        for ($i = 1; $i <= 1; $i++) {
-            if (!Arr::has($attributes, 'category_id_' . $i)) {
-                continue;
-            }
-            $category = app(CategoryInterface::class)->advancedGet([
-                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
-                'take' => 1,
-                'with'      => [
-                    'slugable',
-                    'posts' => function ($query) {
-                        return $query
-                            ->latest()
-                            ->with(['slugable']);
-                    },
-                ],
-            ]);
-            if ($category) {
-                $categories[] = $category;
-            }
-        }
-        $title=$shortCode->title;
-        return Theme::partial('shortcodes.section-anonymons', compact('title','categories'));
-    });
-
-    shortcode()->setAdminConfig('elonlar', function ($attributes) {
-        $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.faculties-admin-config', compact('attributes','categories'));
-
-    });
-
-    add_shortcode('faculties', __('Faculties'), __('Faculties'), function ($shortCode) {
-        $attributes = $shortCode->toArray();
-        $categories = collect([]);
-        for ($i = 1; $i <= 1; $i++) {
-            if (!Arr::has($attributes, 'category_id_' . $i)) {
-                continue;
-            }
-        $category = app(CategoryInterface::class)->advancedGet([
-                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
-                'take' => 1,
-                'with'      => [
-                    'slugable',
-                    'posts' => function ($query) {
-                        return $query
-                            ->latest()
-                            ->with(['slugable']);
-                    },
-                ],
-            ]);
-            if ($category) {
-                $categories[] = $category;
-            }
-        }
-        return Theme::partial('shortcodes.faculties', ['categories'=>$categories, 'title'=> $shortCode->title]);
-    });
-    shortcode()->setAdminConfig('faculties', function ($attributes) {
-        $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.faculties-admin-config', compact('attributes','categories'));
-    });
-
-    add_shortcode('kafedra', __('Kafedra'), __('Kafedra'), function ($shortCode) {
-        $attributes = $shortCode->toArray();
-        $categories = collect([]);
-        for ($i = 1; $i <= 1; $i++) {
-            if (!Arr::has($attributes, 'category_id_' . $i)) {
-                continue;
-            }
-            $category = app(CategoryInterface::class)->advancedGet([
-                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
-                'take' => 1,
-                'with'      => [
-                    'slugable',
-                    'posts' => function ($query) {
-                        return $query
-                            ->latest()
-                            ->with(['slugable']);
-                    },
-                ],
-            ]);
-            if ($category) {
-                $categories[] = $category;
-            }
-        }
-        return Theme::partial('shortcodes.kafedra', compact('categories'));
-    });
-    shortcode()->setAdminConfig('kafedra', function () {
-        $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
-        return Theme::partial('shortcodes.kafedra-admin-config', compact('categories'));
-    });
-
-
     if (is_plugin_active('counterup')){
         add_shortcode('counterup',"CounterUp","CounterUp",function ($shortcode){
             $counters = app(CounterupInterface::class)->getModel()
                 ->where('status', BaseStatusEnum::PUBLISHED)
                 ->get();
+
             return Theme::partial('shortcodes.counterup',compact('counters'));
         });
 
@@ -155,7 +26,6 @@ app()->booted(function () {
             return Theme::partial('shortcodes.counterup-admin-config', compact('attributes', 'content'));
         });
     }
-
 
     if (is_plugin_active('gallery')) {
         add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
@@ -172,6 +42,8 @@ app()->booted(function () {
             return Theme::getThemeNamespace() . '::partials.shortcodes.sliders.main';
         }, 120);
     }
+
+
 
     if (is_plugin_active('simple-slider')) {
         add_filter(SHORTCODE_REGISTER_CONTENT_IN_ADMIN, function ($data, $key, $attributes) {
@@ -202,20 +74,20 @@ app()->booted(function () {
             function ($shortCode) {
                 $category = app(CategoryInterface::class)
                     ->findById($shortCode->category_id, ['slugable', 'posts' => function ($query) {
-                        $query->latest()->with(['slugable', 'categories', 'categories.slugable'])->limit(12);
+                        $query->latest()->with(['slugable', 'categories', 'categories.slugable'])->limit(4);
                     }]);
 
                 if (!$category) {
                     return null;
                 }
 
-                return Theme::partial('shortcodes.blog-categories-posts', ['title' => $shortCode->title,'category'=>$category]);
+                return Theme::partial('shortcodes.blog-categories-posts', compact('category'));
             });
 
-        shortcode()->setAdminConfig('blog-categories-posts', function ($attributes) {
+        shortcode()->setAdminConfig('blog-categories-posts', function () {
             $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
 
-            return Theme::partial('shortcodes.blog-categories-posts-admin-config', compact('attributes','categories'));
+            return Theme::partial('shortcodes.blog-categories-posts-admin-config', compact('categories'));
         });
 
         add_shortcode('categories-with-posts', __('Categories with Posts'), __('Categories with Posts'), function ($shortCode) {
@@ -505,40 +377,6 @@ app()->booted(function () {
                 ->get();
 
             return Theme::partial('shortcodes.theme-ads-admin-config', compact('ads'));
-        });
-    }
-
-    if (is_plugin_active('faq')) {
-        add_shortcode('faqs', __('FAQs'), __('List of FAQs'), function ($shortcode) {
-
-            $params = [
-                'condition' => [
-                    'status' => BaseStatusEnum::PUBLISHED,
-                ],
-                'with'      => [
-                    'faqs' => function ($query) {
-                        $query->where('status', BaseStatusEnum::PUBLISHED);
-                    },
-                ],
-                'order_by'  => [
-                    'faq_categories.order'      => 'ASC',
-                    'faq_categories.created_at' => 'DESC',
-                ],
-            ];
-
-            if ($shortcode->category_id) {
-                $params['condition']['id'] = $shortcode->category_id;
-            }
-
-            $categories = app(FaqCategoryInterface::class)->advancedGet($params);
-
-            return Theme::partial('shortcodes.faqs', ['title' => $shortcode->title,'categories'=>$categories]);
-        });
-
-        shortcode()->setAdminConfig('faqs', function ($attributes) {
-            $categories = app(FaqCategoryInterface::class)->pluck('name', 'id', ['status' => BaseStatusEnum::PUBLISHED]);
-
-            return Theme::partial('shortcodes.faqs-admin-config', compact('attributes', 'categories'));
         });
     }
 });

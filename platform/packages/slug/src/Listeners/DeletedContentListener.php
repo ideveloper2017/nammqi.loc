@@ -9,6 +9,7 @@ use SlugHelper;
 
 class DeletedContentListener
 {
+
     /**
      * @var SlugInterface
      */

@@ -8,10 +8,12 @@ use Botble\Table\Abstracts\TableAbstract;
 use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Facades\Auth;
+use RvMedia;
 use Yajra\DataTables\DataTables;
 
 class MemberTable extends TableAbstract
 {
+
     /**
      * @var bool
      */
@@ -52,10 +54,10 @@ class MemberTable extends TableAbstract
             })
             ->editColumn('first_name', function ($item) {
                 if (!Auth::user()->hasPermission('member.edit')) {
-                    return $item->name;
+                    return clean($item->name);
                 }
 
-                return Html::link(route('member.edit', $item->id), $item->name);
+                return Html::link(route('member.edit', $item->id), clean($item->name));
             })
             ->editColumn('checkbox', function ($item) {
                 return $this->getCheckbox($item->id);

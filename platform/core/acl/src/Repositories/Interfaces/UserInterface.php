@@ -6,6 +6,7 @@ use Botble\Support\Repositories\Interfaces\RepositoryInterface;
 
 interface UserInterface extends RepositoryInterface
 {
+
     /**
      * Get unique username from email
      *

@@ -28,10 +28,8 @@ class PublishAssetsCommand extends Command
         $this->info('Publishing core, packages, plugins assets...');
         $this->call('vendor:publish', ['--tag' => 'cms-public', '--force' => true]);
 
-        if (defined('THEME_MODULE_SCREEN_NAME')) {
-            $this->info('Publishing theme assets...');
-            $this->call('cms:theme:assets:publish');
-        }
+        $this->info('Publishing theme assets...');
+        $this->call('cms:theme:assets:publish');
 
         $this->info('Published assets successfully!');
     }

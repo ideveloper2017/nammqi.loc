@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 class EmailHandlerFacade extends Facade
 {
+
     /**
      * @return string
      * @since 2.2

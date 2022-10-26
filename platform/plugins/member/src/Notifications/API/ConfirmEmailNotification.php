@@ -2,28 +2,17 @@
 
 namespace Botble\Member\Notifications\API;
 
+use EmailHandler;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
+use URL;
 
 class ConfirmEmailNotification extends Notification implements ShouldQueue
 {
     use Queueable;
-
-    /**
-     * @var string
-     */
-    protected $verifyToken;
-
-    /**
-     * ConfirmEmailNotification constructor.
-     * @param $verifyToken
-     */
-    public function __construct($verifyToken)
-    {
-        $this->verifyToken = $verifyToken;
-    }
 
     /**
      * Get the notification's delivery channels.
@@ -44,12 +33,14 @@ class ConfirmEmailNotification extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage())
-            ->view('plugins/member::emails.confirm', [
-                'link' => url('verify-email', [
-                    'email' => urlencode($notifiable->email),
-                    'token' => $this->verifyToken,
-                ]),
-            ]);
+        EmailHandler::setModule(MEMBER_MODULE_SCREEN_NAME)
+            ->setVariableValue('verify_link', URL::signedRoute('public.member.confirm', ['user' => $notifiable->id]));
+
+        $template = 'confirm-email';
+        $content = EmailHandler::prepareData(EmailHandler::getTemplateContent($template));
+
+        return (new MailMessage)
+            ->view(['html' => new HtmlString($content)])
+            ->subject(EmailHandler::getTemplateSubject($template));
     }
 }

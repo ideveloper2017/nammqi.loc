@@ -62,19 +62,5 @@ Route::group(['namespace' => 'Botble\Theme\Http\Controllers', 'middleware' => ['
                 'middleware' => 'preventDemo',
             ]);
         });
-
-        Route::group(['prefix' => 'theme/custom-html'], function () {
-            Route::get('', [
-                'as'   => 'theme.custom-html',
-                'uses' => 'ThemeController@getCustomHtml',
-            ]);
-
-            Route::post('', [
-                'as'         => 'theme.custom-html.post',
-                'uses'       => 'ThemeController@postCustomHtml',
-                'permission' => 'theme.custom-html',
-                'middleware' => 'preventDemo',
-            ]);
-        });
     });
 });

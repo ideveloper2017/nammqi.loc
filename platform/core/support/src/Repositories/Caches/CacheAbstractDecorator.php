@@ -29,7 +29,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function __construct(RepositoryInterface $repository, string $cacheGroup = null)
     {
         $this->repository = $repository;
-        $this->cache = new Cache(app('cache'), $cacheGroup ?? get_class($repository->getModel()));
+        $this->cache = new Cache(app('cache'), $cacheGroup ?? get_class($repository));
     }
 
     /**

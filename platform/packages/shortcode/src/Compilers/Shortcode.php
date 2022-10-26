@@ -4,6 +4,7 @@ namespace Botble\Shortcode\Compilers;
 
 class Shortcode
 {
+
     /**
      * Shortcode name
      *
@@ -30,10 +31,10 @@ class Shortcode
      *
      * @param string $name
      * @param array $attributes
-     * @param string|null $content
+     * @param string $content
      * @since 2.1
      */
-    public function __construct(string $name, array $attributes = [], ?string $content = null)
+    public function __construct($name, $attributes = [], $content = null)
     {
         $this->name = $name;
         $this->attributes = $attributes;
@@ -45,10 +46,10 @@ class Shortcode
      *
      * @param string $attribute
      * @param $fallback
-     * @return string
+     * @return string|null
      * @since 2.1
      */
-    public function get(string $attribute, $fallback = null): string
+    public function get($attribute, $fallback = null)
     {
         $value = $this->{$attribute};
         if (!empty($value)) {
@@ -66,7 +67,7 @@ class Shortcode
      * @return string
      * @since 2.1
      */
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
@@ -77,7 +78,7 @@ class Shortcode
      * @return string
      * @since 2.1
      */
-    public function getContent(): ?string
+    public function getContent()
     {
         return $this->content;
     }
@@ -88,7 +89,7 @@ class Shortcode
      * @return array
      * @since 2.1
      */
-    public function toArray(): array
+    public function toArray()
     {
         return $this->attributes;
     }
@@ -100,8 +101,8 @@ class Shortcode
      * @return string|null
      * @since 2.1
      */
-    public function __get(string $param)
+    public function __get($param)
     {
-        return $this->attributes[$param] ?? null;
+        return isset($this->attributes[$param]) ? $this->attributes[$param] : null;
     }
 }

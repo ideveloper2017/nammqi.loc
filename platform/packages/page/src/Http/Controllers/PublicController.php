@@ -5,7 +5,6 @@ namespace Botble\Page\Http\Controllers;
 use Botble\Page\Models\Page;
 use Botble\Page\Services\PageService;
 use Botble\Theme\Events\RenderingSingleEvent;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Response;
 use SlugHelper;
@@ -16,7 +15,7 @@ class PublicController extends Controller
     /**
      * @param string $slug
      * @param PageService $pageService
-     * @return RedirectResponse|Response
+     * @return \Illuminate\Http\RedirectResponse|Response
      */
     public function getPage($slug, PageService $pageService)
     {

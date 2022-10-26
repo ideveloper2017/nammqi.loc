@@ -9,13 +9,14 @@ use Html;
 
 class PasswordForm extends FormAbstract
 {
+
     /**
      * {@inheritDoc}
      */
     public function buildForm()
     {
         $this
-            ->setupModel(new User())
+            ->setupModel(new User)
             ->setValidatorClass(UpdatePasswordRequest::class)
             ->setFormOption('template', 'core/base::forms.form-no-wrap')
             ->setFormOption('id', 'password-form')

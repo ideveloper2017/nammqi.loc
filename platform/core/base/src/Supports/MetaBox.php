@@ -3,9 +3,9 @@
 namespace Botble\Base\Supports;
 
 use Botble\Base\Repositories\Interfaces\MetaBoxInterface;
-use Closure;
 use Exception;
 use Throwable;
+use Illuminate\Database\Eloquent\Model;
 use Botble\Base\Models\MetaBox as MetaBoxModel;
 
 class MetaBox
@@ -32,19 +32,19 @@ class MetaBox
     /**
      * @param string $id
      * @param string $title
-     * @param string|array|Closure $callback
+     * @param string|array|\Closure $callback
      * @param null $reference
      * @param string $context
      * @param string $priority
      * @param null $callbackArgs
      */
     public function addMetaBox(
-        string $id,
-        string $title,
+        $id,
+        $title,
         $callback,
         $reference = null,
-        string $context = 'advanced',
-        string $priority = 'default',
+        $context = 'advanced',
+        $priority = 'default',
         $callbackArgs = null
     ) {
         if (!isset($this->metaBoxes[$reference])) {
@@ -121,7 +121,7 @@ class MetaBox
      *
      * @throws Throwable
      */
-    public function doMetaBoxes(string $context, $object = null): int
+    public function doMetaBoxes($context, $object = null)
     {
         $index = 0;
         $data = '';
@@ -133,7 +133,7 @@ class MetaBox
                 }
 
                 foreach ((array)$this->metaBoxes[$reference][$context][$priority] as $box) {
-                    if (!$box || !$box['title']) {
+                    if (false == $box || !$box['title']) {
                         continue;
                     }
                     $index++;
@@ -157,7 +157,7 @@ class MetaBox
      * @param string|object $reference The screen on which to show the box (post, page, link).
      * @param string $context The context within the page where the boxes should show ('normal', 'advanced').
      */
-    public function removeMetaBox(string $id, $reference, string $context)
+    public function removeMetaBox($id, $reference, $context)
     {
         if (!isset($this->metaBoxes[$reference])) {
             $this->metaBoxes[$reference] = [];
@@ -173,14 +173,14 @@ class MetaBox
     }
 
     /**
-     * @param mixed $object
+     * @param Model $object
      * @param string $key
      * @param $value
      * @param $options
      * @return boolean
      * @throws Exception
      */
-    public function saveMetaBoxData($object, string $key, $value, $options = null): bool
+    public function saveMetaBoxData($object, string $key, $value, $options = null)
     {
         $key = apply_filters('stored_meta_box_key', $key, $object);
 
@@ -212,13 +212,13 @@ class MetaBox
     }
 
     /**
-     * @param mixed $object
+     * @param Model $object
      * @param string $key
      * @param boolean $single
      * @param array $select
      * @return mixed
      */
-    public function getMetaData($object, string $key, bool $single = false, array $select = ['meta_value'])
+    public function getMetaData($object, string $key, $single = false, $select = ['meta_value'])
     {
         if ($object instanceof MetaBoxModel) {
             $field = $object;
@@ -238,12 +238,12 @@ class MetaBox
     }
 
     /**
-     * @param mixed $object
+     * @param Model $object
      * @param string $key
      * @param array $select
      * @return mixed
      */
-    public function getMeta($object, string $key, array $select = ['meta_value'])
+    public function getMeta($object, string $key, $select = ['meta_value'])
     {
         $key = apply_filters('stored_meta_box_key', $key, $object);
 
@@ -255,7 +255,7 @@ class MetaBox
     }
 
     /**
-     * @param mixed $object
+     * @param Model $object
      * @param string $key
      * @return mixed
      * @throws Exception

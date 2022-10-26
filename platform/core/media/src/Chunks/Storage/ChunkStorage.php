@@ -14,7 +14,7 @@ use Storage;
 
 class ChunkStorage
 {
-    public const CHUNK_EXTENSION = 'part';
+    const CHUNK_EXTENSION = 'part';
 
     /**
      * @var array
@@ -77,7 +77,7 @@ class ChunkStorage
     /**
      * @return FilesystemAdapter
      */
-    public function disk(): FilesystemAdapter
+    public function disk()
     {
         return $this->disk;
     }
@@ -87,7 +87,7 @@ class ChunkStorage
      *
      * @return ChunkStorage
      */
-    public static function storage(): ChunkStorage
+    public static function storage()
     {
         return app(self::class);
     }
@@ -99,10 +99,10 @@ class ChunkStorage
      *
      * @throws RuntimeException when the adapter is not local
      */
-    public function getDiskPathPrefix(): string
+    public function getDiskPathPrefix()
     {
         if ($this->isLocalDisk) {
-            return $this->disk->path('');
+            return $this->diskAdapter->getPathPrefix();
         }
 
         throw new RuntimeException('The full path is not supported on current disk - local adapter supported only');
@@ -113,7 +113,7 @@ class ChunkStorage
      *
      * @return Collection<ChunkFile> collection of a ChunkFile objects
      */
-    public function oldChunkFiles(): Collection
+    public function oldChunkFiles()
     {
         $files = $this->files();
         // If there are no files, lets return the empty collection
@@ -123,7 +123,7 @@ class ChunkStorage
 
         // Build the timestamp
         $timeToCheck = strtotime($this->config['clear']['timestamp']);
-        $collection = new Collection();
+        $collection = new Collection;
 
         // Filter the collection with files that are not correct chunk file
         // Loop all current files and filter them by the time
@@ -147,7 +147,7 @@ class ChunkStorage
      * @return Collection
      * @see FilesystemAdapter::files()
      */
-    public function files(?Closure $rejectClosure = null): Collection
+    public function files($rejectClosure = null)
     {
         // We need to filter files we don't support, lets use the collection
         $filesCollection = new Collection($this->disk->files($this->directory(), false));
@@ -172,7 +172,7 @@ class ChunkStorage
      *
      * @return string
      */
-    public function directory(): string
+    public function directory()
     {
         return $this->config['storage']['chunks'] . '/';
     }

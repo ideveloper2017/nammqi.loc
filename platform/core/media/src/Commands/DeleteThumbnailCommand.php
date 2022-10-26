@@ -45,7 +45,7 @@ class DeleteThumbnailCommand extends Command
      */
     public function handle()
     {
-        $files = $this->fileRepository->allBy([], [], ['url', 'mime_type', 'folder_id']);
+        $files = $this->fileRepository->allBy([], [], ['url', 'mime_type']);
 
         $this->info('Processing ' . $files->count() . ' ' . Str::plural('file', $files->count()) . '...');
 

@@ -15,7 +15,7 @@
                         <div class="avatar-upload">
                             <input class="avatar-src" name="avatar_src" type="hidden">
                             <input class="avatar-data" name="avatar_data" type="hidden">
-                            {!! csrf_field() !!}
+                            @csrf
                             <label for="avatarInput">{{ trans('plugins/member::dashboard.new_image') }}</label>
                             <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
                         </div>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-bs-dismiss="modal">{{ trans('plugins/member::dashboard.close') }}</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">{{ trans('plugins/member::dashboard.close') }}</button>
                     <button class="btn btn-primary avatar-save" type="submit">{{ trans('plugins/member::dashboard.save') }}</button>
                 </div>
             </form>

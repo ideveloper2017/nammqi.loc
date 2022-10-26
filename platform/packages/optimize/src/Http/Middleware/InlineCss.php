@@ -49,7 +49,7 @@ class InlineCss extends PageSpeed
     /**
      * @return $this
      */
-    protected function injectStyle(): InlineCss
+    protected function injectStyle()
     {
         collect($this->class)->each(function ($attributes, $class) {
             $this->inline[] = '.' . $class . '{' . $attributes . '}';
@@ -74,7 +74,7 @@ class InlineCss extends PageSpeed
     /**
      * @return $this
      */
-    protected function injectClass(): InlineCss
+    protected function injectClass()
     {
         collect($this->style)->each(function ($item) {
             $replace = [
@@ -90,7 +90,7 @@ class InlineCss extends PageSpeed
     /**
      * @return $this
      */
-    protected function fixHTML(): InlineCss
+    protected function fixHTML()
     {
         $newHTML = [];
         $tmp = explode('<', $this->html);

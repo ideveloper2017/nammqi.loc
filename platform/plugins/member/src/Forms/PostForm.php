@@ -10,6 +10,7 @@ use Botble\Member\Http\Requests\PostRequest;
 
 class PostForm extends BasePostForm
 {
+
     /**
      * {@inheritDoc}
      */
@@ -33,7 +34,7 @@ class PostForm extends BasePostForm
         }
 
         $this
-            ->setupModel(new Post())
+            ->setupModel(new Post)
             ->setFormOption('template', 'plugins/member::forms.base')
             ->setFormOption('enctype', 'multipart/form-data')
             ->setValidatorClass(PostRequest::class)

@@ -9,12 +9,12 @@ trait RedirectsUsers
      *
      * @return string
      */
-    public function redirectPath(): string
+    public function redirectPath()
     {
         if (method_exists($this, 'redirectTo')) {
-            return (string)$this->redirectTo();
+            return $this->redirectTo();
         }
 
-        return property_exists($this, 'redirectTo') ? (string)$this->redirectTo : '/';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 }

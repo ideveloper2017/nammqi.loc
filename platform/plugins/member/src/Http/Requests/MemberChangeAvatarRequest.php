@@ -7,6 +7,7 @@ use RvMedia;
 
 class MemberChangeAvatarRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *

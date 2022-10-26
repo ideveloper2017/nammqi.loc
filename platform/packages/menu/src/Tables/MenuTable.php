@@ -73,7 +73,7 @@ class MenuTable extends TableAbstract
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
     public function query()
     {

@@ -7,6 +7,7 @@ interface CacheInterface
     /**
      * Retrieve data from cache.
      *
+     * @param string : cache item key
      * @param string $key
      * @return mixed PHP data result of cache
      */
@@ -15,9 +16,10 @@ interface CacheInterface
     /**
      * Add data to the cache.
      *
+     * @param string : cache item key
+     * @param mixed : the data to store
+     * @param int : the number of minutes to store the item
      * @param string $key
-     * @param $value
-     * @param bool $minutes
      * @return mixed $value variable returned for convenience
      */
     public function put($key, $value, $minutes = false);
@@ -26,6 +28,7 @@ interface CacheInterface
      * Test if item exists in cache
      * Only returns true if exists && is not expired.
      *
+     * @param string : cache item key
      * @param string $key
      * @return bool If cache item exists
      */

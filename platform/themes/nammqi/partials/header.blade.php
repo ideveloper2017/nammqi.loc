@@ -7,8 +7,7 @@
         <meta name="format-detection" content="telephone=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <!-- Fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css?family={{ urlencode(theme_option('primary_font', 'Open Sans')) }}" rel="stylesheet" type="text/css">
         <!-- CSS Library-->
         <style>
             :root {
@@ -46,17 +45,17 @@
             <div class="header-top">
                 <div class="container">
                     <ul class="left">
-                        <li><span><i class="fa fa-address-book" aria-hidden="true"></i></span> {{ theme_option('address') }}</li>
-                        <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> {{ theme_option('phone') }}</li>
-{{--                        <li><span><i class="fa fa-email" aria-hidden="true"></i></span> {{ theme_option('email') }}</li>--}}
+                        <li><span><i class="fa fa-phone" aria-hidden="true"></i></span> Phone : 8801 923 154 259</li>
+                        <li><span><i class="fa fa-clock-o" aria-hidden="true"></i></span> Opening Time : 9:30am-5:30pm</li>
+                        <li><span><i class="fa fa-home" aria-hidden="true"></i></span> Address : Labartisan 1205 Dhaka</li>
+                    </ul>
+                    <ul class="right">
+                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="#">Register</a></li>
+                        <li>|</li>
+                        <li><i class="fa fa-lock" aria-hidden="true"></i> <a href="#">Login</a></li>
                     </ul>
 
-
                     <ul class="right">
-                        <li><i class="fa fa-registered" aria-hidden="true"></i> <a href="http://virtualtour.nammqi.uz">{{__('VirtualTour')}}</a></li>
-                        <li>|</li>
-                        <li><i class="fa fa-globe" aria-hidden="true"></i><a href="/gosudarstvennye-simvoly"> {{__('Davlat ramzlari')}}</a></li>
-
                                 {!! apply_filters('language_switcher') !!}
                     </ul>
                 </div><!-- container -->
@@ -64,26 +63,16 @@
             <div class="header-middle">
                 <div class="container">
                     <div class="row">
-
                         <div class="col-md-4 col-sm-4 col-xs-4">
-                            <a href="{{ route('public.single') }}" class="page-logo">
-                                @if (theme_option('logo'))
-                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50" style="margin-top:7%;">
-                                @endif
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-4">
-                            @if (is_plugin_active('blog'))
-                            <form action="{{ route('public.search') }}">
-                                        <input type="search" name="q" placeholder="{{ __('Type to search...') }}" class="form-control search-input" autocomplete="off">
-                                        <button><i class="fa fa-search" aria-hidden="true"></i></button>
+                            <form>
+                                <input type="search" name="search" placeholder="Search...">
+                                <button><i class="fa fa-search" aria-hidden="true"></i></button>
                             </form>
-                          @endif
-{{--                            <form>--}}
-{{--                                <input type="search" name="search" placeholder="Search...">--}}
-{{--                                <button><i class="fa fa-search" aria-hidden="true"></i></button>--}}
-{{--                            </form>--}}
                         </div>
+                        <div class="col-md-4 col-sm-4 col-xs-4">
+                            <a href="index.html" class="fm-logo"><img src="images/logo.png" alt="logo image" class="img-responsive"></a>
+                        </div>
+
                     </div>
                 </div><!-- container -->
             </div>
@@ -98,11 +87,7 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </button>
-{{--                            <a href="{{ route('public.single') }}" class="page-logo">--}}
-{{--                                @if (theme_option('logo'))--}}
-{{--                                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ theme_option('site_title') }}" height="50">--}}
-{{--                                @endif--}}
-{{--                            </a>--}}
+                            <a class="navbar-brand" href="index.html"><img src="images/logo_02.png" alt="logo" class="img-responsive"></a>
                         </div>
 
                         <!-- Collect the nav links, forms, and other content for toggling -->

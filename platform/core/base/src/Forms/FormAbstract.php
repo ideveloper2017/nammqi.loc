@@ -112,7 +112,7 @@ abstract class FormAbstract extends Form
      * @param string $title
      * @return $this
      */
-    public function setTitle(string $title): self
+    public function setTitle($title): self
     {
         $this->title = $title;
         return $this;
@@ -142,7 +142,7 @@ abstract class FormAbstract extends Form
      * @return string
      * @throws Throwable
      */
-    public function getMetaBox(string $name): string
+    public function getMetaBox($name): string
     {
         if (!Arr::get($this->metaBoxes, $name)) {
             return '';
@@ -154,7 +154,7 @@ abstract class FormAbstract extends Form
     }
 
     /**
-     * @param array|string $boxes
+     * @param array $boxes
      * @return $this
      */
     public function addMetaBoxes($boxes): self
@@ -171,7 +171,7 @@ abstract class FormAbstract extends Form
      * @param string $name
      * @return FormAbstract
      */
-    public function removeMetaBox(string $name): self
+    public function removeMetaBox($name): self
     {
         Arr::forget($this->metaBoxes, $name);
         return $this;
@@ -194,7 +194,7 @@ abstract class FormAbstract extends Form
      * @param string $actionButtons
      * @return $this
      */
-    public function setActionButtons(string $actionButtons): self
+    public function setActionButtons($actionButtons): self
     {
         $this->actionButtons = $actionButtons;
 
@@ -287,7 +287,9 @@ abstract class FormAbstract extends Form
         ];
 
         foreach ($customFields as $key => $field) {
-            $this->addCustomField($key, $field);
+            if (!$this->formHelper->hasCustomField($key)) {
+                $this->addCustomField($key, $field);
+            }
         }
 
         return apply_filters('form_custom_fields', $this, $this->formHelper);
@@ -300,9 +302,7 @@ abstract class FormAbstract extends Form
      */
     public function addCustomField($name, $class)
     {
-        if (!$this->formHelper->hasCustomField($name)) {
-            parent::addCustomField($name, $class);
-        }
+        parent::addCustomField($name, $class);
 
         return $this;
     }
@@ -320,7 +320,7 @@ abstract class FormAbstract extends Form
     /**
      * @return int
      */
-    public function hasMainFields(): int
+    public function hasMainFields()
     {
         if (!$this->breakFieldPoint) {
             return count($this->fields);
@@ -396,7 +396,7 @@ abstract class FormAbstract extends Form
      * @param string $validatorClass
      * @return $this
      */
-    public function setValidatorClass(string $validatorClass): self
+    public function setValidatorClass($validatorClass): self
     {
         $this->validatorClass = $validatorClass;
 

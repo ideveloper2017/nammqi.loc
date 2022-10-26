@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class Description implements DescriptionContract
 {
+
     /**
      * The meta name.
      *
@@ -69,9 +70,7 @@ class Description implements DescriptionContract
      */
     public function set($content)
     {
-        if ($content) {
-            $this->content = trim(strip_tags($content));
-        }
+        $this->content = trim(strip_tags($content));
 
         return $this;
     }

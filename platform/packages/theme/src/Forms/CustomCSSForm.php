@@ -2,7 +2,6 @@
 
 namespace Botble\Theme\Forms;
 
-use BaseHelper;
 use Botble\Base\Forms\FormAbstract;
 use Botble\Base\Models\BaseModel;
 use Botble\Theme\Http\Requests\CustomCssRequest;
@@ -19,11 +18,11 @@ class CustomCSSForm extends FormAbstract
         $css = null;
         $file = Theme::getStyleIntegrationPath();
         if (File::exists($file)) {
-            $css = BaseHelper::getFileData($file, false);
+            $css = get_file_data($file, false);
         }
 
         $this
-            ->setupModel(new BaseModel())
+            ->setupModel(new BaseModel)
             ->setUrl(route('theme.custom-css.post'))
             ->setValidatorClass(CustomCssRequest::class)
             ->add('custom_css', 'textarea', [

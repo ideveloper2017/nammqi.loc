@@ -7,6 +7,7 @@ use Exception;
 
 class CreatedContentListener
 {
+
     /**
      * Handle the event.
      *

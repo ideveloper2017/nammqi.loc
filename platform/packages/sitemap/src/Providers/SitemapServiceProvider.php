@@ -34,15 +34,15 @@ class SitemapServiceProvider extends ServiceProvider
             ->publishAssets();
 
         Event::listen(CreatedContentEvent::class, function () {
-            cache()->forget('cache_site_map_key');
+            cache()->forget('public.sitemap');
         });
 
         Event::listen(UpdatedContentEvent::class, function () {
-            cache()->forget('cache_site_map_key');
+            cache()->forget('public.sitemap');
         });
 
         Event::listen(DeletedContentEvent::class, function () {
-            cache()->forget('cache_site_map_key');
+            cache()->forget('public.sitemap');
         });
     }
 

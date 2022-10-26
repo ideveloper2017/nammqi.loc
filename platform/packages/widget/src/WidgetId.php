@@ -16,7 +16,7 @@ class WidgetId
      *
      * @return int
      */
-    public static function get(): int
+    public static function get()
     {
         return self::$id;
     }
@@ -26,7 +26,7 @@ class WidgetId
      *
      * @param int $id
      */
-    public static function set(int $id)
+    public static function set($id)
     {
         self::$id = $id;
     }

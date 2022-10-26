@@ -1,7 +1,6 @@
 <?php
 
 use Botble\Setting\Facades\SettingFacade;
-use Botble\Setting\Supports\SettingStore;
 use Illuminate\Support\Collection;
 
 if (!function_exists('setting')) {
@@ -9,10 +8,10 @@ if (!function_exists('setting')) {
      * Get the setting instance.
      *
      * @param string|null $key
-     * @param mixed $default
-     * @return array|SettingStore|string|null
+     * @param string|null $default
+     * @return array|\Botble\Setting\Supports\SettingStore|string|null
      */
-    function setting(?string $key = null, $default = null)
+    function setting($key = null, $default = null)
     {
         if (!empty($key)) {
             try {
@@ -53,17 +52,18 @@ if (!function_exists('get_setting_email_template_content')) {
      * @param string $module
      * @param string $templateKey key is config in config.email.templates.$key
      * @return bool|mixed|null
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    function get_setting_email_template_content(string $type, string $module, string $templateKey)
+    function get_setting_email_template_content($type, $module, $templateKey)
     {
         $defaultPath = platform_path($type . '/' . $module . '/resources/email-templates/' . $templateKey . '.tpl');
         $storagePath = get_setting_email_template_path($module, $templateKey);
 
         if ($storagePath != null && File::exists($storagePath)) {
-            return BaseHelper::getFileData($storagePath, false);
+            return get_file_data($storagePath, false);
         }
 
-        return File::exists($defaultPath) ? BaseHelper::getFileData($defaultPath, false) : '';
+        return File::exists($defaultPath) ? get_file_data($defaultPath, false) : '';
     }
 }
 
@@ -74,7 +74,7 @@ if (!function_exists('get_setting_email_template_path')) {
      * @param string $templateKey key is config in config.email.templates.$key
      * @return string
      */
-    function get_setting_email_template_path(string $module, string $templateKey): string
+    function get_setting_email_template_path($module, $templateKey)
     {
         return storage_path('app/email-templates/' . $module . '/' . $templateKey . '.tpl');
     }
@@ -83,12 +83,11 @@ if (!function_exists('get_setting_email_template_path')) {
 if (!function_exists('get_setting_email_subject_key')) {
     /**
      * get email subject key for setting() function
-     * @param string $type
      * @param string $module
      * @param string $templateKey
      * @return string
      */
-    function get_setting_email_subject_key(string $type, string $module, string $templateKey): string
+    function get_setting_email_subject_key($type, $module, $templateKey)
     {
         return $type . '_' . $module . '_' . $templateKey . '_subject';
     }
@@ -98,19 +97,17 @@ if (!function_exists('get_setting_email_subject')) {
     /**
      * Get email template subject value
      * @param string $type : plugins or core
-     * @param string $module : name of plugin or core component
+     * @param string $name : name of plugin or core component
      * @param string $templateKey : define in config/email/templates
-     * @return array|SettingStore|null|string
+     * @return array|\Botble\Setting\Supports\SettingStore|null|string
      */
-    function get_setting_email_subject(string $type, string $module, string $templateKey)
+    function get_setting_email_subject($type, $module, $templateKey)
     {
-        return setting(
-            get_setting_email_subject_key($type, $module, $templateKey),
-            trans(config(
-                $type . '.' . $module . '.email.templates.' . $templateKey . '.subject',
-                ''
-            ))
-        );
+        $subject = setting(get_setting_email_subject_key($type, $module, $templateKey),
+            trans(config($type . '.' . $module . '.email.templates.' . $templateKey . '.subject',
+                '')));
+
+        return $subject;
     }
 }
 
@@ -122,7 +119,7 @@ if (!function_exists('get_setting_email_status_key')) {
      * @param string $templateKey
      * @return string
      */
-    function get_setting_email_status_key(string $type, string $module, string $templateKey): string
+    function get_setting_email_status_key($type, $module, $templateKey)
     {
         return $type . '_' . $module . '_' . $templateKey . '_' . 'status';
     }
@@ -133,9 +130,9 @@ if (!function_exists('get_setting_email_status')) {
      * @param string $type
      * @param string $module
      * @param string $templateKey
-     * @return array|SettingStore|null|string
+     * @return array|\Botble\Setting\Supports\SettingStore|null|string
      */
-    function get_setting_email_status(string $type, string $module, string $templateKey)
+    function get_setting_email_status($type, $module, $templateKey)
     {
         $default = config($type . '.' . $module . '.email.templates.' . $templateKey . '.enabled', true);
 

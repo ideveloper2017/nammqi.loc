@@ -6,6 +6,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class OnOffField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

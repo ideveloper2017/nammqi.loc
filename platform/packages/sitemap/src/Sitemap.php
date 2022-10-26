@@ -2,7 +2,8 @@
 
 namespace Botble\Sitemap;
 
-use Illuminate\Http\Response;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Cache\Repository as CacheRepository;
 use Illuminate\Filesystem\Filesystem as Filesystem;
@@ -57,21 +58,15 @@ class Sitemap
      * Using constructor we populate our model from configuration file and loading dependencies.
      *
      * @param array $config
-     * @param CacheRepository $cache
-     * @param ConfigRepository $configRepository
-     * @param Filesystem $file
-     * @param ResponseFactory $response
-     * @param ViewFactory $view
      */
     public function __construct(
-        array            $config,
-        CacheRepository  $cache,
+        array $config,
+        CacheRepository $cache,
         ConfigRepository $configRepository,
-        Filesystem       $file,
-        ResponseFactory  $response,
-        ViewFactory      $view
-    )
-    {
+        Filesystem $file,
+        ResponseFactory $response,
+        ViewFactory $view
+    ) {
         $this->cache = $cache;
         $this->configRepository = $configRepository;
         $this->file = $file;
@@ -84,11 +79,11 @@ class Sitemap
     /**
      * Set cache options.
      *
-     * @param string|null $key
-     * @param null $duration
+     * @param string $key
+     * @param Carbon|Datetime|int $duration
      * @param bool $useCache
      */
-    public function setCache(?string $key = null, $duration = null, bool $useCache = true)
+    public function setCache($key = null, $duration = null, $useCache = true)
     {
         $this->model->setUseCache($useCache);
 
@@ -122,14 +117,13 @@ class Sitemap
         $lastmod = null,
         $priority = null,
         $freq = null,
-        array $images = [],
+        $images = [],
         $title = null,
-        array $translations = [],
-        array $videos = [],
-        array $googlenews = [],
-        array $alternates = []
-    )
-    {
+        $translations = [],
+        $videos = [],
+        $googlenews = [],
+        $alternates = []
+    ) {
         $params = [
             'loc'          => $loc,
             'lastmod'      => $lastmod,
@@ -152,7 +146,7 @@ class Sitemap
      * @param array $params
      * @return void
      */
-    public function addItem(array $params = [])
+    public function addItem($params = [])
     {
         // if is multidimensional
         if (array_key_exists(1, $params)) {
@@ -271,10 +265,11 @@ class Sitemap
     /**
      * Add new sitemap to $sitemaps array.
      *
-     * @param array $sitemaps
+     * @param string $loc
+     * @param string $lastmod
      * @return void
      */
-    public function resetSitemaps(array $sitemaps = [])
+    public function resetSitemaps($sitemaps = [])
     {
         $this->model->resetSitemaps($sitemaps);
     }
@@ -283,9 +278,11 @@ class Sitemap
      * Returns document with all sitemap items from $items array.
      *
      * @param string $format (options: xml, html, txt, ror-rss, ror-rdf, google-news)
-     * @return Response
+     * @param string $style (path to custom xls style like '/styles/xsl/xml-sitemap.xsl')
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function render(string $format = 'xml')
+    public function render($format = 'xml')
     {
         // limit size of sitemap
         if ($this->model->getMaxSize() > 0 && count($this->model->getItems()) > $this->model->getMaxSize()) {
@@ -305,23 +302,18 @@ class Sitemap
      * Generates document with all sitemap items from $items array.
      *
      * @param string $format (options: xml, html, txt, ror-rss, ror-rdf, sitemapindex, google-news)
+     * @param string $style (path to custom xls style like '/styles/xsl/xml-sitemap.xsl')
      * @return array
      */
-    public function generate(string $format = 'xml'): array
+    public function generate($format = 'xml')
     {
         // check if caching is enabled, there is a cached content and its duration isn't expired
         if ($this->isCached()) {
             ('sitemapindex' == $format) ? $this->model->resetSitemaps($this->cache->get($this->model->getCacheKey())) : $this->model->resetItems($this->cache->get($this->model->getCacheKey()));
         } elseif ($this->model->isUseCache()) {
-            ('sitemapindex' == $format) ? $this->cache->put(
-                $this->model->getCacheKey(),
-                $this->model->getSitemaps(),
-                $this->model->getCacheDuration()
-            ) : $this->cache->put(
-                $this->model->getCacheKey(),
-                $this->model->getItems(),
-                $this->model->getCacheDuration()
-            );
+            ('sitemapindex' == $format) ? $this->cache->put($this->model->getCacheKey(), $this->model->getSitemaps(),
+                $this->model->getCacheDuration()) : $this->cache->put($this->model->getCacheKey(),
+                $this->model->getItems(), $this->model->getCacheDuration());
         }
 
         if (!$this->model->getLink()) {
@@ -331,11 +323,6 @@ class Sitemap
         if (!$this->model->getTitle()) {
             $this->model->setTitle('Sitemap for ' . $this->model->getLink());
         }
-
-        $channel = [
-            'title' => $this->model->getTitle(),
-            'link'  => $this->model->getLink(),
-        ];
 
         // check if styles are enabled
         if ($this->model->isUseStyles()) {
@@ -351,20 +338,10 @@ class Sitemap
             $style = null;
         }
 
-        switch ($format) {
-            case 'ror-rss':
-                return ['content' => $this->view->make('packages/sitemap::ror-rss', ['items' => $this->model->getItems(), 'channel' => $channel, 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/rss+xml; charset=utf-8']];
-            case 'ror-rdf':
-                return ['content' => $this->view->make('packages/sitemap::ror-rdf', ['items' => $this->model->getItems(), 'channel' => $channel, 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/rdf+xml; charset=utf-8']];
-            case 'html':
-                return ['content' => $this->view->make('packages/sitemap::html', ['items' => $this->model->getItems(), 'channel' => $channel, 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/html; charset=utf-8']];
-            case 'txt':
-                return ['content' => $this->view->make('packages/sitemap::txt', ['items' => $this->model->getItems(), 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/plain; charset=utf-8']];
-            case 'sitemapindex':
-                return ['content' => $this->view->make('packages/sitemap::sitemapindex', ['sitemaps' => $this->model->getSitemaps(), 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/xml; charset=utf-8']];
-            default:
-                return ['content' => $this->view->make('packages/sitemap::' . $format, ['items' => $this->model->getItems(), 'style' => $style])->render(), 'headers' => ['Content-type' => 'text/xml; charset=utf-8']];
-        }
+        return [
+            'content' => $this->view->make('packages/sitemap::xml', ['items' => $this->model->getItems(), 'style' => $style])->render(),
+            'headers' => ['Content-type' => 'text/xml; charset=utf-8'],
+        ];
     }
 
     /**
@@ -372,7 +349,7 @@ class Sitemap
      *
      * @return bool
      */
-    public function isCached(): bool
+    public function isCached()
     {
         return $this->model->isUseCache() && $this->cache->has($this->model->getCacheKey());
     }
@@ -382,11 +359,11 @@ class Sitemap
      *
      * @param string $format (options: xml, html, txt, ror-rss, ror-rdf, sitemapindex, google-news)
      * @param string $filename (without file extension, may be a path like 'sitemaps/sitemap1' but must exist)
-     * @param string|null $path (path to store sitemap like '/www/site/public')
-     * @param string|null $style (path to custom xls style like '/styles/xsl/xml-sitemap.xsl')
+     * @param string $path (path to store sitemap like '/www/site/public')
+     * @param string $style (path to custom xls style like '/styles/xsl/xml-sitemap.xsl')
      * @return void
      */
-    public function store(string $format = 'xml', string $filename = 'sitemap', ?string $path = null, ?string $style = null)
+    public function store($format = 'xml', $filename = 'sitemap', $path = null, $style = null)
     {
         // turn off caching for this method
         $this->model->setUseCache(false);
@@ -394,7 +371,7 @@ class Sitemap
         // use correct file extension
         in_array($format, ['txt', 'html'], true) ? $fe = $format : $fe = 'xml';
 
-        if ($this->model->getUseGzip()) {
+        if (true == $this->model->getUseGzip()) {
             $fe = $fe . '.gz';
         }
 
@@ -472,7 +449,7 @@ class Sitemap
             $file = $path . DIRECTORY_SEPARATOR . $filename . '.' . $fe;
         }
 
-        if ($this->model->getUseGzip()) {
+        if (true == $this->model->getUseGzip()) {
             // write file (gzip compressed)
             $this->file->put($file, gzencode($data['content'], 9));
         } else {
@@ -485,10 +462,10 @@ class Sitemap
      * Add new sitemap to $sitemaps array.
      *
      * @param string $loc
-     * @param string|null $lastmod
+     * @param string $lastmod
      * @return void
      */
-    public function addSitemap(string $loc, ?string $lastmod = null)
+    public function addSitemap($loc, $lastmod = null)
     {
         $this->model->setSitemaps([
             'loc'     => $loc,

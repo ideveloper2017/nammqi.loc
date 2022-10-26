@@ -3,12 +3,14 @@
 namespace Botble\Member\Forms;
 
 use Assets;
+use BaseHelper;
 use Botble\Base\Forms\FormAbstract;
 use Botble\Member\Http\Requests\MemberCreateRequest;
 use Botble\Member\Models\Member;
 
 class MemberForm extends FormAbstract
 {
+
     /**
      * {@inheritDoc}
      */
@@ -17,7 +19,7 @@ class MemberForm extends FormAbstract
         Assets::addScriptsDirectly(['/vendor/core/plugins/member/js/member-admin.js']);
 
         $this
-            ->setupModel(new Member())
+            ->setupModel(new Member)
             ->setValidatorClass(MemberCreateRequest::class)
             ->withCustomFields()
             ->add('first_name', 'text', [
@@ -58,7 +60,7 @@ class MemberForm extends FormAbstract
                 'attr'       => [
                     'data-date-format' => config('core.base.general.date_format.js.date'),
                 ],
-                'value'      => $this->getModel()->id ? $this->getModel()->dob : date('Y-m-d'),
+                'default_value' => BaseHelper::formatDate(now()),
             ])
             ->add('description', 'textarea', [
                 'label'      => trans('core/base::forms.description'),
@@ -72,9 +74,6 @@ class MemberForm extends FormAbstract
             ->add('is_change_password', 'checkbox', [
                 'label'      => trans('plugins/member::member.form.change_password'),
                 'label_attr' => ['class' => 'control-label'],
-                'attr'       => [
-                    'class' => 'hrv-checkbox',
-                ],
                 'value'      => 1,
             ])
             ->add('password', 'password', [

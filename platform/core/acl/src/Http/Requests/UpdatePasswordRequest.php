@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UpdatePasswordRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *

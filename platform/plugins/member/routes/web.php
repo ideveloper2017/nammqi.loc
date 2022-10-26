@@ -5,7 +5,9 @@ Route::group([
     'prefix'     => BaseHelper::getAdminPrefix(),
     'middleware' => ['web', 'core', 'auth'],
 ], function () {
+
     Route::group(['prefix' => 'members', 'as' => 'member.'], function () {
+
         Route::resource('', 'MemberController')->parameters(['' => 'member']);
 
         Route::delete('items/destroy', [
@@ -18,11 +20,13 @@ Route::group([
 
 if (defined('THEME_MODULE_SCREEN_NAME')) {
     Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), function () {
+
         Route::group([
             'namespace'  => 'Botble\Member\Http\Controllers',
             'middleware' => ['web', 'core'],
             'as'         => 'public.member.',
         ], function () {
+
             Route::group(['middleware' => ['member.guest']], function () {
                 Route::get('login', 'LoginController@showLoginForm')->name('login');
                 Route::post('login', 'LoginController@login')->name('login.post');
@@ -32,10 +36,8 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
 
                 Route::get('verify', 'RegisterController@getVerify')->name('verify');
 
-                Route::get(
-                    'password/request',
-                    'ForgotPasswordController@showLinkRequestForm'
-                )->name('password.request');
+                Route::get('password/request',
+                    'ForgotPasswordController@showLinkRequestForm')->name('password.request');
                 Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
                 Route::post('password/reset', 'ResetPasswordController@reset')->name('password.update');
                 Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset');
@@ -43,16 +45,12 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
 
             Route::group([
                 'middleware' => [
-                    setting(
-                        'verify_account_email',
-                        config('plugins.member.general.verify_email')
-                    ) ? 'member.guest' : 'member',
+                    setting('verify_account_email',
+                        config('plugins.member.general.verify_email')) ? 'member.guest' : 'member',
                 ],
             ], function () {
-                Route::get(
-                    'register/confirm/resend',
-                    'RegisterController@resendConfirmation'
-                )->name('resend_confirmation');
+                Route::get('register/confirm/resend',
+                    'RegisterController@resendConfirmation')->name('resend_confirmation');
                 Route::get('register/confirm/{user}', 'RegisterController@confirm')->name('confirm');
             });
         });
@@ -65,6 +63,7 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
             Route::group([
                 'prefix' => 'account',
             ], function () {
+
                 Route::post('logout', 'LoginController@logout')->name('logout');
 
                 Route::get('dashboard', [
@@ -96,6 +95,7 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
                     'as'   => 'avatar',
                     'uses' => 'PublicController@postAvatar',
                 ]);
+
             });
 
             Route::group(['prefix' => 'ajax/members'], function () {
@@ -120,7 +120,9 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
                     'prefix' => 'account/posts',
                     'as'     => 'posts.',
                 ], function () {
+
                     Route::resource('', 'PostController')->parameters(['' => 'post']);
+
                 });
 
                 Route::group(['prefix' => 'ajax/members'], function () {
@@ -131,6 +133,7 @@ if (defined('THEME_MODULE_SCREEN_NAME')) {
                 });
             }
         });
+
     });
 }
 
@@ -143,6 +146,7 @@ Route::group([
         'as'         => 'public.member.',
         'middleware' => ['member'],
     ], function () {
+
         Route::post('language-advanced/save/{id}', [
             'as'   => 'language-advanced.save',
             'uses' => 'LanguageAdvancedController@save',

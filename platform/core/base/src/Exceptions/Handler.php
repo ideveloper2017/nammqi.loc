@@ -8,11 +8,10 @@ use Botble\Base\Http\Responses\BaseHttpResponse;
 use EmailHandler;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Exceptions\PostTooLargeException;
-use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Session\TokenMismatchException;
+use League\OAuth2\Server\Exception\OAuthServerException;
 use Log;
 use RvMedia;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -31,7 +30,7 @@ class Handler extends ExceptionHandler
     {
         if ($exception instanceof PostTooLargeException) {
             return RvMedia::responseError(trans('core/media::media.upload_failed', [
-                'size' => BaseHelper::humanFilesize(RvMedia::getServerConfigMaxUploadFileSize()),
+                'size' => human_file_size(RvMedia::getServerConfigMaxUploadFileSize()),
             ]));
         }
 
@@ -40,7 +39,7 @@ class Handler extends ExceptionHandler
         }
 
         if ($exception instanceof TokenMismatchException) {
-            return (new BaseHttpResponse())
+            return (new BaseHttpResponse)
                 ->setError()
                 ->setCode($exception->getCode())
                 ->setMessage('CSRF token mismatch. Please try again!');
@@ -54,7 +53,7 @@ class Handler extends ExceptionHandler
                     admin_bar()->setIsDisplay(false);
                 }
 
-                $response = new BaseHttpResponse();
+                $response = new BaseHttpResponse;
 
                 switch ($code) {
                     case 401:
@@ -95,34 +94,6 @@ class Handler extends ExceptionHandler
     /**
      * {@inheritDoc}
      */
-    protected function renderHttpException(HttpExceptionInterface $exception)
-    {
-        if ($exception instanceof NotFoundHttpException) {
-            /**
-             * @var EncryptCookies $encryptCookies
-             */
-            $encryptCookies = app(EncryptCookies::class);
-
-            /**
-             * @var StartSession $startSession
-             */
-            $startSession = app(StartSession::class);
-
-            $request = app('request');
-
-            $encryptCookies->handle($request, function () use ($startSession, $request) {
-                return $startSession->handle($request, function () {
-                    return response('');
-                });
-            });
-        }
-
-        return parent::renderHttpException($exception);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function report(Throwable $exception)
     {
         if ($this->shouldReport($exception) && !$this->isExceptionFromBot()) {
@@ -134,7 +105,9 @@ class Handler extends ExceptionHandler
                     EmailHandler::sendErrorException($exception);
                 }
 
-                if (config('core.base.general.error_reporting.via_slack', false)) {
+                if (config('core.base.general.error_reporting.via_slack', false) &&
+                    !$exception instanceof OAuthServerException
+                ) {
                     Log::channel('slack')
                         ->critical(URL::full() . "\n" . $exception->getFile() . ':' . $exception->getLine() . "\n" . $exception->getMessage());
                 }
@@ -181,11 +154,7 @@ class Handler extends ExceptionHandler
         }
 
         if (class_exists('Theme')) {
-            try {
-                return 'theme.' . Theme::getThemeName() . '::views.' . $code;
-            } catch (Throwable $throwable) {
-                return parent::getHttpExceptionView($exception);
-            }
+            return 'theme.' . Theme::getThemeName() . '::views.' . $code;
         }
 
         return parent::getHttpExceptionView($exception);
@@ -197,7 +166,7 @@ class Handler extends ExceptionHandler
     protected function unauthenticated($request, AuthenticationException $exception)
     {
         if ($request->expectsJson()) {
-            return (new BaseHttpResponse())
+            return (new BaseHttpResponse)
                 ->setError()
                 ->setMessage($exception->getMessage())
                 ->setCode(401)

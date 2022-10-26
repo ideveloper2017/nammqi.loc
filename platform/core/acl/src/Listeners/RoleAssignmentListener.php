@@ -8,6 +8,7 @@ use Botble\ACL\Events\RoleAssignmentEvent;
 
 class RoleAssignmentListener
 {
+
     /**
      * Handle the event.
      *

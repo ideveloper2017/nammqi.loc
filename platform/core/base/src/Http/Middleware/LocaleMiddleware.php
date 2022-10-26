@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class LocaleMiddleware
 {
+
     /**
      * @var \Illuminate\Foundation\Application|mixed
      */

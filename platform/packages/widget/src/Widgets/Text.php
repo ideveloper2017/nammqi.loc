@@ -3,6 +3,7 @@
 namespace Botble\Widget\Widgets;
 
 use Botble\Widget\AbstractWidget;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class Text extends AbstractWidget
 {
@@ -30,6 +31,8 @@ class Text extends AbstractWidget
 
     /**
      * Text constructor.
+     *
+     * @throws FileNotFoundException
      */
     public function __construct()
     {

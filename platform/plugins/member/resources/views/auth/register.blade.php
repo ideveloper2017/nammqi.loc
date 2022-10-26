@@ -58,6 +58,13 @@
                                        name="password_confirmation" required
                                        placeholder="{{ trans('plugins/member::dashboard.password-confirmation') }}">
                             </div>
+
+                            @if (is_plugin_active('captcha') && setting('enable_captcha') && setting('member_enable_recaptcha_in_register_page', 0))
+                                <div class="form-group mb-3">
+                                    {!! Captcha::display() !!}
+                                </div>
+                            @endif
+
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn btn-blue btn-full fw6">
                                     {{ trans('plugins/member::dashboard.register-cta') }}

@@ -24,12 +24,7 @@ register_page_template([
     'homepage'       => __('Homepage'),
     'homepage2'      => __('Homepage 2'),
     'no-breadcrumbs' => __('No Breadcrumbs'),
-    'no-sidebar'     => __('No SideBar'),
     'right-sidebar'  => __('Right sidebar'),
-    'blog-grid'      => __('Blog Grid'),
-    'blog-list'      => __('Blog List'),
-    'blog-big'       => __('Blog Big'),
-    'blog-wide'      => __('Blog Wide'),
 ]);
 
 register_sidebar([
@@ -66,8 +61,6 @@ RvMedia::addSize('featured', 565, 375)->addSize('medium', 540, 360);
 //RvMedia::addSize('large', 1024)
 //    ->addSize('medium_large', 600, 421)
 //    ->addSize('medium', 400, 400);
-
-Menu::addMenuLocation('header-navigation', 'Header navigation');
 
 add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $data) {
     switch (get_class($data)) {
@@ -241,10 +234,10 @@ if (is_plugin_active('blog')) {
     }
 }
 
-//if (is_plugin_active('member')) {
-//    SlugHelper::registerModule(Member::class, 'Authors');
-//    SlugHelper::setPrefix(Member::class, 'author');
-//}
+if (is_plugin_active('member')) {
+    SlugHelper::registerModule(Member::class, 'Authors');
+    SlugHelper::setPrefix(Member::class, 'author');
+}
 
 app()->booted(function () {
     if (is_plugin_active('blog')) {
@@ -410,47 +403,47 @@ if (!function_exists('is_video_post')) {
 }
 
 if (is_plugin_active('blog')) {
-//    add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $data) {
-//
-//        if (auth()->user() && get_class($data) == Post::class) {
-//            $authors = app()->make(MemberInterface::class)
-//                ->allBy([]);
-//
-//            $authorsArray = [];
-//            foreach ($authors as $author) {
-//                $authorsArray[$author->id] = $author->getFullName();
-//            }
-//
-//            $form
-//                ->setValidatorClass(CustomPostRequest::class)
-//                ->addAfter('status', 'author_id', 'customSelect', [
-//                    'label'      => __('Author'),
-//                    'label_attr' => ['class' => 'control-label required'],
-//                    'attr'       => [
-//                        'placeholder' => __('Select an author...'),
-//                    ],
-//                    'choices'    => $authorsArray,
-//                ]);
-//        }
-//
-//        return $form;
-//    }, 127, 2);
-//
-//    add_action(BASE_ACTION_AFTER_CREATE_CONTENT, function ($type, $request, $object) {
-//        if (auth()->user() && $type == POST_MODULE_SCREEN_NAME) {
-//            $object->author_id = $request->input('author_id');
-//            $object->author_type = Member::class;
-//            $object->save();
-//        }
-//    }, 123, 3);
-//
-//    add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, function ($type, $request, $object) {
-//        if (auth()->user() && $type == POST_MODULE_SCREEN_NAME) {
-//            $object->author_id = $request->input('author_id');
-//            $object->author_type = Member::class;
-//            $object->save();
-//        }
-//    }, 123, 3);
+    add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $data) {
+
+        if (auth()->user() && get_class($data) == Post::class) {
+            $authors = app()->make(MemberInterface::class)
+                ->allBy([]);
+
+            $authorsArray = [];
+            foreach ($authors as $author) {
+                $authorsArray[$author->id] = $author->getFullName();
+            }
+
+            $form
+                ->setValidatorClass(CustomPostRequest::class)
+                ->addAfter('status', 'author_id', 'customSelect', [
+                    'label'      => __('Author'),
+                    'label_attr' => ['class' => 'control-label required'],
+                    'attr'       => [
+                        'placeholder' => __('Select an author...'),
+                    ],
+                    'choices'    => $authorsArray,
+                ]);
+        }
+
+        return $form;
+    }, 127, 2);
+
+    add_action(BASE_ACTION_AFTER_CREATE_CONTENT, function ($type, $request, $object) {
+        if (auth()->user() && $type == POST_MODULE_SCREEN_NAME) {
+            $object->author_id = $request->input('author_id');
+            $object->author_type = Member::class;
+            $object->save();
+        }
+    }, 123, 3);
+
+    add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, function ($type, $request, $object) {
+        if (auth()->user() && $type == POST_MODULE_SCREEN_NAME) {
+            $object->author_id = $request->input('author_id');
+            $object->author_type = Member::class;
+            $object->save();
+        }
+    }, 123, 3);
 
     if (!function_exists('get_recent_comment_posts')) {
         /**

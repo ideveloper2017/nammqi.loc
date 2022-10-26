@@ -8,7 +8,7 @@ use Botble\Page\Services\PageService;
 use Botble\Theme\Events\RenderingHomePageEvent;
 use Botble\Theme\Events\RenderingSingleEvent;
 use Botble\Theme\Events\RenderingSiteMapEvent;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Response;
@@ -20,10 +20,11 @@ use Theme;
 class PublicController extends Controller
 {
     /**
-     * @param string|null $key
-     * @return RedirectResponse|Response
+     * @param string $key
+     * @return \Illuminate\Http\RedirectResponse|Response
+     * @throws FileNotFoundException
      */
-    public function getView(?string $key = null)
+    public function getView($key = null)
     {
         if (empty($key)) {
             return $this->getIndex();
@@ -67,7 +68,7 @@ class PublicController extends Controller
                 $slug = SlugHelper::getSlug(null, SlugHelper::getPrefix(Page::class), Page::class, $homepageId);
 
                 if ($slug) {
-                    $data = (new PageService())->handleFrontRoutes($slug);
+                    $data = (new PageService)->handleFrontRoutes($slug);
 
                     event(new RenderingSingleEvent($slug));
 
@@ -86,7 +87,7 @@ class PublicController extends Controller
     }
 
     /**
-     * @return Response|string
+     * @return string
      */
     public function getSiteMap()
     {

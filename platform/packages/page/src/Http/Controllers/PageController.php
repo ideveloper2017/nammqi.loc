@@ -18,11 +18,12 @@ use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Contracts\View\View;
+use Illuminate\View\View;
 use Throwable;
 
 class PageController extends BaseController
 {
+
     use HasDeleteManyItemsTrait;
 
     /**

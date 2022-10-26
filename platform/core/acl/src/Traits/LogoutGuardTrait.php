@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 trait LogoutGuardTrait
 {
+
     /**
      * Check if a particular guard is active.
      *
@@ -17,10 +18,8 @@ trait LogoutGuardTrait
     public function isActiveGuard($request, $guard)
     {
         $name = Auth::guard($guard)->getName();
-        return $this->sessionHas($request, $name) && $this->sessionGet(
-            $request,
-            $name
-        ) === $this->getAuthIdentifier($guard);
+        return $this->sessionHas($request, $name) && $this->sessionGet($request,
+                $name) === $this->getAuthIdentifier($guard);
     }
 
     /**
@@ -51,7 +50,7 @@ trait LogoutGuardTrait
      * Get the Auth identifier for the specified guard.
      *
      * @param string $guard
-     * @return int|string|null
+     * @return mixed
      */
     public function getAuthIdentifier($guard)
     {

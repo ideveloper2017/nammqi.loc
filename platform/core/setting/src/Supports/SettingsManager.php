@@ -9,7 +9,7 @@ class SettingsManager extends Manager
     /**
      * @return string
      */
-    public function getDefaultDriver(): string
+    public function getDefaultDriver()
     {
         return config('core.setting.general.driver');
     }
@@ -17,7 +17,7 @@ class SettingsManager extends Manager
     /**
      * @return JsonSettingStore
      */
-    public function createJsonDriver(): JsonSettingStore
+    public function createJsonDriver()
     {
         return new JsonSettingStore(app('files'));
     }
@@ -25,8 +25,8 @@ class SettingsManager extends Manager
     /**
      * @return DatabaseSettingStore
      */
-    public function createDatabaseDriver(): DatabaseSettingStore
+    public function createDatabaseDriver()
     {
-        return new DatabaseSettingStore();
+        return new DatabaseSettingStore;
     }
 }

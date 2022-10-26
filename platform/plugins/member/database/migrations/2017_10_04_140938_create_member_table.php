@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMemberTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -58,4 +57,4 @@ class CreateMemberTable extends Migration
         Schema::dropIfExists('member_password_resets');
         Schema::dropIfExists('members');
     }
-}
+};

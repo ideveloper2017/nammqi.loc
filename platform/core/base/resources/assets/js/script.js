@@ -486,10 +486,10 @@ class Botble {
                 ]
             })
                 .on('colorpickerChange colorpickerCreate', function (e) {
-                    let colors = e.color.generate('tetrad');
+                    var colors = e.color.generate('tetrad');
 
                     colors.forEach(function (color, i) {
-                        let colorStr = color.string(),
+                        var colorStr = color.string(),
                             swatch = e.colorpicker.picker
                                 .find('.colorpicker-swatch[data-name="tetrad' + (i + 1) + '"]');
 
@@ -651,29 +651,6 @@ class Botble {
 
         if (jQuery().rvMedia) {
 
-            Botble.gallerySelectImageTemplate = `<div class="list-photo-hover-overlay">
-                <ul class="photo-overlay-actions">
-                    <li>
-                        <a class="mr10 btn-trigger-edit-gallery-image" data-bs-toggle="tooltip" data-placement="top"
-                        data-bs-original-title="${RV_MEDIA_CONFIG.translations.change_image}">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="mr10 btn-trigger-remove-gallery-image" data-bs-toggle="tooltip" data-placement="top"
-                        data-bs-original-title="${RV_MEDIA_CONFIG.translations.delete_image}">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="custom-image-box image-box">
-                <input type="hidden" name="__name__" value="" class="image-data">
-                    <div class="preview-image-wrapper">
-                    <img src="${RV_MEDIA_CONFIG.default_image}" alt="${RV_MEDIA_CONFIG.translations.preview_image}" class="preview_image">
-                </div>
-            </div>`;
-
             $('[data-type="rv-media-standard-alone-button"]').rvMedia({
                 multiple: false,
                 onSelectFiles: (files, $el) => {
@@ -722,11 +699,9 @@ class Botble {
                                 break;
                             case 'select-image':
                                 let firstImage = _.first(files);
-                                const $imageBox = $el.closest('.image-box');
-                                const allowThumb = $el.data('allow-thumb');
-                                $imageBox.find('.image-data').val(firstImage.url).trigger('change');
-                                $imageBox.find('.preview_image').attr('src', allowThumb && firstImage.thumb ? firstImage.thumb : firstImage.full_url);
-                                $imageBox.find('.preview-image-wrapper').show();
+                                $el.closest('.image-box').find('.image-data').val(firstImage.url);
+                                $el.closest('.image-box').find('.preview_image').attr('src', firstImage.thumb ? firstImage.thumb : firstImage.full_url);
+                                $el.closest('.image-box').find('.preview-image-wrapper').show();
                                 break;
                             case 'attachment':
                                 let firstAttachment = _.first(files);
@@ -740,9 +715,8 @@ class Botble {
 
             $(document).on('click', '.btn_remove_image', event => {
                 event.preventDefault();
-                let $imageBox = $(event.currentTarget).closest('.image-box');
-                $imageBox.find('.preview-image-wrapper img').prop('src', $imageBox.find('.preview-image-wrapper img').data('default'));
-                $imageBox.find('.image-data').val('').trigger('change');
+                $(event.currentTarget).closest('.image-box').find('.preview-image-wrapper').hide();
+                $(event.currentTarget).closest('.image-box').find('.image-data').val('');
             });
 
             $(document).on('click', '.btn_remove_attachment', event => {
@@ -750,26 +724,6 @@ class Botble {
                 $(event.currentTarget).closest('.attachment-wrapper').find('.attachment-details a').remove();
                 $(event.currentTarget).closest('.attachment-wrapper').find('.attachment-url').val('');
             });
-
-            const gallerySelectImages = function (files, $currentBoxList, excludeIndexes = []) {
-                let template = Botble.gallerySelectImageTemplate;
-                const allowThumb = $currentBoxList.data('allow-thumb');
-                _.forEach(files, (file, index) => {
-                    if (_.includes(excludeIndexes, index)) {
-                        return;
-                    }
-                    let imageBox = template.replace(/__name__/gi, $currentBoxList.data('name'));
-
-                    let $template = $('<li class="gallery-image-item-handler">' + imageBox + '</li>');
-
-                    $template.find('.image-data').val(file.url).trigger('change');
-                    $template.find('.preview_image').attr('src', allowThumb ? file.thumb : file.full_url).show();
-                    if (!allowThumb) {
-                        $template.find('.preview-image-wrapper').addClass('preview-image-wrapper-not-allow-thumb');
-                    }
-                    $currentBoxList.append($template);
-                });
-            }
 
             new RvMediaStandAlone('.js-btn-trigger-add-image', {
                 filter: 'image',
@@ -781,7 +735,19 @@ class Botble {
 
                     $('.default-placeholder-gallery-image').addClass('hidden');
 
-                    gallerySelectImages(files, $currentBoxList);
+                    _.forEach(files, file => {
+                        let template = $(document).find('#gallery_select_image_template').html();
+
+                        let imageBox = template
+                            .replace(/__name__/gi, $el.attr('data-name'));
+
+                        let $template = $('<li class="gallery-image-item-handler">' + imageBox + '</li>');
+
+                        $template.find('.image-data').val(file.url);
+                        $template.find('.preview_image').attr('src', file.thumb).show();
+
+                        $currentBoxList.append($template);
+                    });
                 }
             });
 
@@ -793,22 +759,34 @@ class Botble {
 
                     let $currentBox = $el.closest('.gallery-image-item-handler').find('.image-box');
                     let $currentBoxList = $el.closest('.list-gallery-media-images');
-                    const allowThumb = $currentBoxList.data('allow-thumb');
 
-                    $currentBox.find('.image-data').val(firstItem.url).trigger('change');
-                    $currentBox.find('.preview_image').attr('src', allowThumb ? firstItem.thumb : firstItem.full_url).show();
+                    $currentBox.find('.image-data').val(firstItem.url);
+                    $currentBox.find('.preview_image').attr('src', firstItem.thumb).show();
 
-                    gallerySelectImages(files, $currentBoxList, [0]);
+                    _.forEach(files, (file, index) => {
+                        if (!index) {
+                            return;
+                        }
+                        let template = $(document).find('#gallery_select_image_template').html();
+
+                        let imageBox = template
+                            .replace(/__name__/gi, $currentBox.find('.image-data').attr('name'));
+
+                        let $template = $('<li class="gallery-image-item-handler">' + imageBox + '</li>');
+
+                        $template.find('.image-data').val(file.url);
+                        $template.find('.preview_image').attr('src', file.thumb).show();
+
+                        $currentBoxList.append($template);
+                    });
                 }
             });
 
-            $(document).on('click', '.btn-trigger-remove-gallery-image', e => {
-                e.preventDefault();
-                const $this = $(e.currentTarget);
-                const $list = $this.closest('.list-gallery-media-images');
-                $this.closest('.gallery-image-item-handler').remove();
-                if ($list.find('.gallery-image-item-handler').length === 0) {
-                    $list.closest('.list-images').find('.default-placeholder-gallery-image').removeClass('hidden');
+            $(document).on('click', '.btn-trigger-remove-gallery-image', event => {
+                event.preventDefault();
+                $(event.currentTarget).closest('.gallery-image-item-handler').remove();
+                if ($('.list-gallery-media-images').find('.gallery-image-item-handler').length === 0) {
+                    $('.default-placeholder-gallery-image').removeClass('hidden');
                 }
             });
 

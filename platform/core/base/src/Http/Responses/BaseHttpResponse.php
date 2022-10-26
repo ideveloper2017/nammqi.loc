@@ -2,7 +2,6 @@
 
 namespace Botble\Base\Http\Responses;
 
-use BaseHelper;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -18,7 +17,7 @@ class BaseHttpResponse implements Responsable
     protected $error = false;
 
     /**
-     * @var array|string|JsonResource
+     * @var array
      */
     protected $data;
 
@@ -53,8 +52,8 @@ class BaseHttpResponse implements Responsable
     protected $code = 200;
 
     /**
-     * @param array|string|JsonResource $data
-     * @return $this
+     * @param mixed $data
+     * @return BaseHttpResponse
      */
     public function setData($data): self
     {
@@ -67,7 +66,7 @@ class BaseHttpResponse implements Responsable
      * @param string $previousUrl
      * @return BaseHttpResponse
      */
-    public function setPreviousUrl(string $previousUrl): self
+    public function setPreviousUrl($previousUrl): self
     {
         $this->previousUrl = $previousUrl;
 
@@ -78,7 +77,7 @@ class BaseHttpResponse implements Responsable
      * @param string $nextUrl
      * @return BaseHttpResponse
      */
-    public function setNextUrl(string $nextUrl): self
+    public function setNextUrl($nextUrl): self
     {
         $this->nextUrl = $nextUrl;
 
@@ -120,12 +119,12 @@ class BaseHttpResponse implements Responsable
     }
 
     /**
-     * @param string|null $message
+     * @param string $message
      * @return BaseHttpResponse
      */
-    public function setMessage(?string $message): self
+    public function setMessage($message): self
     {
-        $this->message = BaseHelper::clean($message);
+        $this->message = clean($message);
 
         return $this;
     }
@@ -177,7 +176,7 @@ class BaseHttpResponse implements Responsable
 
     /**
      * @param Request $request
-     * @return JsonResponse|RedirectResponse
+     * @return BaseHttpResponse|JsonResponse|RedirectResponse
      */
     public function toResponse($request)
     {
@@ -209,7 +208,7 @@ class BaseHttpResponse implements Responsable
      * @param string $url
      * @return RedirectResponse
      */
-    protected function responseRedirect(string $url): RedirectResponse
+    protected function responseRedirect($url)
     {
         if ($this->withInput) {
             return redirect()

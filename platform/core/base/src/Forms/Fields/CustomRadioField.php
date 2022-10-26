@@ -6,6 +6,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class CustomRadioField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

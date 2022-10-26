@@ -7,6 +7,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class TimeField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

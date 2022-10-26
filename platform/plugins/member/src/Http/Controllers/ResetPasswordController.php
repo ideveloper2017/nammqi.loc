@@ -7,6 +7,7 @@ use Botble\ACL\Traits\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use SeoHelper;
+use Theme;
 
 class ResetPasswordController extends Controller
 {
@@ -48,12 +49,16 @@ class ResetPasswordController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param string|null $token
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
     public function showResetForm(Request $request, $token = null)
     {
         SeoHelper::setTitle(__('Reset Password'));
+
+        if (view()->exists(Theme::getThemeNamespace() . '::views.member.auth.passwords.reset')) {
+            return Theme::scope('member.auth.passwords.reset', ['token' => $token, 'email' => $request->email])->render();
+        }
 
         return view('plugins/member::auth.passwords.reset', ['token' => $token, 'email' => $request->email]);
     }

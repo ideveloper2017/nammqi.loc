@@ -13,6 +13,7 @@ use Yajra\DataTables\DataTables;
 
 class RoleTable extends TableAbstract
 {
+
     /**
      * @var bool
      */
@@ -84,7 +85,7 @@ class RoleTable extends TableAbstract
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
     public function query()
     {

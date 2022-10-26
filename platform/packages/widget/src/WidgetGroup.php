@@ -81,7 +81,7 @@ class WidgetGroup
      *
      * @return string
      */
-    public function display(): string
+    public function display()
     {
         ksort($this->widgets);
 
@@ -104,10 +104,9 @@ class WidgetGroup
      * Display a widget according to its type.
      *
      * @param array $widget
-     * @param int|null $position
      * @return mixed
      */
-    protected function displayWidget(array $widget, ?int $position)
+    protected function displayWidget($widget, $position)
     {
         $widget['arguments'][] = $this->id;
         $widget['arguments'][] = $position;
@@ -124,7 +123,7 @@ class WidgetGroup
      *
      * @return $this
      */
-    public function position(int $position): WidgetGroup
+    public function position($position)
     {
         $this->position = $position;
 
@@ -145,7 +144,7 @@ class WidgetGroup
      * @param string $type
      * @param array $arguments
      */
-    protected function addWidgetWithType(string $type, array $arguments = [])
+    protected function addWidgetWithType($type, array $arguments = [])
     {
         if (!isset($this->widgets[$this->position])) {
             $this->widgets[$this->position] = [];
@@ -175,7 +174,7 @@ class WidgetGroup
      *
      * @return integer
      */
-    public function getPosition(): int
+    public function getPosition()
     {
         return $this->position;
     }
@@ -187,7 +186,7 @@ class WidgetGroup
      *
      * @return $this
      */
-    public function setSeparator(string $separator): self
+    public function setSeparator($separator)
     {
         $this->separator = $separator;
 
@@ -199,7 +198,7 @@ class WidgetGroup
      *
      * @return bool
      */
-    public function any(): bool
+    public function any()
     {
         return !$this->isEmpty();
     }
@@ -209,7 +208,7 @@ class WidgetGroup
      *
      * @return bool
      */
-    public function isEmpty(): bool
+    public function isEmpty()
     {
         return empty($this->widgets);
     }
@@ -219,7 +218,7 @@ class WidgetGroup
      *
      * @return int
      */
-    public function count(): int
+    public function count()
     {
         $count = 0;
         foreach ($this->widgets as $widgets) {
@@ -249,7 +248,7 @@ class WidgetGroup
      * @param string $name
      * @return $this
      */
-    public function setName(string $name): self
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -265,10 +264,10 @@ class WidgetGroup
     }
 
     /**
-     * @param string|null $description
+     * @param string $description
      * @return $this
      */
-    public function setDescription(?string $description): self
+    public function setDescription($description): self
     {
         $this->description = $description;
 
@@ -278,12 +277,12 @@ class WidgetGroup
     /**
      * @return array
      */
-    public function getWidgets(): array
+    public function getWidgets()
     {
         $result = [];
         foreach ($this->widgets as $index => $item) {
             foreach (array_keys($item) as $key) {
-                $obj = new stdClass();
+                $obj = new stdClass;
                 $obj->widget_id = $key;
                 $obj->position = $index;
                 $obj->name = Arr::get($item[$key], 'arguments.1.name');

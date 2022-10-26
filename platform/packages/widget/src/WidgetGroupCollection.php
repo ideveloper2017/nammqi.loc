@@ -4,6 +4,7 @@ namespace Botble\Widget;
 
 use Botble\Widget\Contracts\ApplicationWrapperContract;
 use Botble\Widget\Repositories\Interfaces\WidgetInterface;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Language;
@@ -51,7 +52,7 @@ class WidgetGroupCollection
      * @param string $sidebarId
      * @return WidgetGroup
      */
-    public function group(string $sidebarId): WidgetGroup
+    public function group($sidebarId)
     {
         if (isset($this->groups[$sidebarId])) {
             return $this->groups[$sidebarId];
@@ -63,9 +64,9 @@ class WidgetGroupCollection
 
     /**
      * @param array $args
-     * @return $this
+     * @return $this|mixed
      */
-    public function setGroup(array $args): WidgetGroupCollection
+    public function setGroup(array $args)
     {
         if (isset($this->groups[$args['id']])) {
             $group = $this->groups[$args['id']];
@@ -83,7 +84,7 @@ class WidgetGroupCollection
      * @param string $groupId
      * @return $this
      */
-    public function removeGroup(string $groupId): WidgetGroupCollection
+    public function removeGroup($groupId)
     {
         if (isset($this->groups[$groupId])) {
             unset($this->groups[$groupId]);
@@ -95,7 +96,7 @@ class WidgetGroupCollection
     /**
      * @return array
      */
-    public function getGroups(): array
+    public function getGroups()
     {
         return $this->groups;
     }
@@ -103,8 +104,9 @@ class WidgetGroupCollection
     /**
      * @param string $sidebarId
      * @return string
+     * @throws FileNotFoundException
      */
-    public function render(string $sidebarId): string
+    public function render($sidebarId)
     {
         $this->load();
 
@@ -122,7 +124,7 @@ class WidgetGroupCollection
      *
      * @param boolean $force Force a reload of data. Default false.
      */
-    public function load(bool $force = false)
+    public function load($force = false)
     {
         if (!$this->loaded || $force) {
             $this->data = $this->read();
@@ -133,7 +135,7 @@ class WidgetGroupCollection
     /**
      * @return Collection
      */
-    protected function read(): Collection
+    protected function read()
     {
         $languageCode = null;
         if (is_plugin_active('language')) {

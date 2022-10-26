@@ -2,7 +2,6 @@
 
 namespace Botble\Theme;
 
-use BaseHelper;
 use Exception;
 use Form;
 use Illuminate\Support\Arr;
@@ -53,7 +52,23 @@ class ThemeOption
      */
     public function constructArgs(): array
     {
-        return $this->args[$this->optName] ?? [];
+        $args = isset($this->args[$this->optName]) ? $this->args[$this->optName] : [];
+
+        $args['opt_name'] = $this->optName;
+
+        if (!isset($args['menu_title'])) {
+            $args['menu_title'] = ucfirst($this->optName) . ' Options';
+        }
+
+        if (!isset($args['page_title'])) {
+            $args['page_title'] = ucfirst($this->optName) . ' Options';
+        }
+
+        if (!isset($args['page_slug'])) {
+            $args['page_slug'] = $this->optName . '_options';
+        }
+
+        return $args;
     }
 
     /**
@@ -116,13 +131,12 @@ class ThemeOption
     public function getSection(string $id = ''): bool
     {
         $this->checkOptName();
-
         if (!empty($this->optName) && !empty($id)) {
             if (!isset($this->sections[$this->optName][$id])) {
                 $id = strtolower(sanitize_html_class($id));
             }
 
-            return $this->sections[$this->optName][$id] ?? false;
+            return isset($this->sections[$this->optName][$id]) ? $this->sections[$this->optName][$id] : false;
         }
 
         return false;
@@ -165,7 +179,6 @@ class ThemeOption
     public function getSections(): array
     {
         $this->checkOptName();
-
         if (!empty($this->sections[$this->optName])) {
             return $this->sections[$this->optName];
         }
@@ -204,10 +217,12 @@ class ThemeOption
         if (!isset($section['id'])) {
             if (isset($section['type']) && $section['type'] == 'divide') {
                 $section['id'] = time();
-            } elseif (isset($section['title'])) {
-                $section['id'] = strtolower($section['title']);
             } else {
-                $section['id'] = time();
+                if (isset($section['title'])) {
+                    $section['id'] = strtolower($section['title']);
+                } else {
+                    $section['id'] = time();
+                }
             }
 
             if (isset($this->sections[$this->optName][$section['id']])) {
@@ -270,7 +285,6 @@ class ThemeOption
                 if (!is_array($field)) {
                     continue;
                 }
-
                 $field['section_id'] = $sectionId;
                 $this->setField($field);
             }
@@ -325,7 +339,7 @@ class ThemeOption
                     }
                 }
 
-                if (isset($this->fields[$this->optName]) && !empty($this->fields[$this->optName]) && $fields) {
+                if (isset($this->fields[$this->optName]) && !empty($this->fields[$this->optName]) && $fields == true) {
                     foreach ($this->fields[$this->optName] as $key => $field) {
                         if (Arr::get($field, 'section_id') == $id) {
                             unset($this->fields[$this->optName][$key]);
@@ -360,7 +374,7 @@ class ThemeOption
         $this->checkOptName();
 
         if (!empty($this->optName) && !empty($id)) {
-            return $this->fields[$this->optName][$id] ?? false;
+            return isset($this->fields[$this->optName][$id]) ? $this->fields[$this->optName][$id] : false;
         }
 
         return false;
@@ -374,15 +388,14 @@ class ThemeOption
     {
         $this->checkOptName();
 
-        if (!empty($this->optName) && !empty($id) && isset($this->fields[$this->optName][$id])) {
-            if (!$hide) {
-                $this->fields[$this->optName][$id]['class'] = str_replace(
-                    'hidden',
-                    '',
-                    $this->fields[$this->optName][$id]['class']
-                );
-            } else {
-                $this->fields[$this->optName][$id]['class'] .= 'hidden';
+        if (!empty($this->optName) && !empty($id)) {
+            if (isset($this->fields[$this->optName][$id])) {
+                if (!$hide) {
+                    $this->fields[$this->optName][$id]['class'] = str_replace('hidden', '',
+                        $this->fields[$this->optName][$id]['class']);
+                } else {
+                    $this->fields[$this->optName][$id]['class'] .= 'hidden';
+                }
             }
         }
     }
@@ -468,7 +481,7 @@ class ThemeOption
 
     /**
      * @param string $key
-     * @param string|null $value
+     * @param string $value
      * @return ThemeOption
      */
     public function setOption(string $key, ?string $value = ''): self
@@ -476,7 +489,7 @@ class ThemeOption
         $option = Arr::get($this->fields[$this->optName], $key);
 
         if ($option && Arr::get($option, 'clean_tags', true)) {
-            $value = BaseHelper::clean($value);
+            $value = clean($value);
         }
 
         if (is_array($value)) {
@@ -490,14 +503,14 @@ class ThemeOption
 
     /**
      * @param string $key
-     * @param string|null $locale
+     * @param string $locale
      * @return string
      */
     protected function getOptionKey(string $key, ?string $locale = ''): string
     {
         $theme = setting('theme');
         if (!$theme) {
-            $theme = Arr::first(BaseHelper::scanFolder(theme_path()));
+            $theme = Arr::first(scan_folder(theme_path()));
         }
 
         return $this->optName . '-' . $theme . $locale . '-' . $key;
@@ -546,7 +559,7 @@ class ThemeOption
 
     /**
      * @param string $key
-     * @param mixed $default
+     * @param string $default
      * @return string
      */
     public function getOption(string $key = '', $default = ''): ?string
@@ -569,9 +582,9 @@ class ThemeOption
     }
 
     /**
-     * @return bool
+     * @return bool|void
      */
-    public function saveOptions(): bool
+    public function saveOptions()
     {
         return setting()->save();
     }

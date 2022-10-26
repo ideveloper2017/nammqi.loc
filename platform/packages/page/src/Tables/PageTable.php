@@ -87,7 +87,7 @@ class PageTable extends TableAbstract
     }
 
     /**
-     * @return mixed
+     * {@inheritDoc}
      */
     public function query()
     {

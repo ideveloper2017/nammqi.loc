@@ -6,6 +6,7 @@ use Closure;
 
 class Asset
 {
+
     /**
      * Path to assets.
      *
@@ -36,7 +37,7 @@ class Asset
      *
      * @param string $path
      */
-    public function addPath(string $path)
+    public function addPath($path)
     {
         static::$path = rtrim($path, '/') . '/';
     }
@@ -48,7 +49,7 @@ class Asset
      * @param Closure $callbacks
      * @return void
      */
-    public function cook(string $name, Closure $callbacks)
+    public function cook($name, Closure $callbacks)
     {
         $this->stacks['cooks'][$name] = $callbacks;
     }
@@ -59,7 +60,7 @@ class Asset
      * @param string $name
      * @return Asset
      */
-    public function serve(string $name): self
+    public function serve($name)
     {
         $this->stacks['serves'][$name] = true;
 
@@ -98,7 +99,7 @@ class Asset
      * @param array $parameters
      * @return mixed
      */
-    public function __call(string $method, array $parameters)
+    public function __call($method, $parameters)
     {
         return call_user_func_array([static::container(), $method], $parameters);
     }
@@ -117,7 +118,7 @@ class Asset
      * @param string $container
      * @return AssetContainer
      */
-    public static function container(string $container = 'default'): AssetContainer
+    public static function container($container = 'default')
     {
         if (!isset(static::$containers[$container])) {
             static::$containers[$container] = new AssetContainer($container);

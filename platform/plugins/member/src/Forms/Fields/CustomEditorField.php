@@ -9,6 +9,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class CustomEditorField extends FormField
 {
+
     /**
      * @return string
      */
@@ -26,7 +27,7 @@ class CustomEditorField extends FormField
      */
     public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
     {
-        (new Editor())->registerAssets();
+        (new Editor)->registerAssets();
 
         $options['attr'] = Arr::set($options['attr'], 'class', Arr::get($options['attr'], 'class') . 'form-control editor-' . BaseHelper::getRichEditor());
 

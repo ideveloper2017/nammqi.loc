@@ -4,13 +4,12 @@ namespace Botble\ACL\Traits;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\Events\Verified;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 trait VerifiesEmails
 {
@@ -20,7 +19,7 @@ trait VerifiesEmails
      * Show the email verification notice.
      *
      * @param Request $request
-     * @return Factory|Application|View|Redirector|RedirectResponse
+     * @return Factory|RedirectResponse|Response|Redirector|View
      */
     public function show(Request $request)
     {
@@ -40,11 +39,11 @@ trait VerifiesEmails
     public function verify(Request $request)
     {
         if (!hash_equals((string)$request->route('id'), (string)$request->user()->getKey())) {
-            throw new AuthorizationException();
+            throw new AuthorizationException;
         }
 
         if (!hash_equals((string)$request->route('hash'), sha1($request->user()->getEmailForVerification()))) {
-            throw new AuthorizationException();
+            throw new AuthorizationException;
         }
 
         if ($request->user()->hasVerifiedEmail()) {
@@ -70,7 +69,7 @@ trait VerifiesEmails
      * The user has been verified.
      *
      * @param Request $request
-     * @return void
+     * @return mixed
      */
     protected function verified(Request $request)
     {

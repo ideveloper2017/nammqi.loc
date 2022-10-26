@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 
 class PageRequest extends Request
 {
+
     /**
      * Get the validation rules that apply to the request.
      *

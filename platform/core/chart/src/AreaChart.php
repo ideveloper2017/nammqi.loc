@@ -7,9 +7,10 @@ use Botble\Chart\Supports\ChartTypes;
 
 class AreaChart extends Chart
 {
+
     /**
      * Change the opacity of the area fill colour.
-     * Accept values between 0.0 (for completely transparent) and 1.0 (for completely opaque).
+     * Accepts values between 0.0 (for completely transparent) and 1.0 (for completely opaque).
      *
      * @brief Opacity
      *

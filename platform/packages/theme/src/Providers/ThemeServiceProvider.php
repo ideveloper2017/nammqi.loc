@@ -14,7 +14,7 @@ use Botble\Theme\Supports\ThemeSupport;
 use Botble\Theme\Theme;
 use File;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Theme as ThemeFacade;
@@ -25,6 +25,12 @@ class ThemeServiceProvider extends ServiceProvider
 
     public function register()
     {
+        /**
+         * @var Router $router
+         */
+        $router = $this->app['router'];
+        $router->pushMiddlewareToGroup('web', AdminBarMiddleware::class);
+
         $this->setNamespace('packages/theme')
             ->loadHelpers();
 
@@ -59,8 +65,6 @@ class ThemeServiceProvider extends ServiceProvider
                     'url'         => '#',
                     'permissions' => [],
                 ]);
-
-            $this->app['router']->pushMiddlewareToGroup('web', AdminBarMiddleware::class);
 
             if ($this->app['config']->get('packages.theme.general.display_theme_manager_in_admin_panel', true)) {
                 dashboard_menu()
@@ -108,30 +112,9 @@ class ThemeServiceProvider extends ServiceProvider
                     ]);
             }
 
-            if (config('packages.theme.general.enable_custom_html')) {
-                dashboard_menu()
-                    ->registerItem([
-                        'id'          => 'cms-core-appearance-custom-html',
-                        'priority'    => 6,
-                        'parent_id'   => 'cms-core-appearance',
-                        'name'        => 'packages/theme::theme.custom_html',
-                        'icon'        => null,
-                        'url'         => route('theme.custom-html'),
-                        'permissions' => ['theme.custom-html'],
-                    ]);
-            }
-
-            ThemeFacade::composer('*', function () {
-                if (Auth::check()) {
-                    if (Auth::user()->hasPermission('theme.index')) {
-                        admin_bar()->registerLink(trans('packages/theme::theme.name'), route('theme.index'), 'appearance');
-                    }
-
-                    if (Auth::user()->hasPermission('theme.options')) {
-                        admin_bar()->registerLink(trans('packages/theme::theme.theme_options'), route('theme.options'), 'appearance');
-                    }
-                }
-            });
+            admin_bar()
+                ->registerLink(trans('packages/theme::theme.name'), route('theme.index'), 'appearance')
+                ->registerLink(trans('packages/theme::theme.theme_options'), route('theme.options'), 'appearance');
         });
 
         $this->app->booted(function () {
@@ -140,48 +123,26 @@ class ThemeServiceProvider extends ServiceProvider
                 ThemeFacade::asset()
                     ->container('after_header')
                     ->usePath()
-                    ->add('theme-style-integration-css', 'css/style.integration.css', [], [], filectime($file));
+                    ->add('theme-style-integration-css', str_replace(public_path(ThemeFacade::path()), '', $file), [], [], filectime($file));
             }
 
-            if (!$this->app->environment('demo')) {
-                if (config('packages.theme.general.enable_custom_js')) {
-                    if (setting('custom_header_js')) {
-                        add_filter(THEME_FRONT_HEADER, function ($html) {
-                            return $html . ThemeSupport::getCustomJS('header');
-                        }, 15);
-                    }
-
-                    if (setting('custom_body_js')) {
-                        add_filter(THEME_FRONT_BODY, function ($html) {
-                            return $html . ThemeSupport::getCustomJS('body');
-                        }, 15);
-                    }
-
-                    if (setting('custom_footer_js')) {
-                        add_filter(THEME_FRONT_FOOTER, function ($html) {
-                            return $html . ThemeSupport::getCustomJS('footer');
-                        }, 15);
-                    }
+            if (config('packages.theme.general.enable_custom_js')) {
+                if (setting('custom_header_js')) {
+                    add_filter(THEME_FRONT_HEADER, function ($html) {
+                        return $html . ThemeSupport::getCustomJS('header');
+                    }, 15);
                 }
 
-                if (config('packages.theme.general.enable_custom_html')) {
-                    if (setting('custom_header_html')) {
-                        add_filter(THEME_FRONT_HEADER, function ($html) {
-                            return $html . ThemeSupport::getCustomHtml('header');
-                        }, 16);
-                    }
+                if (setting('custom_body_js')) {
+                    add_filter(THEME_FRONT_BODY, function ($html) {
+                        return $html . ThemeSupport::getCustomJS('body');
+                    }, 15);
+                }
 
-                    if (setting('custom_body_html')) {
-                        add_filter(THEME_FRONT_BODY, function ($html) {
-                            return $html . ThemeSupport::getCustomHtml('body');
-                        }, 16);
-                    }
-
-                    if (setting('custom_footer_html')) {
-                        add_filter(THEME_FRONT_FOOTER, function ($html) {
-                            return $html . ThemeSupport::getCustomHtml('footer');
-                        }, 16);
-                    }
+                if (setting('custom_footer_js')) {
+                    add_filter(THEME_FRONT_FOOTER, function ($html) {
+                        return $html . ThemeSupport::getCustomJS('footer');
+                    }, 15);
                 }
             }
 

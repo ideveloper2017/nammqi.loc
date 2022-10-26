@@ -4,10 +4,9 @@ namespace Botble\Widget;
 
 use Botble\Widget\Repositories\Interfaces\WidgetInterface;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Theme;
 
 abstract class AbstractWidget
@@ -77,7 +76,7 @@ abstract class AbstractWidget
     /**
      * @return array
      */
-    public function getConfig(): array
+    public function getConfig()
     {
         return $this->config;
     }
@@ -107,14 +106,11 @@ abstract class AbstractWidget
         }
 
         if (!$this->isCore) {
-            return Theme::loadPartial(
-                $this->frontendTemplate,
-                Theme::getThemeNamespace('/../widgets/' . $this->widgetDirectory . '/templates'),
-                [
+            return Theme::loadPartial($this->frontendTemplate,
+                Theme::getThemeNamespace('/../widgets/' . $this->widgetDirectory . '/templates'), [
                     'config'  => $this->config,
                     'sidebar' => $args[0],
-                ]
-            );
+                ]);
         }
 
         return view($this->frontendTemplate, [
@@ -126,7 +122,7 @@ abstract class AbstractWidget
     /**
      * @return string
      */
-    public function getId(): string
+    public function getId()
     {
         return get_class($this);
     }
@@ -134,10 +130,10 @@ abstract class AbstractWidget
     /**
      * @param string|null $sidebarId
      * @param int $position
-     * @return Factory|Application|View|string|null
+     * @return Factory|View|mixed
      * @throws FileNotFoundException
      */
-    public function form(?string $sidebarId = null, int $position = 0)
+    public function form($sidebarId = null, $position = 0)
     {
         Theme::uses(Theme::getThemeName());
         if (!empty($sidebarId)) {
@@ -157,13 +153,10 @@ abstract class AbstractWidget
         }
 
         if (!$this->isCore) {
-            return Theme::loadPartial(
-                $this->backendTemplate,
-                Theme::getThemeNamespace('/../widgets/' . $this->widgetDirectory . '/templates'),
-                [
+            return Theme::loadPartial($this->backendTemplate,
+                Theme::getThemeNamespace('/../widgets/' . $this->widgetDirectory . '/templates'), [
                     'config' => $this->config,
-                ]
-            );
+                ]);
         }
 
         return view($this->backendTemplate, [

@@ -4,10 +4,10 @@ namespace Botble\Widget\Factories;
 
 use Botble\Widget\Misc\InvalidWidgetClassException;
 use Exception;
-use Illuminate\Support\HtmlString;
 
 class WidgetFactory extends AbstractWidgetFactory
 {
+
     /**
      * @var array
      */
@@ -17,9 +17,9 @@ class WidgetFactory extends AbstractWidgetFactory
      * @param string $widget
      * @return $this
      */
-    public function registerWidget(string $widget): WidgetFactory
+    public function registerWidget($widget)
     {
-        $this->widgets[] = new $widget();
+        $this->widgets[] = new $widget;
 
         return $this;
     }
@@ -35,7 +35,7 @@ class WidgetFactory extends AbstractWidgetFactory
     /**
      * Run widget without magic method.
      *
-     * @return HtmlString|string|null
+     * @return mixed
      */
     public function run()
     {
@@ -43,8 +43,16 @@ class WidgetFactory extends AbstractWidgetFactory
 
         try {
             $this->instantiateWidget($args);
-        } catch (InvalidWidgetClassException | Exception $exception) {
-            return config('app.debug') ? $exception->getMessage() : null;
+        } catch (InvalidWidgetClassException $exception) {
+            if (config('app.debug') == true) {
+                return $exception->getMessage();
+            }
+            return null;
+        } catch (Exception $exception) {
+            if (config('app.debug') == true) {
+                return $exception->getMessage();
+            }
+            return null;
         }
 
         return $this->convertToViewExpression($this->getContent());

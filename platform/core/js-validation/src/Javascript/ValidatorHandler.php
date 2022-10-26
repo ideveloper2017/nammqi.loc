@@ -14,7 +14,7 @@ class ValidatorHandler
      *
      * @const string
      */
-    public const JS_VALIDATION_DISABLE = 'NoJsValidation';
+    const JS_VALIDATION_DISABLE = 'NoJsValidation';
 
     /**
      * @var RuleParser

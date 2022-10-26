@@ -2,7 +2,6 @@
 
 namespace Botble\Base\Supports;
 
-use BaseHelper;
 use File;
 
 class Language
@@ -49,7 +48,6 @@ class Language
         'by'     => 'Belarus',
         'bz'     => 'Belize',
         'ca'     => 'Canada',
-        'ca_ES'  => 'Catalonia',
         'cc'     => 'Cocos',
         'cd'     => 'Democratic Republic of the Congo',
         'cf'     => 'Central African Republic',
@@ -386,9 +384,9 @@ class Language
     public static function getAvailableLocales(): array
     {
         $languages = [];
-        $locales = BaseHelper::scanFolder(lang_path());
+        $locales = scan_folder(resource_path('lang'));
         if (in_array('vendor', $locales)) {
-            $locales = array_merge($locales, BaseHelper::scanFolder(lang_path('vendor')));
+            $locales = array_merge($locales, scan_folder(resource_path('lang/vendor')));
         }
 
         foreach ($locales as $locale) {
@@ -419,7 +417,7 @@ class Language
                 }
             }
 
-            if (!array_key_exists($locale, $languages) && File::isDirectory(lang_path($locale))) {
+            if (!array_key_exists($locale, $languages) && File::isDirectory(resource_path('lang/' . $locale))) {
                 $languages[$locale] = [
                     'locale' => $locale,
                     'name'   => $locale,

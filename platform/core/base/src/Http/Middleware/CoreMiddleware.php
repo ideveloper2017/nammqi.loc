@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class CoreMiddleware
 {
+
     /**
      * @param Request $request
      * @param Closure $next

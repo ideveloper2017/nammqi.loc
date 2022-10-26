@@ -16,7 +16,6 @@
                                     @if ($slider->link && !($shortcode->show_newsletter_form == 'yes' && is_plugin_active('newsletter')))
                                         <a href="{{ url($slider->link) }}">
                                     @endif
-
                                     <div class="single-hero-slider single-animation-wrap" @if (!$loop->first) style="display: none;" @endif>
                                         <div class="container">
                                             <div class="slider-1-height-3 slider-animated-1">
@@ -27,7 +26,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     @if ($slider->link && !($shortcode->show_newsletter_form == 'yes' && is_plugin_active('newsletter')))
                                         </a>
                                     @endif

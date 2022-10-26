@@ -8,6 +8,7 @@ use Throwable;
 
 class Base
 {
+
     /**
      * Type of chart. This value is used in Javascript Morris method
      *
@@ -78,7 +79,7 @@ class Base
      *
      * @return void
      */
-    public function __construct(string $chart = ChartTypes::LINE)
+    public function __construct($chart = ChartTypes::LINE)
     {
         $this->chartType = $chart;
         $this->element = $chart . '_' . Str::random(12);
@@ -86,19 +87,17 @@ class Base
 
     /**
      * @param string $elementId
-     * @return Base
      */
-    public function setElementId(string $elementId): Base
+    public function setElementId($elementId)
     {
         $this->element = $elementId;
-
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getElementId(): string
+    public function getElementId()
     {
         return $this->element;
     }
@@ -110,15 +109,12 @@ class Base
      *
      * @return array
      */
-    public function toArray(): array
+    public function toArray()
     {
         $return = [];
         foreach ($this as $property => $value) {
-            if ('__' == substr(
-                $property,
-                0,
-                2
-            ) || empty($value)) {
+            if ('__' == substr($property, 0,
+                    2) || '' === $value || empty($value) || (is_array($value) && empty($value))) {
                 continue;
             }
 
@@ -139,7 +135,7 @@ class Base
      *
      * @return string
      */
-    public function toJSON(): string
+    public function toJSON()
     {
         $json = json_encode($this->toArray());
 
@@ -162,7 +158,7 @@ class Base
      * @param string $name
      * @return mixed|null
      */
-    public function __get(string $name)
+    public function __get($name)
     {
         foreach ($this as $key => $value) {
             if ($name == $key) {
@@ -184,7 +180,7 @@ class Base
      * @param array $arguments
      * @return Base|bool
      */
-    public function __call(string $name, array $arguments)
+    public function __call($name, $arguments)
     {
         foreach ($this as $key => $value) {
             if ($name == $key) {
@@ -201,10 +197,12 @@ class Base
      * @return string
      * @throws Throwable
      */
-    public function renderChart(): string
+    public function renderChart()
     {
         Assets::addStyles(['morris'])
             ->addScripts(['morris', 'raphael']);
+
+        $this->init();
 
         $chart = $this;
 
@@ -214,7 +212,7 @@ class Base
     /**
      * @return $this
      */
-    public function init(): Base
+    public function init()
     {
         return $this;
     }

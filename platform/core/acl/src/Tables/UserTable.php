@@ -18,6 +18,7 @@ use Yajra\DataTables\DataTables;
 
 class UserTable extends TableAbstract
 {
+
     /**
      * @var bool
      */
@@ -96,28 +97,20 @@ class UserTable extends TableAbstract
             })
             ->removeColumn('role_id')
             ->addColumn('operations', function ($item) {
+
                 $action = null;
                 if (Auth::user()->isSuperUser()) {
-                    $action = Html::link(
-                        route('users.make-super', $item->id),
-                        trans('core/acl::users.make_super'),
-                        ['class' => 'btn btn-info']
-                    )->toHtml();
+                    $action = Html::link(route('users.make-super', $item->id), trans('core/acl::users.make_super'),
+                        ['class' => 'btn btn-info'])->toHtml();
 
                     if ($item->super_user) {
-                        $action = Html::link(
-                            route('users.remove-super', $item->id),
-                            trans('core/acl::users.remove_super'),
-                            ['class' => 'btn btn-danger']
-                        )->toHtml();
+                        $action = Html::link(route('users.remove-super', $item->id), trans('core/acl::users.remove_super'),
+                            ['class' => 'btn btn-danger'])->toHtml();
                     }
                 }
 
-                return apply_filters(
-                    ACL_FILTER_USER_TABLE_ACTIONS,
-                    $action . view('core/acl::users.partials.actions', ['item' => $item])->render(),
-                    $item
-                );
+                return apply_filters(ACL_FILTER_USER_TABLE_ACTIONS,
+                    $action . view('core/acl::users.partials.actions', ['item' => $item])->render(), $item);
             });
 
         return $this->toJson($data);
@@ -271,6 +264,7 @@ class UserTable extends TableAbstract
         }
 
         if ($inputKey === 'status') {
+
             $hasWarning = false;
 
             foreach ($ids as $id) {

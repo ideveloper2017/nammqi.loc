@@ -35,11 +35,9 @@ class MediaFileRepository extends RepositoriesAbstract implements MediaFileInter
     }
 
     /**
-     * @param string|null $name
-     * @param int|null $folder
-     * @return bool
+     * {@inheritDoc}
      */
-    protected function checkIfExistsName(?string $name, ?int $folder): bool
+    protected function checkIfExistsName($name, $folder)
     {
         $count = $this->model
             ->where('name', $name)
@@ -53,7 +51,7 @@ class MediaFileRepository extends RepositoriesAbstract implements MediaFileInter
     /**
      * {@inheritDoc}
      */
-    public function createSlug($name, $extension, $folderPath): string
+    public function createSlug($name, $extension, $folderPath)
     {
         $slug = Str::slug($name, '-', !RvMedia::turnOffAutomaticUrlTranslationIntoLatin() ? 'en' : false);
         $index = 1;
@@ -342,12 +340,8 @@ class MediaFileRepository extends RepositoriesAbstract implements MediaFileInter
                 /**
                  * @var Eloquent $folder
                  */
-                $folder = $folder->leftJoin(
-                    'media_folders as mf_parent',
-                    'mf_parent.id',
-                    '=',
-                    'media_folders.parent_id'
-                )
+                $folder = $folder->leftJoin('media_folders as mf_parent', 'mf_parent.id', '=',
+                    'media_folders.parent_id')
                     ->where(function ($query) {
                         /**
                          * @var Eloquent $query

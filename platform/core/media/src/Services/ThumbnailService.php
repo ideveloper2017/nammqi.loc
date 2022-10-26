@@ -8,6 +8,7 @@ use Log;
 
 class ThumbnailService
 {
+
     /**
      * @var ImageManager
      */
@@ -88,7 +89,7 @@ class ThumbnailService
      * @param string $imagePath
      * @return ThumbnailService
      */
-    public function setImage(string $imagePath): ThumbnailService
+    public function setImage($imagePath)
     {
         $this->imagePath = $imagePath;
 
@@ -98,7 +99,7 @@ class ThumbnailService
     /**
      * @return string
      */
-    public function getImage(): string
+    public function getImage()
     {
         return $this->imagePath;
     }
@@ -108,7 +109,7 @@ class ThumbnailService
      * @param int|string $height
      * @return ThumbnailService
      */
-    public function setSize($width, $height = 'auto'): ThumbnailService
+    public function setSize($width, $height = 'auto')
     {
         $this->thumbWidth = $width;
         $this->thumbHeight = $height;
@@ -131,7 +132,7 @@ class ThumbnailService
     /**
      * @return array
      */
-    public function getSize(): array
+    public function getSize()
     {
         return [$this->thumbWidth, $this->thumbHeight];
     }
@@ -140,7 +141,7 @@ class ThumbnailService
      * @param string $destinationPath
      * @return ThumbnailService
      */
-    public function setDestinationPath(string $destinationPath): ThumbnailService
+    public function setDestinationPath($destinationPath)
     {
         $this->destinationPath = $destinationPath;
 
@@ -152,7 +153,7 @@ class ThumbnailService
      * @param int $yCoordination
      * @return ThumbnailService
      */
-    public function setCoordinates(int $xCoordination, int $yCoordination): ThumbnailService
+    public function setCoordinates($xCoordination, $yCoordination)
     {
         $this->xCoordinate = $xCoordination;
         $this->yCoordinate = $yCoordination;
@@ -163,7 +164,7 @@ class ThumbnailService
     /**
      * @return array
      */
-    public function getCoordinates(): array
+    public function getCoordinates()
     {
         return [$this->xCoordinate, $this->yCoordinate];
     }
@@ -172,7 +173,7 @@ class ThumbnailService
      * @param string $fileName
      * @return ThumbnailService
      */
-    public function setFileName(string $fileName): ThumbnailService
+    public function setFileName($fileName)
     {
         $this->fileName = $fileName;
 
@@ -182,7 +183,7 @@ class ThumbnailService
     /**
      * @return string
      */
-    public function getFileName(): string
+    public function getFileName()
     {
         return $this->fileName;
     }
@@ -191,7 +192,7 @@ class ThumbnailService
      * @param string $type
      * @return bool|string
      */
-    public function save(string $type = 'fit')
+    public function save($type = 'fit')
     {
         $fileName = pathinfo($this->imagePath, PATHINFO_BASENAME);
 
@@ -234,11 +235,9 @@ class ThumbnailService
 
             case 'fit':
             default:
-                if (extension_loaded('exif')) {
-                    $thumbImage->orientate();
-                }
-
-                $thumbImage->fit($this->thumbWidth, $this->thumbHeight, null, $this->fitPosition);
+                $thumbImage
+                    ->orientate()
+                    ->fit($this->thumbWidth, $this->thumbHeight, null, $this->fitPosition);
                 break;
         }
 

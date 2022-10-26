@@ -9,6 +9,7 @@ use Menu;
 
 class DeleteMenuNodeListener
 {
+
     /**
      * @var MenuNodeInterface
      */

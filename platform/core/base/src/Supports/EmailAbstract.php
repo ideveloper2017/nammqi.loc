@@ -10,8 +10,7 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 
 class EmailAbstract extends Mailable
 {
-    use Queueable;
-    use SerializesModels;
+    use Queueable, SerializesModels;
 
     /**
      * @var string
@@ -31,11 +30,11 @@ class EmailAbstract extends Mailable
     /**
      * Create a new message instance.
      *
-     * @param string|null $content
-     * @param string|null $subject
+     * @param string $content
+     * @param string $subject
      * @param array $data
      */
-    public function __construct(?string $content, ?string $subject, array $data = [])
+    public function __construct($content, $subject, $data = [])
     {
         $this->content = $content;
         $this->subject = $subject;
@@ -47,9 +46,9 @@ class EmailAbstract extends Mailable
      *
      * @return EmailAbstract
      */
-    public function build(): EmailAbstract
+    public function build()
     {
-        $inlineCss = new CssToInlineStyles();
+        $inlineCss = new CssToInlineStyles;
 
         $fromAddress = setting('email_from_address', config('mail.from.address'));
 

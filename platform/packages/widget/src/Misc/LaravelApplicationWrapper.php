@@ -9,6 +9,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 
 class LaravelApplicationWrapper implements ApplicationWrapperContract
 {
+
     /**
      * @var App
      */
@@ -29,7 +30,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      * @param array $params
      * @return mixed
      */
-    public function call($method, array $params = [])
+    public function call($method, $params = [])
     {
         return $this->app->call($method, $params);
     }
@@ -42,7 +43,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      * @return mixed
      * @throws BindingResolutionException
      */
-    public function config(string $key, $default = null)
+    public function config($key, $default = null)
     {
         return $this->app->make('config')->get($key, $default);
     }
@@ -50,7 +51,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     /**
      * @return string
      */
-    public function getNamespace(): string
+    public function getNamespace()
     {
         return $this->app->getNamespace();
     }
@@ -63,7 +64,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      * @return mixed
      * @throws BindingResolutionException
      */
-    public function make(string $abstract, array $parameters = [])
+    public function make($abstract, array $parameters = [])
     {
         return $this->app->make($abstract, $parameters);
     }

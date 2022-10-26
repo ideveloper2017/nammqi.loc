@@ -8,7 +8,6 @@ use Botble\Page\Models\Page;
 use Botble\Page\Repositories\Interfaces\PageInterface;
 use Botble\SeoHelper\SeoOpenGraph;
 use Eloquent;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use RvMedia;
@@ -18,7 +17,7 @@ use Theme;
 class PageService
 {
     /**
-     * @param Eloquent|Builder $slug
+     * @param Eloquent $slug
      * @return array|Eloquent
      */
     public function handleFrontRoutes($slug)
@@ -46,7 +45,7 @@ class PageService
             abort(404);
         }
 
-        $meta = new SeoOpenGraph();
+        $meta = new SeoOpenGraph;
         if ($page->image) {
             $meta->setImage(RvMedia::getImageUrl($page->image));
         }

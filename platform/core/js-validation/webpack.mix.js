@@ -21,4 +21,4 @@ mix
             source + '/resources/assets/js/validations.js'
         ], dist + '/js/js-validation.js')
 
-    .copy(dist + '/js/js-validation.js', source + '/public/js');
+    .copyDirectory(dist + '/js', source + '/public/js');

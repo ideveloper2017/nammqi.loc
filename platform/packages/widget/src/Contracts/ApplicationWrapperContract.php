@@ -11,7 +11,7 @@ interface ApplicationWrapperContract
      * @param array $params
      * @return mixed
      */
-    public function call($method, array $params = []);
+    public function call($method, $params = []);
 
     /**
      * Get the specified configuration value.
@@ -20,14 +20,14 @@ interface ApplicationWrapperContract
      * @param mixed $default
      * @return mixed
      */
-    public function config(string $key, $default = null);
+    public function config($key, $default = null);
 
     /**
      * Wrapper around app()->getNamespace().
      *
      * @return string
      */
-    public function getNamespace(): string;
+    public function getNamespace();
 
     /**
      * Wrapper around app()->make().
@@ -36,5 +36,5 @@ interface ApplicationWrapperContract
      * @param array $parameters
      * @return mixed
      */
-    public function make(string $abstract, array $parameters = []);
+    public function make($abstract, array $parameters = []);
 }

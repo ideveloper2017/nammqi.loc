@@ -2,12 +2,9 @@
 
 namespace Botble\Member\Providers;
 
+use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Blog\Models\Post;
 use Botble\LanguageAdvanced\Supports\LanguageAdvancedManager;
-use EmailHandler;
-use Illuminate\Routing\Events\RouteMatched;
-use Botble\Base\Supports\Helper;
-use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Member\Http\Middleware\RedirectIfMember;
 use Botble\Member\Http\Middleware\RedirectIfNotMember;
 use Botble\Member\Models\Member;
@@ -18,11 +15,12 @@ use Botble\Member\Repositories\Eloquent\MemberActivityLogRepository;
 use Botble\Member\Repositories\Eloquent\MemberRepository;
 use Botble\Member\Repositories\Interfaces\MemberActivityLogInterface;
 use Botble\Member\Repositories\Interfaces\MemberInterface;
+use EmailHandler;
+use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
-use MetaBox;
 use Language;
 use SocialService;
 
@@ -61,21 +59,18 @@ class MemberServiceProvider extends ServiceProvider
         $router->aliasMiddleware('member.guest', RedirectIfMember::class);
 
         $this->app->bind(MemberInterface::class, function () {
-            return new MemberCacheDecorator(new MemberRepository(new Member()));
+            return new MemberCacheDecorator(new MemberRepository(new Member));
         });
 
         $this->app->bind(MemberActivityLogInterface::class, function () {
-            return new MemberActivityLogCacheDecorator(new MemberActivityLogRepository(new MemberActivityLog()));
+            return new MemberActivityLogCacheDecorator(new MemberActivityLogRepository(new MemberActivityLog));
         });
-
-        Helper::autoload(__DIR__ . '/../../helpers');
-
-        add_filter(IS_IN_ADMIN_FILTER, [$this, 'setInAdmin'], 24);
     }
 
     public function boot()
     {
         $this->setNamespace('plugins/member')
+            ->loadHelpers()
             ->loadAndPublishConfigurations(['general', 'permissions', 'assets', 'email'])
             ->loadAndPublishTranslations()
             ->loadAndPublishViews()
@@ -93,6 +88,10 @@ class MemberServiceProvider extends ServiceProvider
                 'url'         => route('member.index'),
                 'permissions' => ['member.index'],
             ]);
+        });
+
+        $this->app->booted(function () {
+            EmailHandler::addTemplateSettings(MEMBER_MODULE_SCREEN_NAME, config('plugins.member.email', []));
 
             if (defined('SOCIAL_LOGIN_MODULE_SCREEN_NAME')) {
                 SocialService::registerModule([
@@ -102,10 +101,6 @@ class MemberServiceProvider extends ServiceProvider
                     'redirect_url' => route('public.member.dashboard'),
                 ]);
             }
-        });
-
-        $this->app->booted(function () {
-            EmailHandler::addTemplateSettings(MEMBER_MODULE_SCREEN_NAME, config('plugins.member.email', []));
         });
 
         add_filter('social_login_before_saving_account', function ($data, $oAuth, $providerData) {
@@ -122,6 +117,8 @@ class MemberServiceProvider extends ServiceProvider
 
         $this->app->register(EventServiceProvider::class);
 
+        add_filter(IS_IN_ADMIN_FILTER, [$this, 'setInAdmin'], 24);
+
         add_action(BASE_ACTION_INIT, function () {
             if (defined('GALLERY_MODULE_SCREEN_NAME') && request()->segment(1) == 'account') {
                 \Gallery::removeModule(Post::class);
@@ -129,66 +126,6 @@ class MemberServiceProvider extends ServiceProvider
         }, 12, 2);
 
         add_filter(BASE_FILTER_AFTER_SETTING_CONTENT, [$this, 'addSettings'], 49);
-
-        add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $data) {
-            if (get_class($data) == Member::class) {
-                $social = isset($data->id) ? json_encode(Metabox::getMetaData($data, 'social', true)) : null;
-                $form
-                    ->addAfter('description', 'social', 'repeater', [
-                        'label'  => __('Social'),
-                        'value'  => null,
-                        'selected' => $social,
-                        'fields' => [
-                            [
-                                'type'       => 'text',
-                                'label'      => __('Name'),
-                                'attributes' => [
-                                    'name'    => 'social-name',
-                                    'value'   => null,
-                                    'options' => [
-                                        'class' => 'form-control',
-                                    ],
-                                ],
-                            ],
-                            [
-                                'type'       => 'themeIcon',
-                                'label'      => __('Icon'),
-                                'attributes' => [
-                                    'name'    => 'social-icon',
-                                    'value'   => null,
-                                    'options' => [
-                                        'class' => 'form-control',
-                                    ],
-                                ],
-                            ],
-                            [
-                                'type'       => 'text',
-                                'label'      => __('URL'),
-                                'attributes' => [
-                                    'name'    => 'social-url',
-                                    'value'   => null,
-                                    'options' => [
-                                        'class' => 'form-control',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ]);
-            }
-            return $form;
-        }, 127, 2);
-
-        add_action(BASE_ACTION_AFTER_CREATE_CONTENT, function ($type, $request, $object) {
-            if (get_class($object) == Member::class) {
-                MetaBox::saveMetaBoxData($object, 'social', $request->input('social'));
-            }
-        }, 230, 3);
-
-        add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, function ($type, $request, $object) {
-            if (get_class($object) == Member::class) {
-                MetaBox::saveMetaBoxData($object, 'social', $request->input('social'));
-            }
-        }, 231, 3);
 
         if (is_plugin_active('language') && is_plugin_active('language-advanced')) {
             add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $data) {
@@ -200,16 +137,15 @@ class MemberServiceProvider extends ServiceProvider
                     $data->id &&
                     LanguageAdvancedManager::isSupported($data)
                 ) {
+
                     $refLang = null;
 
                     if (Language::getCurrentAdminLocaleCode() != Language::getDefaultLocaleCode()) {
                         $refLang = '?ref_lang=' . Language::getCurrentAdminLocaleCode();
                     }
 
-                    $form->setFormOption(
-                        'url',
-                        route('public.member.language-advanced.save', $data->id) . $refLang
-                    );
+                    $form->setFormOption('url',
+                        route('public.member.language-advanced.save', $data->id) . $refLang);
                 }
 
                 return $form;

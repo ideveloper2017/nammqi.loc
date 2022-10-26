@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class DisableInDemoModeMiddleware
 {
+
     /**
      * @var \Illuminate\Foundation\Application|mixed
      */

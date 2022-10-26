@@ -66,9 +66,9 @@ class InsertWatermarkCommand extends Command
         }
 
         if ($this->option('folder')) {
-            $files = $this->fileRepository->allBy(['folder_id' => $this->option('folder')], [], ['url', 'mime_type', 'folder_id']);
+            $files = $this->fileRepository->allBy(['folder_id' => $this->option('folder')], [], ['url', 'mime_type']);
         } else {
-            $files = $this->fileRepository->allBy([], [], ['url', 'mime_type', 'folder_id']);
+            $files = $this->fileRepository->allBy([], [], ['url', 'mime_type']);
         }
 
         $this->info('Processing ' . $files->count() . ' ' . Str::plural('file', $files->count()) . '...');
@@ -87,11 +87,8 @@ class InsertWatermarkCommand extends Command
                     continue;
                 }
 
-                $folderIds = json_decode(setting('media_folders_can_add_watermark'), true);
+                RvMedia::insertWatermark($file->url);
 
-                if (empty($folderIds) || in_array($file->folder_id, $folderIds)) {
-                    RvMedia::insertWatermark($file->url);
-                }
             } catch (Exception $exception) {
                 $errors[] = $file->url;
                 $this->error($exception->getMessage());

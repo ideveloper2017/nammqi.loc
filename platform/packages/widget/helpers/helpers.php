@@ -1,14 +1,11 @@
 <?php
 
-use Botble\Widget\Factories\WidgetFactory;
-use Botble\Widget\WidgetGroupCollection;
-
 if (!function_exists('register_widget')) {
     /**
      * @param string $widgetId
-     * @return WidgetFactory
+     * @return \Botble\Widget\Factories\WidgetFactory
      */
-    function register_widget(string $widgetId): WidgetFactory
+    function register_widget($widgetId)
     {
         return Widget::registerWidget($widgetId);
     }
@@ -17,9 +14,9 @@ if (!function_exists('register_widget')) {
 if (!function_exists('register_sidebar')) {
     /**
      * @param array $args
-     * @return WidgetGroupCollection
+     * @return WidgetGroup
      */
-    function register_sidebar(array $args): WidgetGroupCollection
+    function register_sidebar($args)
     {
         return WidgetGroup::setGroup($args);
     }
@@ -28,9 +25,9 @@ if (!function_exists('register_sidebar')) {
 if (!function_exists('remove_sidebar')) {
     /**
      * @param string $sidebarId
-     * @return WidgetGroupCollection
+     * @return \Botble\Widget\WidgetGroupCollection
      */
-    function remove_sidebar(string $sidebarId): WidgetGroupCollection
+    function remove_sidebar(string $sidebarId)
     {
         return WidgetGroup::removeGroup($sidebarId);
     }
@@ -40,8 +37,9 @@ if (!function_exists('dynamic_sidebar')) {
     /**
      * @param string $sidebarId
      * @return string
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    function dynamic_sidebar(string $sidebarId): string
+    function dynamic_sidebar(string $sidebarId)
     {
         return WidgetGroup::render($sidebarId);
     }

@@ -17,7 +17,7 @@
                                             <div style="word-break: break-all">
                                                 <h4>{{ $theme['name'] }}</h4>
                                                 <p>{{ trans('packages/theme::theme.author') }}: {{ Arr::get($theme, 'author') }}</p>
-                                                <p>{{ trans('packages/theme::theme.version') }}: {{ Arr::get($theme, 'version', get_cms_version()) }}</p>
+                                                <p>{{ trans('packages/theme::theme.version') }}: {{ Arr::get($theme, 'version') }}</p>
                                                 <p>{{ trans('packages/theme::theme.description') }}: {{ Arr::get($theme, 'description') }}</p>
                                             </div>
                                             <div class="clearfix"></div>

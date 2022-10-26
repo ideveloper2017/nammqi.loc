@@ -18,6 +18,7 @@ use Throwable;
 
 class TableController extends Controller
 {
+
     /**
      * @var TableBuilder
      */
@@ -34,7 +35,7 @@ class TableController extends Controller
 
     /**
      * @param BulkChangeRequest $request
-     * @return array
+     * @return array|mixed
      * @throws Throwable
      */
     public function getDataForBulkChanges(BulkChangeRequest $request)
@@ -58,7 +59,7 @@ class TableController extends Controller
         }
 
         $labelClass = 'control-label';
-        if (Str::contains(Arr::get($column, 'validate'), 'required')) {
+        if (!empty($column) && Str::contains(Arr::get($column, 'validate'), 'required')) {
             $labelClass .= ' required';
         }
 
@@ -137,7 +138,7 @@ class TableController extends Controller
 
     /**
      * @param FilterRequest $request
-     * @return array
+     * @return array|mixed
      * @throws BindingResolutionException
      * @throws Throwable
      */

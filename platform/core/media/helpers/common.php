@@ -1,9 +1,5 @@
 <?php
 
-use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\UploadedFile;
-
 if (!function_exists('is_image')) {
     /**
      * Is the mime type an image
@@ -12,7 +8,7 @@ if (!function_exists('is_image')) {
      * @return bool
      * @deprecated since 5.7
      */
-    function is_image(string $mimeType): bool
+    function is_image($mimeType)
     {
         return RvMedia::isImage($mimeType);
     }
@@ -21,13 +17,13 @@ if (!function_exists('is_image')) {
 if (!function_exists('get_image_url')) {
     /**
      * @param string $url
-     * @param string|null $size
+     * @param string $size
      * @param bool $relativePath
      * @param null $default
      * @return string
      * @deprecated since 5.7
      */
-    function get_image_url(string $url, ?string $size = null, bool $relativePath = false, $default = null): string
+    function get_image_url($url, $size = null, $relativePath = false, $default = null)
     {
         return RvMedia::getImageUrl($url, $size, $relativePath, $default);
     }
@@ -38,10 +34,10 @@ if (!function_exists('get_object_image')) {
      * @param string $image
      * @param null $size
      * @param bool $relativePath
-     * @return UrlGenerator|string
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
      * @deprecated since 5.7
      */
-    function get_object_image(string $image, $size = null, bool $relativePath = false)
+    function get_object_image($image, $size = null, $relativePath = false)
     {
         return RvMedia::getImageUrl($image, $size, $relativePath, RvMedia::getDefaultImage());
     }
@@ -49,14 +45,15 @@ if (!function_exists('get_object_image')) {
 
 if (!function_exists('rv_media_handle_upload')) {
     /**
-     * @param UploadedFile|null $fileUpload
+     * @param \Illuminate\Http\UploadedFile $fileUpload
      * @param int $folderId
      * @param string $path
-     * @return array|JsonResponse
+     * @return array|\Illuminate\Http\JsonResponse
      * @deprecated since 5.7
      */
-    function rv_media_handle_upload(?UploadedFile $fileUpload, int $folderId = 0, string $path = '')
+    function rv_media_handle_upload($fileUpload, $folderId = 0, $path = '')
     {
         return RvMedia::handleUpload($fileUpload, $folderId, $path);
     }
 }
+

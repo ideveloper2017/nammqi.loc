@@ -7,6 +7,7 @@ use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 
 class MediaFolderCacheDecorator extends CacheAbstractDecorator implements MediaFolderInterface
 {
+
     /**
      * {@inheritDoc}
      */

@@ -32,7 +32,7 @@ class MountManager
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function mountFilesystems(array $filesystems): MountManager
+    public function mountFilesystems(array $filesystems)
     {
         foreach ($filesystems as $prefix => $filesystem) {
             $this->mountFilesystem($prefix, $filesystem);
@@ -49,8 +49,12 @@ class MountManager
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function mountFilesystem(string $prefix, FilesystemInterface $filesystem): MountManager
+    public function mountFilesystem($prefix, FilesystemInterface $filesystem)
     {
+        if (!is_string($prefix)) {
+            throw new InvalidArgumentException(__METHOD__ . ' expects argument #1 to be a string.');
+        }
+
         $this->filesystems[$prefix] = $filesystem;
 
         return $this;
@@ -63,7 +67,7 @@ class MountManager
      * @throws FilesystemNotFoundException
      * @throws InvalidArgumentException
      */
-    public function listContents(string $directory = '', bool $recursive = false): array
+    public function listContents($directory = '', $recursive = false)
     {
         [$prefix, $directory] = $this->getPrefixAndPath($directory);
         $filesystem = $this->getFilesystem($prefix);
@@ -81,7 +85,7 @@ class MountManager
      * @return string[] [:prefix, :path]
      * @throws InvalidArgumentException
      */
-    protected function getPrefixAndPath(string $path): array
+    protected function getPrefixAndPath($path)
     {
         if (strpos($path, '://') < 1) {
             throw new InvalidArgumentException('No prefix detected in path: ' . $path);
@@ -97,7 +101,7 @@ class MountManager
      * @return FilesystemInterface
      * @throws FilesystemNotFoundException
      */
-    public function getFilesystem(string $prefix): FilesystemInterface
+    public function getFilesystem($prefix)
     {
         if (!isset($this->filesystems[$prefix])) {
             throw new FilesystemNotFoundException('No filesystem mounted with prefix ' . $prefix);
@@ -112,7 +116,7 @@ class MountManager
      * @param string $path
      * @return bool
      */
-    public function has(string $path): bool
+    public function has($path)
     {
         [$prefix, $path] = $this->getPrefixAndPath($path);
 
@@ -126,7 +130,7 @@ class MountManager
      * @return string|false The file contents or false on failure.
      * @throws FileNotFoundException
      */
-    public function read(string $path)
+    public function read($path)
     {
         [$prefix, $path] = $this->getPrefixAndPath($path);
 
@@ -137,11 +141,11 @@ class MountManager
      * Create a file or update if exists.
      *
      * @param string $path The path to the file.
-     * @param string|null $contents The file contents.
+     * @param string $contents The file contents.
      * @param array $config An optional configuration array.
      * @return bool True on success, false on failure.
      */
-    public function put(string $path, ?string $contents, array $config = [])
+    public function put($path, $contents, array $config = [])
     {
         [$prefix, $path] = $this->getPrefixAndPath($path);
 

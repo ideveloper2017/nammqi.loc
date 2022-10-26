@@ -336,7 +336,7 @@
 @media only screen and (min-width: 768px) {
 	header .main-menu ul li ul, .navbar-right .dropdown-menu{
 		display: none;
-	    /*width: 170%;*/
+	    width: 220px;
 	    left: 0px;
 	    padding: 0px;
 	    border: none;
@@ -358,7 +358,7 @@
 	header .main-menu ul li ul li ul{
 		left: 100%!important;
 		right: auto!important;
-		top: 0px;
+		top: 38px;
 		display: none!important;
 	}
 	header .main-menu ul li ul li:hover ul{

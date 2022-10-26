@@ -8,6 +8,7 @@ use SeoHelper;
 
 class DeletedContentListener
 {
+
     /**
      * Handle the event.
      *

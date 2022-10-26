@@ -2,7 +2,6 @@
 
 namespace Botble\Media;
 
-use BaseHelper;
 use Botble\Media\Http\Resources\FileResource;
 use Botble\Media\Models\MediaFile;
 use Botble\Media\Repositories\Interfaces\MediaFileInterface;
@@ -11,7 +10,6 @@ use Botble\Media\Services\ThumbnailService;
 use Botble\Media\Services\UploadsManager;
 use Exception;
 use File;
-use Illuminate\Contracts\Filesystem\FileExistsException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -24,7 +22,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Image;
-use League\Flysystem\FileNotFoundException;
 use Mimey\MimeTypes;
 use Storage;
 use Throwable;
@@ -32,6 +29,7 @@ use Validator;
 
 class RvMedia
 {
+
     /**
      * @var array
      */
@@ -64,10 +62,10 @@ class RvMedia
      * @param ThumbnailService $thumbnailService
      */
     public function __construct(
-        MediaFileInterface   $fileRepository,
+        MediaFileInterface $fileRepository,
         MediaFolderInterface $folderRepository,
-        UploadsManager       $uploadManager,
-        ThumbnailService     $thumbnailService
+        UploadsManager $uploadManager,
+        ThumbnailService $thumbnailService
     ) {
         $this->fileRepository = $fileRepository;
         $this->folderRepository = $folderRepository;
@@ -148,7 +146,7 @@ class RvMedia
      * @param int $status
      * @return JsonResponse
      */
-    public function responseError(string $message, array $data = [], $code = null, int $status = 200): JsonResponse
+    public function responseError($message, $data = [], $code = null, $status = 200): JsonResponse
     {
         return response()->json([
             'error'   => true,
@@ -159,10 +157,10 @@ class RvMedia
     }
 
     /**
-     * @param string|null $url
+     * @param string $url
      * @return array|mixed
      */
-    public function getAllImageSizes(?string $url): array
+    public function getAllImageSizes($url): array
     {
         $images = [];
         foreach ($this->getSizes() as $size) {
@@ -178,29 +176,7 @@ class RvMedia
      */
     public function getSizes(): array
     {
-        $sizes = $this->getConfig('sizes', []);
-
-        foreach ($sizes as $name => $size) {
-            $size = explode('x', $size);
-
-            $settingName = 'media_sizes_' . $name;
-
-            $width = setting($settingName . '_width', $size[0]);
-
-            $height = setting($settingName . '_height', $size[1]);
-
-            if (!$width) {
-                $width = 'auto';
-            }
-
-            if (!$height) {
-                $height = 'auto';
-            }
-
-            $sizes[$name] = $width . 'x' . $height;
-        }
-
-        return $sizes;
+        return $this->getConfig('sizes', []);
     }
 
     /**
@@ -210,12 +186,8 @@ class RvMedia
      * @param null $default
      * @return Application|UrlGenerator|string|string[]|null
      */
-    public function getImageUrl(?string $url, $size = null, bool $relativePath = false, $default = null)
+    public function getImageUrl($url, $size = null, $relativePath = false, $default = null)
     {
-        if (empty($url)) {
-            return $default;
-        }
-
         $url = trim($url);
 
         if (empty($url)) {
@@ -234,7 +206,8 @@ class RvMedia
             return url($url);
         }
 
-        if (array_key_exists($size, $this->getSizes()) &&
+        if ($size &&
+            array_key_exists($size, $this->getSizes()) &&
             $this->canGenerateThumbnails($this->getMimeType($url))
         ) {
             $url = str_replace(
@@ -256,10 +229,10 @@ class RvMedia
     }
 
     /**
-     * @param string|null $path
+     * @param string $path
      * @return string
      */
-    public function url(?string $path): string
+    public function url($path): string
     {
         $path = trim($path);
 
@@ -305,7 +278,7 @@ class RvMedia
      */
     public function getSize(string $name): ?string
     {
-        return Arr::get($this->getSizes(), $name);
+        return $this->getConfig('sizes.' . $name);
     }
 
     /**
@@ -358,7 +331,7 @@ class RvMedia
     /**
      * @param string $permission
      */
-    public function removePermission(string $permission)
+    public function removePermission($permission)
     {
         Arr::forget($this->permissions, $permission);
     }
@@ -366,7 +339,7 @@ class RvMedia
     /**
      * @param string $permission
      */
-    public function addPermission(string $permission)
+    public function addPermission($permission)
     {
         $this->permissions[] = $permission;
     }
@@ -375,7 +348,7 @@ class RvMedia
      * @param string $permission
      * @return bool
      */
-    public function hasPermission(string $permission): bool
+    public function hasPermission($permission): bool
     {
         return in_array($permission, $this->permissions);
     }
@@ -399,20 +372,12 @@ class RvMedia
 
     /**
      * @param string $name
-     * @param int|string $width
-     * @param int|string $height
+     * @param int $width
+     * @param int $height
      * @return $this
      */
     public function addSize(string $name, $width, $height = 'auto'): self
     {
-        if (!$width) {
-            $width = 'auto';
-        }
-
-        if (!$height) {
-            $height = 'auto';
-        }
-
         config(['core.media.media.sizes.' . $name => $width . 'x' . $height]);
 
         return $this;
@@ -434,12 +399,12 @@ class RvMedia
 
     /**
      * @param Request $request
-     * @param int|null $folderId
+     * @param int $folderId
      * @param null $folderName
      * @param string $fileInput
      * @return Application|ResponseFactory|JsonResponse|Response
      */
-    public function uploadFromEditor(Request $request, ?int $folderId = 0, $folderName = null, string $fileInput = 'upload')
+    public function uploadFromEditor(Request $request, $folderId = 0, $folderName = null, $fileInput = 'upload')
     {
         $validator = Validator::make($request->all(), [
             'upload' => $this->imageValidationRule(),
@@ -454,7 +419,7 @@ class RvMedia
 
         $result = $this->handleUpload($request->file($fileInput), $folderId, $folderName);
 
-        if (!$result['error']) {
+        if ($result['error'] == false) {
             $file = $result['data'];
             if (!$request->input('CKEditorFuncNum')) {
                 return response()->json([
@@ -474,18 +439,18 @@ class RvMedia
     }
 
     /**
-     * @param UploadedFile|null $fileUpload
-     * @param int|null $folderId
+     * @param UploadedFile $fileUpload
+     * @param int $folderId
      * @param string|null $folderSlug
      * @param bool $skipValidation
      * @return JsonResponse|array
      */
-    public function handleUpload(?UploadedFile $fileUpload, ?int $folderId = 0, ?string $folderSlug = null, bool $skipValidation = false): array
+    public function handleUpload($fileUpload, $folderId = 0, $folderSlug = null, $skipValidation = false): array
     {
         $request = request();
 
         if ($request->input('path')) {
-            $folderId = $this->handleTargetFolder($folderId, $request->input('path', ''));
+            $folderId = $this->handleTargetFolder($folderId, $request->input('path'));
         }
 
         if (!$fileUpload) {
@@ -498,8 +463,10 @@ class RvMedia
         $allowedMimeTypes = $this->getConfig('allowed_mime_types');
 
         if (!$this->isChunkUploadEnabled()) {
+            $request->merge(['uploaded_file' => $fileUpload]);
+
             if (!$skipValidation) {
-                $validator = Validator::make(['uploaded_file' => $fileUpload], [
+                $validator = Validator::make($request->all(), [
                     'uploaded_file' => 'required|mimes:' . $allowedMimeTypes,
                 ]);
 
@@ -511,12 +478,14 @@ class RvMedia
                 }
             }
 
+            $request->offsetUnset('uploaded_file');
+
             $maxSize = $this->getServerConfigMaxUploadFileSize();
 
             if ($fileUpload->getSize() / 1024 > (int)$maxSize) {
                 return [
                     'error'   => true,
-                    'message' => trans('core/media::media.file_too_big', ['size' => BaseHelper::humanFilesize($maxSize)]),
+                    'message' => trans('core/media::media.file_too_big', ['size' => human_file_size($maxSize)]),
                 ];
             }
         }
@@ -558,7 +527,7 @@ class RvMedia
             $fileName = $this->fileRepository->createSlug(
                 $file->name,
                 $fileExtension,
-                Storage::path($folderPath ?: '')
+                Storage::path($folderPath)
             );
 
             $filePath = $fileName;
@@ -594,7 +563,7 @@ class RvMedia
                 'error' => false,
                 'data'  => new FileResource($file),
             ];
-        } catch (Throwable $exception) {
+        } catch (Exception $exception) {
             return [
                 'error'   => true,
                 'message' => $exception->getMessage(),
@@ -604,9 +573,9 @@ class RvMedia
 
     /**
      * Returns a file size limit in bytes based on the PHP upload_max_filesize and post_max_size
-     * @return float
+     * @return float|int
      */
-    public function getServerConfigMaxUploadFileSize(): float
+    public function getServerConfigMaxUploadFileSize()
     {
         // Start with post_max_size.
         $maxSize = $this->parseSize(ini_get('post_max_size'));
@@ -622,10 +591,10 @@ class RvMedia
     }
 
     /**
-     * @param int|string $size
+     * @param int $size
      * @return float - bytes
      */
-    public function parseSize($size): float
+    public function parseSize($size)
     {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
@@ -638,21 +607,13 @@ class RvMedia
     }
 
     /**
-     * @param MediaFile $file
+     * @param MediaFile|Model $file
      * @return bool
-     * @throws FileExistsException
-     * @throws FileNotFoundException
      */
     public function generateThumbnails(MediaFile $file): bool
     {
         if (!$file->canGenerateThumbnails()) {
             return false;
-        }
-
-        $folderIds = json_decode(setting('media_folders_can_add_watermark'), true);
-
-        if (empty($folderIds) || in_array($file->folder_id, $folderIds)) {
-            $this->insertWatermark($file->url);
         }
 
         foreach ($this->getSizes() as $size) {
@@ -666,16 +627,18 @@ class RvMedia
                 ->save();
         }
 
+        $this->insertWatermark($file->url);
+
         return true;
     }
 
     /**
      * @param string $image
      * @return bool
-     * @throws FileExistsException
-     * @throws FileNotFoundException
+     * @throws \Illuminate\Contracts\Filesystem\FileExistsException
+     * @throws \League\Flysystem\FileNotFoundException
      */
-    public function insertWatermark(string $image): bool
+    public function insertWatermark($image)
     {
         if (!$image || !setting('media_watermark_enabled', $this->getConfig('watermark.enabled'))) {
             return false;
@@ -699,10 +662,8 @@ class RvMedia
 
         // 10% less then an actual image (play with this value)
         // Watermark will be 10 less then the actual width of the image
-        $watermarkSize = round($imageSource->width() * ((int)setting(
-            'media_watermark_size',
-            $this->getConfig('watermark.size')
-        ) / 100), 2);
+        $watermarkSize = round($imageSource->width() * ((int)setting('media_watermark_size',
+                    $this->getConfig('watermark.size')) / 100), 2);
 
         // Resize watermark width keep height auto
         $watermark
@@ -711,18 +672,14 @@ class RvMedia
             })
             ->opacity((int)setting('media_watermark_opacity', $this->getConfig('watermark.opacity')));
 
-        $imageSource->insert(
-            $watermark,
+        $imageSource->insert($watermark,
             setting('media_watermark_position', $this->getConfig('watermark.position')),
             (int)setting('watermark_position_x', $this->getConfig('watermark.x')),
             (int)setting('watermark_position_y', $this->getConfig('watermark.y'))
         );
 
-        $destinationPath = sprintf(
-            '%s/%s',
-            trim(File::dirname($image), '/'),
-            File::name($image) . '.' . File::extension($image)
-        );
+        $destinationPath = sprintf('%s/%s', trim(File::dirname($image), '/'),
+            File::name($image) . '.' . File::extension($image));
 
         $this->uploadManager->saveFile($destinationPath, $imageSource->stream()->__toString());
 
@@ -733,7 +690,7 @@ class RvMedia
      * @param string $url
      * @return string
      */
-    public function getRealPath(string $url): string
+    public function getRealPath($url)
     {
         switch (config('filesystems.default')) {
             case 'local':
@@ -748,7 +705,7 @@ class RvMedia
      * @param string $mimeType
      * @return bool
      */
-    public function isImage(string $mimeType): bool
+    public function isImage($mimeType)
     {
         return Str::startsWith($mimeType, 'image/');
     }
@@ -768,7 +725,7 @@ class RvMedia
      * @param string|null $defaultMimetype
      * @return array
      */
-    public function uploadFromUrl(string $url, int $folderId = 0, ?string $folderSlug = null, ?string $defaultMimetype = null)
+    public function uploadFromUrl(string $url, int $folderId = 0, ?string $folderSlug = null, $defaultMimetype = null)
     {
         if (empty($url)) {
             return [
@@ -810,7 +767,7 @@ class RvMedia
         $fileName = File::name($info['basename']);
         $fileExtension = File::extension($info['basename']);
         if (empty($fileExtension)) {
-            $mimeTypeDetection = new MimeTypes();
+            $mimeTypeDetection = new MimeTypes;
 
             $fileExtension = $mimeTypeDetection->getExtension($mimeType);
         }
@@ -831,7 +788,7 @@ class RvMedia
      * @param string|null $defaultMimetype
      * @return array
      */
-    public function uploadFromPath(string $path, int $folderId = 0, ?string $folderSlug = null, ?string $defaultMimetype = null)
+    public function uploadFromPath(string $path, int $folderId = 0, ?string $folderSlug = null, $defaultMimetype = null)
     {
         if (empty($path)) {
             return [
@@ -849,7 +806,7 @@ class RvMedia
         $fileName = File::name($path);
         $fileExtension = File::extension($path);
         if (empty($fileExtension)) {
-            $mimeTypeDetection = new MimeTypes();
+            $mimeTypeDetection = new MimeTypes;
 
             $fileExtension = $mimeTypeDetection->getExtension($mimeType);
         }
@@ -894,36 +851,32 @@ class RvMedia
      * @param string $url
      * @return mixed|string|null
      */
-    public function getMimeType(string $url)
+    public function getMimeType($url)
     {
         if (!$url) {
             return null;
         }
 
-        $mimeTypeDetection = new MimeTypes();
+        $mimeTypeDetection = new MimeTypes;
 
         return $mimeTypeDetection->getMimeType(File::extension($url));
     }
 
     /**
-     * @param string|null $mimeType
+     * @param string $mimeType
      * @return bool
      */
-    public function canGenerateThumbnails(?string $mimeType): bool
+    public function canGenerateThumbnails($mimeType): bool
     {
-        if (!$mimeType) {
-            return false;
-        }
-
         return RvMedia::isImage($mimeType) && !in_array($mimeType, ['image/svg+xml', 'image/x-icon']);
     }
 
     /**
      * @param string $folderSlug
-     * @param int|null $parentId
+     * @param int $parentId
      * @return mixed
      */
-    public function createFolder(string $folderSlug, ?int $parentId = 0)
+    public function createFolder($folderSlug, $parentId = 0)
     {
         $folder = $this->folderRepository->getFirstBy([
             'slug'      => $folderSlug,
@@ -943,11 +896,11 @@ class RvMedia
     }
 
     /**
-     * @param int|null $folderId
+     * @param int $folderId
      * @param string $filePath
      * @return string
      */
-    public function handleTargetFolder(?int $folderId = 0, string $filePath = ''): string
+    public function handleTargetFolder($folderId = 0, $filePath = ''): string
     {
         if (strpos($filePath, '/') !== false) {
             $paths = explode('/', $filePath);
@@ -963,7 +916,7 @@ class RvMedia
     /**
      * @return bool
      */
-    public function isChunkUploadEnabled(): bool
+    public function isChunkUploadEnabled()
     {
         return $this->getConfig('chunk.enabled') == '1';
     }

@@ -10,7 +10,6 @@ use Botble\Page\Services\PageService;
 use Eloquent;
 use Html;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
@@ -104,14 +103,15 @@ class HookServiceProvider extends ServiceProvider
      * @param array $widgets
      * @param Collection $widgetSettings
      * @return array
+     *
      * @throws BindingResolutionException
      * @throws Throwable
      */
-    public function addPageStatsWidget(array $widgets, Collection $widgetSettings): array
+    public function addPageStatsWidget($widgets, $widgetSettings)
     {
         $pages = $this->app->make(PageInterface::class)->count(['status' => BaseStatusEnum::PUBLISHED]);
 
-        return (new DashboardWidgetInstance())
+        return (new DashboardWidgetInstance)
             ->setType('stats')
             ->setPermission('pages.index')
             ->setTitle(trans('packages/page::pages.pages'))
@@ -124,11 +124,13 @@ class HookServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param Eloquent|Builder $slug
+     * @param Eloquent $slug
      * @return array|Eloquent
+     *
+     * @throws BindingResolutionException
      */
     public function handleSingleView($slug)
     {
-        return (new PageService())->handleFrontRoutes($slug);
+        return (new PageService)->handleFrontRoutes($slug);
     }
 }

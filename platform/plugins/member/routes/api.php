@@ -5,6 +5,7 @@ Route::group([
     'namespace'  => 'Botble\Member\Http\Controllers\API',
     'middleware' => ['api'],
 ], function () {
+
     Route::post('register', 'AuthenticationController@register');
     Route::post('login', 'AuthenticationController@login');
 
@@ -20,4 +21,5 @@ Route::group([
         Route::post('update-avatar', 'MemberController@updateAvatar');
         Route::put('change-password', 'MemberController@updatePassword');
     });
+
 });

@@ -8,7 +8,10 @@
         }
     },
     "require": {
-        "knuckleswtf/scribe": "^2.0|^3.0"
+        "botble/platform": "*@dev",
+        "laravel/passport": "^9.0|^10.0",
+        "knuckleswtf/scribe": "^2.0",
+        "fruitcake/laravel-cors": "^2.0"
     },
     "extra": {
         "laravel": {

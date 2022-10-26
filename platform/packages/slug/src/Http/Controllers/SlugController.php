@@ -10,8 +10,9 @@ use Botble\Slug\Http\Requests\SlugSettingsRequest;
 use Botble\Slug\Repositories\Interfaces\SlugInterface;
 use Botble\Slug\Services\SlugService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Contracts\View\View;
+use Illuminate\View\View;
 use Menu;
 
 class SlugController extends BaseController
@@ -44,7 +45,7 @@ class SlugController extends BaseController
     public function store(SlugRequest $request)
     {
         return $this->slugService->create(
-            $request->input('value'),
+            $request->input('name'),
             $request->input('slug_id'),
             $request->input('model')
         );
@@ -61,7 +62,7 @@ class SlugController extends BaseController
     }
 
     /**
-     * @param SlugSettingsRequest $request
+     * @param Request $request
      * @param BaseHttpResponse $response
      * @param SettingStore $settingStore
      * @return BaseHttpResponse

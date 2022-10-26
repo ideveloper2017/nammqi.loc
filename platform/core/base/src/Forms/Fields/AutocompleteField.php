@@ -6,6 +6,7 @@ use Kris\LaravelFormBuilder\Fields\SelectType;
 
 class AutocompleteField extends SelectType
 {
+
     /**
      * {@inheritDoc}
      */

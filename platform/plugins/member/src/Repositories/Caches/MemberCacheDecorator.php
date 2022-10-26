@@ -7,4 +7,5 @@ use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 
 class MemberCacheDecorator extends CacheAbstractDecorator implements MemberInterface
 {
+
 }

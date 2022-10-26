@@ -58,7 +58,7 @@ class PostForm extends FormAbstract
                 'label_attr' => ['class' => 'control-label required'],
                 'attr'       => [
                     'placeholder'  => trans('core/base::forms.name_placeholder'),
-                    'data-counter' => 255,
+                    'data-counter' => 120,
                 ],
             ])
             ->add('description', 'textarea', [

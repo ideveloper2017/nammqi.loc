@@ -45,10 +45,8 @@ class ClearLogCommand extends Command
      */
     public function handle()
     {
-        $logPath = storage_path('logs');
-
-        if ($this->files->isDirectory($logPath)) {
-            foreach ($this->files->allFiles($logPath) as $file) {
+        if ($this->files->isDirectory(storage_path('logs'))) {
+            foreach ($this->files->allFiles(storage_path('logs')) as $file) {
                 $this->files->delete($file->getPathname());
             }
         }

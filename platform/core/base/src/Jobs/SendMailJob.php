@@ -14,10 +14,7 @@ use Mail;
 
 class SendMailJob implements ShouldQueue
 {
-    use Dispatchable;
-    use InteractsWithQueue;
-    use Queueable;
-    use SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var string
@@ -46,13 +43,13 @@ class SendMailJob implements ShouldQueue
 
     /**
      * SendMailJob constructor.
-     * @param string|null $content
-     * @param string|null $title
-     * @param string|array $to
+     * @param string $content
+     * @param string $title
+     * @param string $to
      * @param array $args
      * @param bool $debug
      */
-    public function __construct(?string $content, ?string $title, $to, array $args, bool $debug = false)
+    public function __construct($content, $title, $to, $args, $debug = false)
     {
         $this->content = $content;
         $this->title = $title;

@@ -19,7 +19,7 @@
     ],
     "type": "project",
     "require": {
-        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-dompdf": "^1.0.0",
         "botble/assets": "^1.0",
         "intervention/image": "^2.6",
         "kris/laravel-form-builder": "dev-master",
@@ -36,7 +36,6 @@
             "Botble\\Support\\": "support/src",
             "Botble\\ACL\\": "acl/src",
             "Botble\\Base\\": "base/src",
-            "Botble\\Base\\Tests\\": "base/tests",
             "Botble\\Dashboard\\": "dashboard/src",
             "Botble\\Media\\": "media/src",
             "Botble\\Setting\\": "setting/src",
@@ -71,7 +70,6 @@
                 "Filter": "Botble\\Base\\Facades\\FilterFacade",
                 "EmailHandler": "Botble\\Base\\Facades\\EmailHandlerFacade",
                 "Breadcrumbs": "Botble\\Base\\Facades\\BreadcrumbsFacade",
-                "MacroableModels": "Botble\\Base\\Facades\\MacroableModelsFacade",
                 "JsValidator": "Botble\\JsValidation\\Facades\\JsValidatorFacade"
             }
         }

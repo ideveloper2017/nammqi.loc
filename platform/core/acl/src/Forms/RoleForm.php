@@ -3,7 +3,6 @@
 namespace Botble\ACL\Forms;
 
 use Assets;
-use BaseHelper;
 use Botble\ACL\Http\Requests\RoleCreateRequest;
 use Botble\ACL\Models\Role;
 use Botble\Base\Forms\FormAbstract;
@@ -11,6 +10,7 @@ use Illuminate\Support\Arr;
 
 class RoleForm extends FormAbstract
 {
+
     /**
      * {@inheritDoc}
      */
@@ -29,7 +29,7 @@ class RoleForm extends FormAbstract
         }
 
         $this
-            ->setupModel(new Role())
+            ->setupModel(new Role)
             ->setValidatorClass(RoleCreateRequest::class)
             ->withCustomFields()
             ->add('name', 'text', [
@@ -90,11 +90,11 @@ class RoleForm extends FormAbstract
      * @param string $type
      * @return array
      */
-    protected function getAvailablePermissionForEachType(string $type): array
+    protected function getAvailablePermissionForEachType($type)
     {
         $permissions = [];
 
-        foreach (BaseHelper::scanFolder(platform_path($type)) as $module) {
+        foreach (scan_folder(platform_path($type)) as $module) {
             $configuration = config(strtolower($type . '.' . $module . '.permissions'));
             if (!empty($configuration)) {
                 foreach ($configuration as $config) {
@@ -110,7 +110,7 @@ class RoleForm extends FormAbstract
      * @param array $permissions
      * @return array
      */
-    protected function getPermissionTree(array $permissions): array
+    protected function getPermissionTree($permissions): array
     {
         $sortedFlag = $permissions;
         sort($sortedFlag);
@@ -127,19 +127,18 @@ class RoleForm extends FormAbstract
     }
 
     /**
-     * @param string $parentFlag
+     * @param int $parentId
      * @param array $allFlags
-     * @return array
+     * @return mixed
      */
-    protected function getChildren(string $parentFlag, array $allFlags): array
+    protected function getChildren($parentId, array $allFlags)
     {
         $newFlagArray = [];
         foreach ($allFlags as $flagDetails) {
-            if (Arr::get($flagDetails, 'parent_flag', 'root') == $parentFlag) {
+            if (Arr::get($flagDetails, 'parent_flag', 'root') == $parentId) {
                 $newFlagArray[] = $flagDetails['flag'];
             }
         }
-
         return $newFlagArray;
     }
 }

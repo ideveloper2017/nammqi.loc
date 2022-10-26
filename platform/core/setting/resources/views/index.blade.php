@@ -6,7 +6,6 @@
             activate-license-url="{{ route('settings.license.activate') }}"
             deactivate-license-url="{{ route('settings.license.deactivate') }}"
             reset-license-url="{{ route('settings.license.reset') }}"
-            manage-license="{{ auth()->user()->hasPermission('core.manage.license') ? 'yes' : 'no' }}"
         ></license-component>
     </div>
     {!! Form::open(['route' => ['settings.edit']]) !!}
@@ -117,7 +116,7 @@
                                    for="admin-logo">{{ trans('core/setting::setting.general.admin_logo') }}
                             </label>
                             <div class="admin-logo-image-setting">
-                                {!! Form::mediaImage('admin_logo', setting('admin_logo'), ['allow_thumb' => false, 'default_image' => url(config('core.base.general.logo'))]) !!}
+                                {!! Form::mediaImage('admin_logo', setting('admin_logo'), ['allow_thumb' => false]) !!}
                             </div>
                         </div>
                         <div class="form-group mb-3">
@@ -125,7 +124,7 @@
                                    for="admin-favicon">{{ trans('core/setting::setting.general.admin_favicon') }}
                             </label>
                             <div class="admin-favicon-image-setting">
-                                {!! Form::mediaImage('admin_favicon', setting('admin_favicon'), ['allow_thumb' => false, 'default_image' => url(config('core.base.general.favicon'))]) !!}
+                                {!! Form::mediaImage('admin_favicon', setting('admin_favicon'), ['allow_thumb' => false]) !!}
                             </div>
                         </div>
 

@@ -6,6 +6,7 @@ use Kris\LaravelFormBuilder\Fields\FormField;
 
 class DateField extends FormField
 {
+
     /**
      * {@inheritDoc}
      */

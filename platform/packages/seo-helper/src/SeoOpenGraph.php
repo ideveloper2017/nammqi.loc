@@ -8,6 +8,7 @@ use RvMedia;
 
 class SeoOpenGraph implements SeoOpenGraphContract
 {
+
     /**
      * The Open Graph instance.
      *
@@ -21,7 +22,7 @@ class SeoOpenGraph implements SeoOpenGraphContract
     public function __construct()
     {
         $this->setOpenGraph(
-            new Entities\OpenGraph\Graph()
+            new Entities\OpenGraph\Graph
         );
     }
 

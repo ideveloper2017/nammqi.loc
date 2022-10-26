@@ -111,6 +111,7 @@ class PostController extends Controller
         StoreCategoryService $categoryService,
         BaseHttpResponse $response
     ) {
+
         if ($request->hasFile('image_input')) {
             $result = RvMedia::handleUpload($request->file('image_input'), 0, 'members');
             if ($result['error'] == false) {
