@@ -206,7 +206,7 @@ class PostRepository extends RepositoriesAbstract implements PostInterface
     {
         $data = $this->model
             ->with($with)
-            ->orderBy('published_at', 'desc');
+            ->orderBy('published_at');
 
         if ($active) {
             $data = $data->where('status', BaseStatusEnum::PUBLISHED);
