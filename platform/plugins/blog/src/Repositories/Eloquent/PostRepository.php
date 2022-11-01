@@ -204,9 +204,7 @@ class PostRepository extends RepositoriesAbstract implements PostInterface
      */
     public function getAllPosts($perPage = 12, $active = true, array $with = ['slugable'])
     {
-        $data = $this->model
-            ->with($with)
-            ->orderBy('published_at');
+        $data = $this->model->with($with)->orderBy('published_at');
 
         if ($active) {
             $data = $data->where('status', BaseStatusEnum::PUBLISHED);
