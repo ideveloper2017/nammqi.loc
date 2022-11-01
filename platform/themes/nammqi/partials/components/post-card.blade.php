@@ -19,7 +19,7 @@
                 <a href="{{ $post->url }}">{{ $post->name }}</a>
             </h5>
             <div class="entry-meta meta-1 float-left font-x-small text-uppercase">
-                <span class="post-on">{{ $post->created_at->format('d M, Y') }}</span>
+                <span class="post-on">{{ $post->published_at->format('d M, Y') }}</span>
                 <span class="time-reading has-dot">{{ number_format(strlen($post->content) / 200) }} {{ __('mins read') }}</span>
                 <span class="post-by has-dot">{{ number_format($post->views) }} {{ __('views') }}</span>
             </div>
