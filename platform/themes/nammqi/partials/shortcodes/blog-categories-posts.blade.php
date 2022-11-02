@@ -9,13 +9,7 @@
                         </div>
                         <div class="loop-list loop-list-style-1">
                             <div class="row">
-                                @foreach($category->posts->sortByAsc('published_at')->take(4) as $post)
-                                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
-                                        <div class="post-card-1 border-radius-10 hover-up">
-                                            {!! Theme::partial('components.post-card', compact('post')) !!}
-                                        </div>
-                                    </article>
-                                @endforeach
+
                             </div>
                         </div>
                     </div>
