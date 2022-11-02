@@ -2,9 +2,31 @@
     <div class="container">
         <div class="blog-items">
         <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="col-lg-12">
                 @if (!empty($category))
-                    <div class="post-module-2">
+                    <div class="blog-items">
+                        <div class="row">
+                            @foreach($category->posts->take(12) as $post)
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="blog-item">
+                                    <div class="blog-image">
+                                        <a href="{{ $post->url }}"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>
+                                    </div>
+                                    <div class="blog-content">
+                                        <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+{{--                                        <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>--}}
+                                    </div>
+                                    <ul>
+                                        <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
+                                        <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
+                                        <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                                    </ul>
+                                </div><!-- blog item -->
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="post-module-2" style="display: none">
                         <div class="widget-header-1 position-relative mb-30  wow fadeInUp animated">
                             <h5 class="mt-5 mb-30">{{ $category->name }}</h5>
                         </div>
@@ -31,7 +53,7 @@
                     </div>
                 </div>
             </div>
-    </div>
+
             <div class="col-lg-4" style="display: none">
                 <div class="widget-area">
                     {!! AdsManager::display('top-sidebar-ads', ['class' => 'mb-30']) !!}
