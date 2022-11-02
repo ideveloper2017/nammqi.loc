@@ -72,8 +72,8 @@ app()->booted(function () {
                 $categories[] = $category;
             }
         }
-
-        return Theme::partial('shortcodes.faculties', compact('categories'));
+        $title=$shortCode->title;
+        return Theme::partial('shortcodes.faculties', compact('title','categories'));
     });
 
     shortcode()->setAdminConfig('faculties', function ($attributes) {
