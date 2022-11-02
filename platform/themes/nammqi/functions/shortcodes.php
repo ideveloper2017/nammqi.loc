@@ -76,10 +76,10 @@ app()->booted(function () {
         return Theme::partial('shortcodes.faculties', compact('categories'));
     });
 
-    shortcode()->setAdminConfig('faculties', function () {
+    shortcode()->setAdminConfig('faculties', function ($attributes) {
         $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
 
-        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+        return Theme::partial('shortcodes.faculties-admin-config', compact('attributes','categories'));
     });
 
     if (is_plugin_active('gallery')) {
