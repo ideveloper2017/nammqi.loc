@@ -7,7 +7,7 @@
                 @if (!empty($category))
                     <div class="blog-items">
                         <div class="row">
-                            @foreach($category->posts->take(12) as $post)
+                            @foreach($category->posts as $post)
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="blog-item">
                                     <div class="blog-image">
