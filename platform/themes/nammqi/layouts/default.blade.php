@@ -4,7 +4,6 @@
         <div style="opacity: 0.7" class="bg-overlay"></div>
         <div class="container">
 {{--            <h3 class="page-intro__title">{{ Theme::get('section-name') }}</h3>--}}
-
             {!! Theme::breadcrumb()->render() !!}
         </div>
     </section>
