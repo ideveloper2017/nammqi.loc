@@ -1,5 +1,6 @@
 <div class="blog padding-120">
     <div class="container">
+        <div class="section-header"><h3>{{clean($title)}}</h3></div>
         <div class="blog-items">
         <div class="row">
             <div class="col-lg-12">
