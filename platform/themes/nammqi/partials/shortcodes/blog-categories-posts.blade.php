@@ -17,9 +17,9 @@
 {{--                                        <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>--}}
                                     </div>
                                     <ul>
-                                        <li><a href="#"><span class="icon flaticon-calendar"></span>22.04.2017</a></li>
-                                        <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>
-                                        <li><a href="#"><span class="icon flaticon-chat"></span>24 Comment</a></li>
+                                        <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->published_at->format('d M, Y') }}</a></li>
+{{--                                        <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>--}}
+                                        <li><a href="#"><span class="fa fa-eye"></span>{{ number_format($post->views) }}</a></li>
                                     </ul>
                                 </div><!-- blog item -->
                             </div>
