@@ -7,7 +7,7 @@
                     <div class="blog-items">
                         <div class="row">
                             @foreach($category->posts->take(12) as $post)
-                            <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="blog-item">
                                     <div class="blog-image">
                                         <a href="{{ $post->url }}"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>
