@@ -34,6 +34,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
+                <div class="single-post">
     <div class="post-image">
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
     </div>
@@ -79,6 +80,7 @@
                 <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
             </ul>
         </div>
+    </div>
     </div>
 
         </div>
