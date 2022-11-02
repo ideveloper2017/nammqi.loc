@@ -13,7 +13,7 @@
                                         <a href="{{ $post->url }}"><img src="images/blog/blog_01.jpg" alt="blog image" class="img-responsive"></a>
                                     </div>
                                     <div class="blog-content">
-                                        <h4><a href="{{ $post->url }}">{{ $post->name }}</a></h4>
+                                        <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
 {{--                                        <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>--}}
                                     </div>
                                     <ul>
