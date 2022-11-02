@@ -33,6 +33,7 @@
 <section class="blog padding-120">
     <div class="container">
         <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
     <div class="post-image">
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
     </div>
@@ -81,6 +82,7 @@
     </div>
 
         </div>
+    </div>
     </div>
 </section>
 <div class="single-post" style="display: none">
