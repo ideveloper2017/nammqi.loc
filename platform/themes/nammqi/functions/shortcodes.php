@@ -178,8 +178,8 @@ app()->booted(function () {
                 if (!$category) {
                     return null;
                 }
-
-                return Theme::partial('shortcodes.blog-categories-posts', compact('category'));
+                $title=$shortCode->title;
+                return Theme::partial('shortcodes.blog-categories-posts', compact('title','category'));
             });
 
         shortcode()->setAdminConfig('blog-categories-posts', function ($attributes) {
