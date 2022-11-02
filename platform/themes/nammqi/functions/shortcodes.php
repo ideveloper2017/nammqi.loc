@@ -56,17 +56,13 @@ app()->booted(function () {
     });
 
 
-    add_shortcode('elonlar', __('E`lonlar'), __('E`lonlar'), function ($shortCode) {
-
+    add_shortcode('elonlar', __('Elonlar'), __('Elonlar'), function ($shortCode) {
         $attributes = $shortCode->toArray();
-
         $categories = collect([]);
-
         for ($i = 1; $i <= 1; $i++) {
             if (!Arr::has($attributes, 'category_id_' . $i)) {
                 continue;
             }
-
             $category = app(CategoryInterface::class)->advancedGet([
                 'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
                 'take' => 1,
@@ -79,12 +75,10 @@ app()->booted(function () {
                     },
                 ],
             ]);
-
             if ($category) {
                 $categories[] = $category;
             }
         }
-
         $title=$shortCode->title;
         return Theme::partial('shortcodes.section-anonymons', compact('title','categories'));
     });
