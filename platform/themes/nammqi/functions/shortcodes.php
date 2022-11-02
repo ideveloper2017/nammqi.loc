@@ -27,6 +27,21 @@ app()->booted(function () {
         });
     }
 
+    add_shortcode('section-intro',"SectionIntro","SectionIntro",function ($shortcode){
+//            $counters = app(CounterupInterface::class)->getModel()
+//                ->where('status', BaseStatusEnum::PUBLISHED)
+//                ->get();
+        return Theme::partial('shortcodes.section-intro');
+    });
+
+
+    add_shortcode('section-about',"SectionAbout","SectionAbout",function ($shortcode){
+//            $counters = app(CounterupInterface::class)->getModel()
+//                ->where('status', BaseStatusEnum::PUBLISHED)
+//                ->get();
+        return Theme::partial('shortcodes.section-about');
+    });
+
     if (is_plugin_active('gallery')) {
         add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
             return Theme::partial('shortcodes.all-galleries', ['limit' => $shortcode->limit]);
