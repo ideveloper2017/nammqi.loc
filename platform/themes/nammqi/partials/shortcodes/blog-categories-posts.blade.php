@@ -10,7 +10,7 @@
                         <div class="loop-list loop-list-style-1">
                             <div class="row">
                                 @foreach($category->posts->take(12) as $post)
-                                    <article class="col-md-6 mb-40 wow fadeInUp  animated">
+                                    <article class="col-md-3 mb-40 wow fadeInUp  animated">
                                         <div class="post-card-1 border-radius-10 hover-up">
                                             {!! Theme::partial('components.post-card', compact('post')) !!}
                                         </div>
