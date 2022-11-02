@@ -73,7 +73,7 @@ app()->booted(function () {
         add_shortcode('blog-categories-posts', __('Blog categories posts'), __('Blog categories posts'),
             function ($shortCode) {
                 $category = app(CategoryInterface::class)->findById($shortCode->category_id, ['slugable', 'posts' => function ($query) {
-                        $query->with(['slugable', 'categories', 'categories.slugable'])->limit(4);
+                        $query->latest()->with(['slugable', 'categories', 'categories.slugable'])->orderBy('publshed_at','desc')->limit(4);
                     }]);
 
                 if (!$category) {
