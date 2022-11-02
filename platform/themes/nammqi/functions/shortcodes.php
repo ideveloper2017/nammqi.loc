@@ -85,7 +85,7 @@ app()->booted(function () {
             }
         }
 
-        return Theme::partial('shortcodes.section-anonymons', ['title'=>$shortCode->title,'categories'=>$categories]);
+        return Theme::partial('shortcodes.section-anonymons', ['title'=>$shortCode->title,'category'=>$category]);
     });
 
     shortcode()->setAdminConfig('elonlar', function ($attributes) {
