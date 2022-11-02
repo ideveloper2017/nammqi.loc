@@ -42,6 +42,46 @@ app()->booted(function () {
         return Theme::partial('shortcodes.section-about');
     });
 
+
+
+    add_shortcode('faculties', __('Faculties'), __('Faculties'), function ($shortCode) {
+
+        $attributes = $shortCode->toArray();
+
+        $categories = collect([]);
+
+        for ($i = 1; $i <= 1; $i++) {
+            if (!Arr::has($attributes, 'category_id_' . $i)) {
+                continue;
+            }
+
+            $category = app(CategoryInterface::class)->advancedGet([
+                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
+                'take' => 1,
+                'with'      => [
+                    'slugable',
+                    'posts' => function ($query) {
+                        return $query
+                            ->latest()
+                            ->with(['slugable']);
+                    },
+                ],
+            ]);
+
+            if ($category) {
+                $categories[] = $category;
+            }
+        }
+
+        return Theme::partial('shortcodes.faculties', compact('categories'));
+    });
+
+    shortcode()->setAdminConfig('faculties', function () {
+        $categories = app(CategoryInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
+
+        return Theme::partial('shortcodes.faculties-admin-config', compact('categories'));
+    });
+
     if (is_plugin_active('gallery')) {
         add_shortcode('all-galleries', __('All Galleries'), __('All Galleries'), function ($shortcode) {
             return Theme::partial('shortcodes.all-galleries', ['limit' => $shortcode->limit]);
