@@ -14,7 +14,7 @@
                                     </div>
                                     <div class="blog-content">
                                         <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
-{{--                                        <p>Comptely actuaze cent centric coloratons an shang without ainstalled and awesome kidschool PSD Template.</p>--}}
+                                        <p></p>
                                     </div>
                                     <ul>
                                         <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->format('d M, Y') }}</a></li>
