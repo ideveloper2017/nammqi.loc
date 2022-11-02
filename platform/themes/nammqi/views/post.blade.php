@@ -7,9 +7,32 @@
     if ($bannerImage) {
         Theme::set('breadcrumbBannerImage', RvMedia::getImageUrl($bannerImage));
     }
+
+
+    Theme::layout('full');
+    $totalComment = get_total_comment($post);
+    MetaBox::getMetaData($post, 'time_to_read', true);
+    $singleLayout = MetaBox::getMetaData($post, 'layout', true);
+    if (empty($singleLayout)) {
+        $singleLayout = theme_option('single_layout', 'default');
+    }
+
+    $videoLink = MetaBox::getMetaData($post, 'video_link', true);
+    $videoEmbedCode = MetaBox::getMetaData($post, 'video_embed_code', true);
+    $videoUploadId = MetaBox::getMetaData($post, 'video_upload_id', true);
+    if ($videoLink || $videoUploadId) {
+        $singleLayout = 'default';
+    }
+
+    if (is_plugin_active('pro-posts')) {
+        Theme::asset()->container('footer')->usePath(false)->add('favorite-post', 'vendor/core/plugins/pro-posts/js/favorite-posts.js');
+        Theme::asset()->container('footer')->usePath()->add('post-js', 'js/post.js');
+    }
 @endphp
 
-<div class="single-post">
+<section class="blog padding-120">
+    <div class="container">
+        <div class="row">
     <div class="post-image">
         <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
     </div>
@@ -57,8 +80,9 @@
         </div>
     </div>
 
-
-</div>
+        </div>
+    </div>
+</section>
 <div class="single-post" style="display: none">
     <div class="post__header">
         <h3 class="post__title">{{ $post->name }}</h3>
