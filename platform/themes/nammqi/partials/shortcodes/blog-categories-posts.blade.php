@@ -18,7 +18,7 @@
                                         <p>&nbsp;</p>
                                     </div>
                                     <ul>
-                                        <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('d.M.Y') }}</a></li>
+                                        <li><a href="#"><span class="icon flaticon-calendar"></span>{{ $post->created_at->translatedFormat('d.m.Y') }}</a></li>
 {{--                                        <li><a href="#"><span class="icon flaticon-like"></span>24 Like</a></li>--}}
                                         <li><a href="#"><span class="fa fa-eye"></span>{{ number_format($post->views) }}</a></li>
                                     </ul>
