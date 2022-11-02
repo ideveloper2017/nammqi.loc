@@ -12,6 +12,19 @@ app()->booted(function () {
     ThemeSupport::registerGoogleMapsShortcode();
     ThemeSupport::registerYoutubeShortcode();
 
+    if (is_plugin_active('testimonial')) {
+        add_shortcode('testimonial', __('Testimonial'), __('Testimonial'), function ($shortCode) {
+            $testimonials = app(TestimonialInterface::class)->allBy(['status' => BaseStatusEnum::PUBLISHED]);
+
+            return Theme::partial('shortcodes.testimonial', [
+                'title'        => $shortCode->title,
+                'description'  => $shortCode->description,
+                'testimonials' => $testimonials,
+            ]);
+        });
+        shortcode()->setAdminConfig('testimonial', Theme::partial('short-codes.testimonial-admin-config'));
+    }
+
 
     if (is_plugin_active('counterup')){
         add_shortcode('counterup',"CounterUp","CounterUp",function ($shortcode){
@@ -43,6 +56,39 @@ app()->booted(function () {
     });
 
 
+    add_shortcode('elonlar', __('E`lonlar'), __('E`lonlar'), function ($shortCode) {
+
+        $attributes = $shortCode->toArray();
+
+        $categories = collect([]);
+
+        for ($i = 1; $i <= 1; $i++) {
+            if (!Arr::has($attributes, 'category_id_' . $i)) {
+                continue;
+            }
+
+            $category = app(CategoryInterface::class)->advancedGet([
+                'condition' => ['categories.id' => Arr::get($attributes, 'category_id_' . $i)],
+                'take' => 1,
+                'with'      => [
+                    'slugable',
+                    'posts' => function ($query) {
+                        return $query
+                            ->latest()
+                            ->with(['slugable']);
+                    },
+                ],
+            ]);
+
+            if ($category) {
+                $categories[] = $category;
+            }
+        }
+
+        return Theme::partial('shortcodes.section-anonymons.blade', compact('categories'));
+    });
+
+    shortcode()->setAdminConfig('elonlar', Theme::partial('shortcodes.blog-categories-posts-admin-config'));
 
     add_shortcode('faculties', __('Faculties'), __('Faculties'), function ($shortCode) {
 
