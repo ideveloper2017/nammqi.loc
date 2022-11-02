@@ -22,7 +22,7 @@ app()->booted(function () {
                 'testimonials' => $testimonials,
             ]);
         });
-        shortcode()->setAdminConfig('testimonial', Theme::partial('short-codes.testimonial-admin-config'));
+        shortcode()->setAdminConfig('testimonial', Theme::partial('shortcodes.testimonial-admin-config'));
     }
 
 
