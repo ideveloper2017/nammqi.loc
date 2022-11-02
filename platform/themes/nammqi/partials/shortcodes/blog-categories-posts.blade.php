@@ -20,7 +20,7 @@
                         </div>
                     </div>
                 @endif
-                <div class="post-module-3">
+                <div class="post-module-3" style="display: none">
                     <div class="widget-header-1 position-relative mb-30">
                         <h5 class="mt-5 mb-30">{{ __('Latest posts') }}</h5>
                     </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" style="display: none">
                 <div class="widget-area">
                     {!! AdsManager::display('top-sidebar-ads', ['class' => 'mb-30']) !!}
                     {!! dynamic_sidebar('primary_sidebar') !!}
