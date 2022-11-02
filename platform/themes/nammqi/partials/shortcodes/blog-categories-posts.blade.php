@@ -10,7 +10,7 @@
                             <div class="col-md-3 col-sm-6 col-xs-12">
                                 <div class="blog-item">
                                     <div class="blog-image">
-                                        <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($featureItem->image, 'featured', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
+                                        <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, 'featured', false, RvMedia::getDefaultImage()) }}" alt="blog image" class="img-responsive"></a>
                                     </div>
                                     <div class="blog-content">
                                         <h5><a href="{{ $post->url }}">{{ $post->name }}</a></h5>
