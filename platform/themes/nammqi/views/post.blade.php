@@ -16,7 +16,7 @@
     <div class="post-content">
         <h3>{{ $post->name }}</h3>
         <ul class="post-meta">
-            <li><span class="icon flaticon-calendar"></span>{{ $post->published_at}}</li>
+            <li><span class="icon flaticon-calendar"></span>{{ $post->published_at->translatedFormat('M d, Y') }}</li>
             @if (!$post->categories->isEmpty())
                 <li><span class="icon flaticon-student"></span><a href="{{ $post->firstCategory->url }}">{{ $post->firstCategory->name }}</a></li>
             @endif
