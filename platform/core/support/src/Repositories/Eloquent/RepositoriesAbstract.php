@@ -63,7 +63,7 @@ abstract class RepositoriesAbstract implements RepositoryInterface
      */
     public function findById($id, array $with = [])
     {
-        $data = $this->make($with)->where('id', $id);
+        $data = $this->make($with)->where('id', $id)->orderBy('published_at','desc');
 
         return $this->applyBeforeExecuteQuery($data, true)->first();
     }
