@@ -1,7 +1,7 @@
 <div class="bg-grey pt-50 pb-50">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12>
                 @if (!empty($category))
                     <div class="post-module-2">
                         <div class="widget-header-1 position-relative mb-30  wow fadeInUp animated">
@@ -9,7 +9,7 @@
                         </div>
                         <div class="loop-list loop-list-style-1">
                             <div class="row">
-                                @foreach($category->posts->take(4) as $post)
+                                @foreach($category->posts->take(12) as $post)
                                     <article class="col-md-6 mb-40 wow fadeInUp  animated">
                                         <div class="post-card-1 border-radius-10 hover-up">
                                             {!! Theme::partial('components.post-card', compact('post')) !!}
