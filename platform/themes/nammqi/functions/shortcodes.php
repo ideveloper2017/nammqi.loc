@@ -74,7 +74,7 @@ app()->booted(function () {
                             ->with(['slugable']);
                     },
                 ],
-            ])->take(12);
+            ]);
             if ($category) {
                 $categories[] = $category;
             }
