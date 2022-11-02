@@ -35,7 +35,7 @@
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
     <div class="post-image">
-        <img src="{{ RvMedia::getImageUrl($post->image, 'large', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
+        <img src="{{ RvMedia::getImageUrl($post->image, 'medium', false, RvMedia::getDefaultImage()) }}"  alt="post image" class="img-responsive">
     </div>
     <div class="post-content">
         <h3>{{ $post->name }}</h3>
