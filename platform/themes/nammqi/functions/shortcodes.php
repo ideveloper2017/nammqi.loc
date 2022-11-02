@@ -71,7 +71,7 @@ app()->booted(function () {
                     'posts' => function ($query) {
                         return $query
                             ->latest()
-                            ->with(['slugable']);
+                            ->with(['slugable'])->orderBy('published_at','desc');
                     },
                 ],
             ]);
