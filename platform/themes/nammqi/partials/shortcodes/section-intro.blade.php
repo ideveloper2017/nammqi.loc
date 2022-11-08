@@ -3,14 +3,14 @@
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
-                    <a href="https://student.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
+                    <a href="https://student.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-student"></i></span></a>
                     <h5><a href="https://student.nammqi.uz/dashboard/login" target="_blank">{{__('Hemis (For Students)')}}</a></h5>
 {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
-                    <a href="https://hemis.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
+                    <a href="https://hemis.nammqi.uz/dashboard/login" target="_blank"><span class="icon"><i class="flaticon-people"></i></span></a>
                     <h5><a href="https://hemis.nammqi.uz/dashboard/login" target="_blank">{{__('Hemis (for Teacher)')}}</a></h5>
                     {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
