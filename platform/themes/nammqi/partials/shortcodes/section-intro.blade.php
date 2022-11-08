@@ -17,7 +17,7 @@
             </div>
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="facility-item">
-                    <a href="http://darsjadvali.nammqi.uz" target="_blank"><span class="icon"><i class="flaticon-symbols"></i></span></a>
+                    <a href="http://darsjadvali.nammqi.uz" target="_blank"><span class="icon"><i class="flaticon-calendar"></i></span></a>
                     <h5><a href="http://darsjadvali.nammqi.uz" target="_blank">{{__('darsjadvali')}}</a></h5>
                     {{--                    <p>Oliy taʼlim jarayonlarini boshqarish axborot tizimi</p>--}}
                 </div>
